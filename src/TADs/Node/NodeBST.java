@@ -1,16 +1,16 @@
 package TADs.Node;
 
-public class BinaryTreeNode<T, K extends Comparable<K>> {
+public class NodeBST<T, K extends Comparable<K>> {
 
     private K key;
 
     private T value;
 
-    private BinaryTreeNode<T, K> leftChild;
+    private NodeBST<T, K> leftChild;
 
-    private BinaryTreeNode<T, K> rightChild;
+    private NodeBST<T, K> rightChild;
 
-    public BinaryTreeNode(K key, T value) {
+    public NodeBST(K key, T value) {
         this.key = key;
         this.value = value;
     }
@@ -23,19 +23,19 @@ public class BinaryTreeNode<T, K extends Comparable<K>> {
         this.key = key;
     }
 
-    public BinaryTreeNode<T, K> getLeftChild() {
+    public NodeBST<T, K> getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(BinaryTreeNode<T, K> leftChild) {
+    public void setLeftChild(NodeBST<T, K> leftChild) {
         this.leftChild = leftChild;
     }
 
-    public BinaryTreeNode<T, K> getRightChild() {
+    public NodeBST<T, K> getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(BinaryTreeNode<T, K> rightChild) {
+    public void setRightChild(NodeBST<T, K> rightChild) {
         this.rightChild = rightChild;
     }
 
