@@ -1,6 +1,6 @@
 package TADs.Stack;
 
-public interface Stack<T> {
+public interface Stack<T extends Comparable<T>> {
 
     void push(T value);
 
@@ -9,4 +9,6 @@ public interface Stack<T> {
     T peek();
 
     int size();
+
+    boolean isEmpty();
 }

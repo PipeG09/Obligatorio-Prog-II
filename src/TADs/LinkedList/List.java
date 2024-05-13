@@ -6,11 +6,15 @@ public interface List<T> {
 
     void add(T value);
 
-    T get(int position);
+    void add(T value, int index) throws IlegalIndexException;
+
+    T get(int position) throws IlegalIndexException;
 
     boolean contains(T value);
 
-    void remove(T value) throws IlegalIndexException;
+    void remove(T value) throws ItemNotFoundException;
 
     int size();
+
+    boolean isEmpty();
 }

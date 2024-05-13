@@ -1,6 +1,6 @@
 package TADs.Queue;
 
-public interface Queue<T> {
+public interface Queue<T extends Comparable<T>> {
 
     void enqueue(T value);
 
@@ -10,4 +10,5 @@ public interface Queue<T> {
 
     int size();
 
+    boolean isEmpty();
 }
