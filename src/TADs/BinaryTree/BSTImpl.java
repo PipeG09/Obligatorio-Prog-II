@@ -3,8 +3,13 @@ package TADs.BinaryTree;
 
 import Exceptions.*;
 
+import TADs.List.IlegalIndexException;
 import TADs.List.List;
+import TADs.List.ListImpl;
 import TADs.Node.NodeBST;
+import TADs.Queue.EmptyQueueException;
+import TADs.Queue.Queue;
+import TADs.Queue.QueueImpl;
 
 import static TADs.Node.NodeBST.findNodeInBinarySearchTree;
 
@@ -64,23 +69,33 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
         // Busco el menor nodo del subarbol derecho
         NodeBST<K,T> tempnode=node;
         NodeBST<K,T> tempnode1=node.getRightChild();
-        if (tempnode1 == null) { //el nodo no tiene hijo derechp
 
+        if (tempnode1 == null) { //el nodo no tiene hijo derechp
+            NodeBST<K,T> parent=root.findParentNodeInBinarySearchTree(key);
+            if (parent.getLeftChild()==node) {
+                parent.setLeftChild(node.getLeftChild());
+            }
+            if (parent.getRightChild()==node) {
+                parent.setRightChild(node.getRightChild());
+            }
         }
+
         while (tempnode1.getLeftChild()!=null) {
             tempnode=tempnode1; // nodo n
             tempnode1=tempnode.getLeftChild(); //nodo n+1, hijo de nodo n
         }
 
-        if (tempnode1!=null & tempnode==node){ // el nodo a borrar solo tiene un hijo derecho, osea no bajo nunca a la izq
+        if (tempnode==node){ // el nodo a borrar  tiene un hijo derecho y este no tiene mas nodos osea no bajo nunca a la izq
             node.setData(tempnode1.getData());
             node.setKey(tempnode1.getKey());
-            node.setRightChild(null);
+            node.setRightChild(tempnode1.getRightChild());
         }
-        tempnode.setLeftChild(tempnode1.getRightChild()); // Ajusto hijos del nodo que voy a subir
-        // Subo el nodo al lugar del que quiero eliminar
-        node.setKey(tempnode1.getKey());
-        node.setData(tempnode1.getData());
+        else {
+            tempnode.setLeftChild(tempnode1.getRightChild()); // Ajusto hijos del nodo que voy a subir
+            // Subo el nodo al lugar del que quiero eliminar
+            node.setKey(tempnode1.getKey());
+            node.setData(tempnode1.getData());
+        }
     }
 
     @Override
@@ -111,5 +126,38 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
     @Override
     public List<K> postOrder() {
         return root.postOrderFrom();
+    }
+
+    public void draw(List<Integer> nodes) throws IlegalIndexException {
+        int level = 0;
+        int index = 0;
+        int levelNodes = 1;
+
+        while (index < nodes.size()) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < levelNodes && index < nodes.size(); i++) {
+                Integer value = nodes.get(index++);
+                sb.append(value == null ? "_" : value).append(" ");
+            }
+            System.out.println("Nivel " + level + ": " + sb.toString());
+            level++;
+            levelNodes *= 2;
+        }}
+
+    public List<K > levelOrder(){
+        Queue<NodeBST<K,T>> queue=new QueueImpl<>();
+        List<K> list= new ListImpl<>();
+        queue.enqueue(getRoot());
+        while (!queue.isEmpty()){
+            try {
+                NodeBST<K,T> temp=queue.dequeue();
+                list.add(temp.getKey());
+                if(temp.getLeftChild()!=null) queue.enqueue(temp.getLeftChild());
+                if(temp.getRightChild()!=null) queue.enqueue(temp.getRightChild());
+            } catch (EmptyQueueException e) {
+                break;
+            }
+        }
+        return list;
     }
 }

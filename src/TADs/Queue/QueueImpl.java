@@ -1,70 +1,16 @@
 package TADs.Queue;
 
-import Exceptions.ItemNotFoundException;
 import TADs.List.IlegalIndexException;
 import TADs.List.List;
-import TADs.Node.Node;
+import TADs.List.ListImpl;
 
 public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
     List<T> list;
 
+
+
     public QueueImpl() {
-        this.list = new List<T>() {
-            @Override
-            public void add(T value) {
-
-            }
-
-            @Override
-            public void add(T value, int index) throws IlegalIndexException {
-
-            }
-
-            @Override
-            public void addAll(List<T> List) {
-
-            }
-
-            @Override
-            public T get(int position) throws IlegalIndexException {
-                return null;
-            }
-
-            @Override
-            public boolean contains(T value) {
-                return false;
-            }
-
-            @Override
-            public void remove(T value) throws ItemNotFoundException {
-
-            }
-
-            @Override
-            public void remove(int position) throws IlegalIndexException {
-
-            }
-
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public Node<T> getFirst() {
-                return null;
-            }
-
-            @Override
-            public Node<T> getLast() {
-                return null;
-            }
-        };
+        this.list = new ListImpl<>();
     }
 
     /* Para aclaracion, ver que la queue agrega al final de una lista y saca al principio

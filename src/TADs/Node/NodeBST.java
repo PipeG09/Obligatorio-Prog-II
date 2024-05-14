@@ -5,7 +5,7 @@ package TADs.Node;
 import TADs.List.List;
 import TADs.List.ListImpl;
 
-public class NodeBST<K extends Comparable<K>, T> {
+public class NodeBST<K extends Comparable<K>, T> implements Comparable<NodeBST<K, T>> {
     K key;
     T data;
 
@@ -175,4 +175,8 @@ public class NodeBST<K extends Comparable<K>, T> {
         return postOrder;
     }
 
+    @Override
+    public int compareTo(NodeBST<K, T> o) {
+        return 0;
+    }
 }

@@ -1,13 +1,14 @@
 import Exceptions.ItemNotFoundException;
 import TADs.BinaryTree.BSTImpl;
 import TADs.BinaryTree.WrongKey;
+import TADs.List.IlegalIndexException;
 import TADs.Node.NodeBST;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BSTTest {
    @Test
-    public void testInsert() throws WrongKey {
+    public void testInsert() throws WrongKey, IlegalIndexException {
         BSTImpl<Integer,String> tree=new BSTImpl<>(4,"A");
         tree.insert((Integer) 2,"B");
         tree.insert((Integer) 3,"C");
@@ -33,7 +34,7 @@ public class BSTTest {
         tree.delete((Integer)4);
         NodeBST<Integer,String> root = tree.getRoot();
         assertEquals(root.getKey(),(Integer)5);
-        assertEquals(root.getLeftChild().getKey(),(Integer)2);
+        assertEquals(root.getLeftChild().getKey(),(Integer) 2);
         assertEquals(root.getLeftChild().getRightChild().getKey(),(Integer)3);
         assertEquals(root.getLeftChild().getLeftChild().getKey(),(Integer)1);
         assertEquals(root.getRightChild().getKey(),(Integer)7);
