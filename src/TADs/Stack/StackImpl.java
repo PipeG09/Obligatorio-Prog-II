@@ -1,16 +1,19 @@
 package TADs.Stack;
 
+import TADs.List.ListImpl;
+
 public class StackImpl<T extends Comparable<T>> implements Stack<T> {
 
-    private Object[] array;
+    private ListImpl<T> list;
 
     private int size;
 
-    private int top = -1;
+    private int top;
 
     public StackImpl(int size) {
-        this.array = new Object[size];
+        this.list = new ListImpl<>();
         this.size = size;
+        this.top = -1;
     }
 
 
