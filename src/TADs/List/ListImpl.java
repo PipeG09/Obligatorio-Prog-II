@@ -7,10 +7,23 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     Node<T> first;
 
-    Node<T> last;
+    private int size;
 
-    int size = 0;
+    public ListImpl() {
+        this.first = null;
+        this.last = null;
+        this.size = 0;
+    }
 
+    @Override
+    public Node<T> getFirst() {
+        return first;
+    }
+
+    @Override
+    public Node<T> getLast() {
+        return last;
+    }
     @Override
     public void add(T value) {
         Node<T> newNode = new Node<>(value);
@@ -71,15 +84,23 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public T get(int position) throws IlegalIndexException {
-        if (position < 0 || position >= size()) {
+        if (position <-1 || position >= size()) {
             throw new IlegalIndexException();
         }
         Node<T> temp = first;
 
-        for (int i = 0; i < position; i++) {
-            temp = temp.getNext();
+        if (position == 0) {
+            return getFirst().getValue();
         }
-        return temp.getValue();
+        else if (position == size - 1|| position==-1) {
+            return getLast().getValue();
+        }
+        else {
+            for (int i = 0; i < position; i++) {
+                temp = temp.getNext();
+            }
+            return temp.getValue();
+        }
     }
 
     @Override
@@ -158,13 +179,6 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         return size == 0;
     }
 
-    @Override
-    public Node<T> getFirst() {
-        return first;
-    }
 
-    @Override
-    public Node<T> getLast() {
-        return last;
-    }
+
 }

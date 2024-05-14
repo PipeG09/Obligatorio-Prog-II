@@ -23,22 +23,28 @@ public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
 
     @Override
     public T dequeue() throws EmptyQueueException {
-        if (list.getFirst() == null){
-            throw new EmptyQueueException();
+        T element = null;
+        try {
+            if (list.getFirst()== null){
+                throw new EmptyQueueException();
+            }
+            else {
+                T value = list.get(0);
+                try {
+                    list.remove(0);
+                } catch (IlegalIndexException _) {}
+                return value;
+            }
+        } catch (IlegalIndexException _){
+            return null;
         }
-        else {
-            T value = list.getFirst().getValue();
-            try {
-                list.remove(0);
-            } catch (IlegalIndexException _) {}
-            return value;
-        }
+
 
     }
 
     @Override
     public boolean isEmpty() {
-        return list.getFirst()==null;
+        return list.isEmpty();
     }
 
     @Override
