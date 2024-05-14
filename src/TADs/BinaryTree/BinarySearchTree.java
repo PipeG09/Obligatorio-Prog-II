@@ -1,15 +1,15 @@
 package TADs.BinaryTree;
 
-import Exceptions.*;
+import Exceptions.ItemNotFoundException;
 import TADs.LinkedList.List;
 
 public interface BinarySearchTree<T, K extends Comparable<K>> {
 
     T find(K key) throws ItemNotFoundException;
 
-    void insert(K key, T data) throws WrongKey, ParentIsFull;
+    void insert(K key, T data) throws ItemNotFoundException;
 
-    void delete(K key) throws NodeDoesNotExist, WrongParameters;
+    void delete(K key) throws ItemNotFoundException;
 
     int size();
 
