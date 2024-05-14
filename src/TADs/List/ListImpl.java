@@ -36,6 +36,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             first.setPrevious(newNode);
             newNode.setNext(first);
             first = newNode;
+
         } else if (first == null || index == size) {
                 add(value);
         }
@@ -60,15 +61,8 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void addAll(List<T> list) {
-        if (list.isEmpty()) {
-            return;
-        }
-        Node<T> temp = list.getFirst();
-        add(temp.getValue());
-        for (int i = 0; i < list.size(); i++) {
-            temp.getNext();
-            add(temp.getValue());
-        }
+        this.last.setNext(this.first);
+        size+=list.size();
 
     }
 
