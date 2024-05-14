@@ -61,12 +61,21 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
         NodeBST<K,T> node=findNodeInBinarySearchTree(key,root);
         if(node==null) throw new ItemNotFoundException();
 
-        // Busco el menor nodo del subarbol izquierdo
-        NodeBST<K,T> tempnode=node.getRightChild();
-        NodeBST<K,T> tempnode1=tempnode;
+        // Busco el menor nodo del subarbol derecho
+        NodeBST<K,T> tempnode=node;
+        NodeBST<K,T> tempnode1=node.getRightChild();
+        if (tempnode1 == null) { //el nodo no tiene hijo derechp
+
+        }
         while (tempnode1.getLeftChild()!=null) {
             tempnode=tempnode1; // nodo n
             tempnode1=tempnode.getLeftChild(); //nodo n+1, hijo de nodo n
+        }
+
+        if (tempnode1!=null & tempnode==node){ // el nodo a borrar solo tiene un hijo derecho, osea no bajo nunca a la izq
+            node.setData(tempnode1.getData());
+            node.setKey(tempnode1.getKey());
+            node.setRightChild(null);
         }
         tempnode.setLeftChild(tempnode1.getRightChild()); // Ajusto hijos del nodo que voy a subir
         // Subo el nodo al lugar del que quiero eliminar

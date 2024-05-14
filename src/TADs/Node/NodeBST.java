@@ -3,6 +3,7 @@ package TADs.Node;
 
 
 import TADs.List.List;
+import TADs.List.ListImpl;
 
 public class NodeBST<K extends Comparable<K>, T> {
     K key;

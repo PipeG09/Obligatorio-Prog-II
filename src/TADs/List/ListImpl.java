@@ -4,9 +4,7 @@ import Exceptions.ItemNotFoundException;
 import TADs.Node.Node;
 
 public class ListImpl<T extends Comparable<T>> implements List<T> {
-
     Node<T> first;
-
     Node<T> last;
 
     int size = 0;
