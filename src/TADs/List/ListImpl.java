@@ -64,6 +64,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         this.last.setNext(this.first);
         size+=list.size();
 
+
     }
 
     @Override
