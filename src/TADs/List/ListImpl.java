@@ -5,7 +5,9 @@ import TADs.Node.Node;
 
 public class ListImpl<T extends Comparable<T>> implements List<T> {
 
-    Node<T> first;
+    private Node<T> first;
+
+    private Node<T> last;
 
     private int size;
 
@@ -78,7 +80,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     public void addAll(List<T> list) {
         this.last.setNext(this.first);
         list.getFirst().setPrevious(this.last);
-        last = list.getLast();
+        this.last = list.getLast();
         size += list.size();
     }
 
