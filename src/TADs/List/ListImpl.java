@@ -22,13 +22,14 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             newNode.setPrevious(last);
             last = newNode;
         }
+        size += 1;
     }
 
     @Override
     public void add(T value, int index) throws IlegalIndexException {
         if (index < 0 || index > size) {
             throw new IlegalIndexException();
-        }
+        };
 
         Node<T> newNode = new Node<>(value);
 
@@ -36,7 +37,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             first.setPrevious(newNode);
             newNode.setNext(first);
             first = newNode;
-
+            size += 1;
         } else if (first == null || index == size) {
                 add(value);
         }
@@ -56,15 +57,16 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             newNode.setNext(newNext);
             newPrevious.setNext(newNode);
             newNext.setPrevious(newNode);
+            size += 1;
         }
     }
 
     @Override
     public void addAll(List<T> list) {
         this.last.setNext(this.first);
-        size+=list.size();
-
-
+        list.getFirst().setPrevious(this.last);
+        last = list.getLast();
+        size += list.size();
     }
 
     @Override
@@ -120,31 +122,30 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         if (index < 0 || index >= size) {
             throw new IlegalIndexException();
         }
-
-            Node<T> temp = first;
-            Node<T> newPrevious = null;
-            Node<T> newNext = null;
-            for (int i = 0; i <= index; i++) {
-                temp = temp.getNext();
-                if (i == index - 2) {
-                    newPrevious = temp;
-                } else if (i == index) {
-                    newNext = temp;
-                }
+        Node<T> temp = first;
+        Node<T> newPrevious = null;
+        Node<T> newNext = null;
+        for (int i = 0; i <= index; i++) {
+            temp = temp.getNext();
+            if (i == index - 2) {
+                newPrevious = temp;
+            } else if (i == index) {
+                newNext = temp;
             }
-            if (newPrevious != null) {
-                newPrevious.setNext(newNext);
-            }
-            else {
-                first = newNext;
-            }
-            if (newNext != null) {
-                newNext.setPrevious(newPrevious);
-            }
-            else {
-                last = newPrevious;
-            }
-            size -= 1;
+        }
+        if (newPrevious != null) {
+            newPrevious.setNext(newNext);
+        }
+        else {
+            first = newNext;
+        }
+        if (newNext != null) {
+            newNext.setPrevious(newPrevious);
+        }
+        else {
+            last = newPrevious;
+        }
+        size -= 1;
     }
 
     @Override
