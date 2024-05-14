@@ -74,9 +74,11 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
             NodeBST<K,T> parent=root.findParentNodeInBinarySearchTree(key);
             if (parent.getLeftChild()==node) {
                 parent.setLeftChild(node.getLeftChild());
+                return;
             }
             if (parent.getRightChild()==node) {
                 parent.setRightChild(node.getRightChild());
+                return;
             }
         }
 

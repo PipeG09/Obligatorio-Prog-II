@@ -119,7 +119,8 @@ public class NodeBST<K extends Comparable<K>, T> implements Comparable<NodeBST<K
         }
         else if (getLeftChild() != null) {
             leafs+= getLeftChild().countLeafs();
-        } else if (getRightChild()!=null) {
+        }
+        if (getRightChild()!=null) {
             leafs+= getRightChild().countLeafs();
         }
         return leafs;
