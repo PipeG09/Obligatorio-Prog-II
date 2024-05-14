@@ -4,7 +4,9 @@ import Exceptions.ItemNotFoundException;
 import TADs.Node.Node;
 
 public class ListImpl<T extends Comparable<T>> implements List<T> {
+
     Node<T> first;
+
     Node<T> last;
 
     int size = 0;
@@ -96,9 +98,27 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public void remove(T value) throws ItemNotFoundException {
+    public void remove(T value) throws ItemNotFoundException, IlegalIndexException {
+        if (contains(value)) {
+            throw new ItemNotFoundException();
+        }
+        int index = 0;
+        Node<T> temp = first;
 
+        if (temp.getValue().equals(value)) {
+            remove(index);
+        }
+
+        while (index < size) {
+            temp = temp.getNext();
+            index += 1;
+            if (temp.getValue().equals(value)) {
+                remove(index);
+            }
+        }
     }
+
+
 
     @Override
     public void remove(int index) throws IlegalIndexException {
@@ -117,8 +137,19 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
                     newNext = temp;
                 }
             }
-            newPrevious.setNext(newNext);
-            newNext.setPrevious(newPrevious);
+            if (newPrevious != null) {
+                newPrevious.setNext(newNext);
+            }
+            else {
+                first = newNext;
+            }
+            if (newNext != null) {
+                newNext.setPrevious(newPrevious);
+            }
+            else {
+                last = newPrevious;
+            }
+            size -= 1;
     }
 
     @Override

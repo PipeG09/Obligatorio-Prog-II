@@ -15,7 +15,7 @@ public interface List<T extends Comparable<T>> {
 
     boolean contains(T value);
 
-    void remove(T value) throws ItemNotFoundException;
+    void remove(T value) throws ItemNotFoundException, IlegalIndexException;
 
     void remove(int index) throws IlegalIndexException;
 
