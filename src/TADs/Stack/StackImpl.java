@@ -26,6 +26,7 @@ public class StackImpl<T extends Comparable<T>> implements Stack<T> {
             throw new FullStackException();
         }
         list.add(value);
+        top+=1;
     }
 
     @Override
@@ -36,6 +37,7 @@ public class StackImpl<T extends Comparable<T>> implements Stack<T> {
         try {
             T removed = list.getLast().getValue();
             list.remove(top);
+            top-=1;
             return removed;
         } catch (IlegalIndexException e) {
             throw new EmptyStackException(); /*Esto nunca salta ni idea que hacer */
