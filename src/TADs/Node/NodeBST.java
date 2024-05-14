@@ -4,9 +4,7 @@ package TADs.Node;
 import Exceptions.WrongParameters;
 
 public class NodeBST<K extends Comparable<K>, T> {
-
     K key;
-
     T data;
 
     NodeBST<K, T> leftChild;
