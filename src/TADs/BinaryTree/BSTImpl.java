@@ -11,8 +11,8 @@ import static TADs.Node.NodeBST.findNodeInBinarySearchTree;
 public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,T>{
     private NodeBST<K,T> root;
 
-    public BSTImpl(NodeBST<K, T> root) {
-        this.root = root;
+    public BSTImpl(K key, T value) {
+        this.root = new NodeBST<>(key, value);
     }
 
     public NodeBST<K, T> getRoot() {
@@ -47,7 +47,7 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
                 if(node.getRightChild()!=null){
                     node=node.getRightChild();
                 }
-                if (node.getRightChild()!=null){
+                else {
                     node.setRightChild( new NodeBST<>(key,data) );
                     added = true;
                 }
