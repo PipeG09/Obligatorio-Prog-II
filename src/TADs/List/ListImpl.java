@@ -162,8 +162,9 @@ public void remove(int position) throws IlegalIndexException {
             } else {
                 setFirst(null);
             }
-        } else if (position==-1){
-            position=size()-1;
+        } else if (position==-1|| position==size-1){
+            setLast(getLast().getPrevious());
+            getLast().setNext(null);
         } else {
             for (int i = 0; i < position; i++) {
                 temp1 = temp;
