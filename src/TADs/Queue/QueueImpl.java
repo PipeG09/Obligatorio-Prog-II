@@ -26,7 +26,7 @@ public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
         else{
             T value=list.getFirst().getValue();
             try {
-                list.removeFromPosition(0);
+                list.remove(0);
             } catch (IlegalIndexException _) {}
             return value;
         }

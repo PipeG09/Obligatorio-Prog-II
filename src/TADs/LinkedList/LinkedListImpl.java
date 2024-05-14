@@ -23,6 +23,9 @@ public class LinkedListImpl<T extends Comparable<T>> implements List <T>{
     public void setLast(Node<T> last) {
         this.last = last;
     }
+    public Node<T> findNode(T value){
+        return null;
+    }
 
     @Override
     public void add(T value) {
@@ -50,11 +53,11 @@ public class LinkedListImpl<T extends Comparable<T>> implements List <T>{
 
     @Override
     public void remove(T value) throws ItemNotFoundException {
+       // hacela vos
 
     }
-
     @Override
-    public void removeFromPosition(int position) throws IlegalIndexException {
+    public void remove(int position) throws IlegalIndexException {
         Node<T> temp = this.getFirst();
         Node<T> temp1 = null;
 
