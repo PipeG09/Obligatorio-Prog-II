@@ -5,9 +5,8 @@ import TADs.List.List;
 import TADs.List.ListImpl;
 
 public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
+
     List<T> list;
-
-
 
     public QueueImpl() {
         this.list = new ListImpl<>();
