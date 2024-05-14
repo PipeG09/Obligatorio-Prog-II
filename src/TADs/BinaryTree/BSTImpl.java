@@ -48,7 +48,7 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
                     node=node.getRightChild();
                 }
                 else {
-                    node.setRightChild( new NodeBST<>(key,data) );
+                    node.setRightChild(new NodeBST<>(key,data) );
                     added = true;
                 }
             }
