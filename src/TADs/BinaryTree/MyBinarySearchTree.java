@@ -2,7 +2,7 @@ package TADs.BinaryTree;
 
 import Exceptions.ItemNotFoundException;
 
-import TADs.LinkedList.List;
+import TADs.List.List;
 
 public interface MyBinarySearchTree<K extends Comparable<K>,T> {
 

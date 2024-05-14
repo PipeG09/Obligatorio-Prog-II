@@ -2,8 +2,8 @@ package TADs.Node;
 
 
 
-import TADs.LinkedList.LinkedListImpl;
-import TADs.LinkedList.List;
+import TADs.List.ListImpl;
+import TADs.List.List;
 
 public class NodeBST<K extends Comparable<K>, T> {
     K key;
@@ -140,7 +140,7 @@ public class NodeBST<K extends Comparable<K>, T> {
     }
 
     public List<K> preOrderFrom(){
-        List<K> preOrder = new LinkedListImpl<>();
+        List<K> preOrder = new ListImpl<>();
         preOrder.add(key);
         if (getLeftChild() != null) {
             preOrder.addAll(getLeftChild().preOrderFrom());
@@ -152,7 +152,7 @@ public class NodeBST<K extends Comparable<K>, T> {
     }
 
     public  List<K> inOrderFrom() {
-        List<K> inOrder = new LinkedListImpl<>();
+        List<K> inOrder = new ListImpl<>();
         if (getLeftChild() != null) {
             inOrder.addAll(getLeftChild().inOrderFrom());
         }
@@ -164,7 +164,7 @@ public class NodeBST<K extends Comparable<K>, T> {
     }
 
     public  List<K> postOrderFrom() {
-        List<K> postOrder = new LinkedListImpl<>();
+        List<K> postOrder = new ListImpl<>();
         if (getLeftChild() != null) {
             postOrder.addAll(getLeftChild().postOrderFrom());
         }

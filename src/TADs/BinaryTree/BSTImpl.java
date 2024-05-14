@@ -3,7 +3,7 @@ package TADs.BinaryTree;
 
 import Exceptions.*;
 
-import TADs.LinkedList.List;
+import TADs.List.List;
 import TADs.Node.NodeBST;
 
 import static TADs.Node.NodeBST.findNodeInBinarySearchTree;

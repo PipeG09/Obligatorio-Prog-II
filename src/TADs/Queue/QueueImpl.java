@@ -1,18 +1,19 @@
 package TADs.Queue;
 
-import TADs.LinkedList.IlegalIndexException;
-import TADs.LinkedList.LinkedListImpl;
-import TADs.LinkedList.List;
+import TADs.List.IlegalIndexException;
+import TADs.List.List;
+import TADs.List.ListImpl;
 
 public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
     List<T> list;
 
     public QueueImpl() {
-        this.list = new LinkedListImpl<>();
+        this.list = new ListImpl<>();
     }
 
-    // Para aclaracion, ver que la queue agrega al final de una lista y saca al principio
-    // por la forma en que estan hechos los add y remove de LinkedList
+    /* Para aclaracion, ver que la queue agrega al final de una lista y saca al principio
+     por la forma en que estan hechos los add y remove de List*/
+
     @Override
     public void enqueue(T element) {
     list.add(element);
@@ -20,11 +21,11 @@ public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
 
     @Override
     public T dequeue() throws EmptyQueueException {
-        if (list.getFirst()==null){
+        if (list.getFirst() == null){
             throw new EmptyQueueException();
         }
-        else{
-            T value=list.getFirst().getValue();
+        else {
+            T value = list.getFirst().getValue();
             try {
                 list.remove(0);
             } catch (IlegalIndexException _) {}
@@ -40,9 +41,10 @@ public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
 
     @Override
     public boolean contains(T value) {
-
         return list.contains(value);
     }
+
+
     @Override
     public int size() {
         return list.size();
