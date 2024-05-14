@@ -24,6 +24,7 @@ public interface List<T extends Comparable<T>> {
     boolean isEmpty();
     Node<T> getFirst();
     Node<T> getLast();
+    void print();
 
 
 }

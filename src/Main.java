@@ -13,6 +13,12 @@ public class Main {
         List<Integer> lista = new ListImpl<>();
         List<Integer> lista2 = new ListImpl<>();
         lista.add(1);
+        lista.add(2);
+        lista2.add(3);
+        lista2.add(4);
         lista.addAll(lista2);
+        lista.remove(1);
+        lista.print();
+
     }
 }
