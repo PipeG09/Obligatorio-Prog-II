@@ -9,6 +9,8 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     Node<T> last;
 
+    int size = 0;
+
     @Override
     public void add(T value) {
         Node<T> newNode = new Node<>(value);
@@ -24,9 +26,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void add(T value, int index) throws IlegalIndexException {
-        /*No se si incluir size aca, Hago un while que sobra, podría poner un if adentro del for*/
-
-        if (index < 0 || index >= size()) {
+        if (index < 0 || index > size) {
             throw new IlegalIndexException();
         }
 
@@ -36,9 +36,10 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             first.setPrevious(newNode);
             newNode.setNext(first);
             first = newNode;
-        } else if (first == null) {
+        } else if (first == null || index == size) {
                 add(value);
-        } else {
+        }
+        else {
             Node<T> temp = first;
             Node<T> newPrevious = null;
             Node<T> newNext = null;
@@ -59,16 +60,40 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void addAll(List<T> list) {
+        if (list.isEmpty()) {
+            return;
+        }
+        Node<T> temp = list.getFirst();
+        add(temp.getValue());
+        for (int i = 0; i < list.size(); i++) {
+            temp.getNext();
+            add(temp.getValue());
+        }
 
     }
 
     @Override
     public T get(int position) throws IlegalIndexException {
-        return null;
+        if (position < 0 || position >= size()) {
+            throw new IlegalIndexException();
+        }
+        Node<T> temp = first;
+
+        for (int i = 0; i < position; i++) {
+            temp = temp.getNext();
+        }
+        return temp.getValue();
     }
 
     @Override
     public boolean contains(T value) {
+        Node<T> temp = first;
+        while (temp != null) {
+            temp = temp.getNext();
+            if (temp.getValue().equals(value)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -78,18 +103,34 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public void remove(int position) throws IlegalIndexException {
+    public void remove(int index) throws IlegalIndexException {
+        if (index < 0 || index >= size) {
+            throw new IlegalIndexException();
+        }
 
+            Node<T> temp = first;
+            Node<T> newPrevious = null;
+            Node<T> newNext = null;
+            for (int i = 0; i <= index; i++) {
+                temp = temp.getNext();
+                if (i == index - 2) {
+                    newPrevious = temp;
+                } else if (i == index) {
+                    newNext = temp;
+                }
+            }
+            newPrevious.setNext(newNext);
+            newNext.setPrevious(newPrevious);
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override

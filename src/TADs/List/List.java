@@ -11,13 +11,13 @@ public interface List<T extends Comparable<T>> {
 
     void addAll(List<T> List);
 
-    T get(int position) throws IlegalIndexException;
+    T get(int index) throws IlegalIndexException;
 
     boolean contains(T value);
 
     void remove(T value) throws ItemNotFoundException;
 
-    void remove(int position) throws IlegalIndexException;
+    void remove(int index) throws IlegalIndexException;
 
     int size();
 
