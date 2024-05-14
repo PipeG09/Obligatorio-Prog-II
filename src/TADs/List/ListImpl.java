@@ -142,8 +142,11 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void remove(int index) throws IlegalIndexException {
-        if (index < 0 || index >= size) {
+        if (index < -1 || index >= size) {
             throw new IlegalIndexException();
+        }
+        if (index == -1) {
+            index=size-1;
         }
         Node<T> temp = first;
         Node<T> newPrevious = null;
