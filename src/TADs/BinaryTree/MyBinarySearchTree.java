@@ -1,7 +1,7 @@
 package TADs.BinaryTree;
 
 import Exceptions.ItemNotFoundException;
-import TADs.BinaryTree.Exceptions.ParentIsFull;
+
 import TADs.LinkedList.List;
 
 public interface MyBinarySearchTree<K extends Comparable<K>,T> {

@@ -2,7 +2,7 @@ package TADs.BinaryTree;
 
 
 import Exceptions.*;
-import TADs.BinaryTree.Exceptions.ParentIsFull;
+
 import TADs.LinkedList.List;
 import TADs.Node.NodeBST;
 
