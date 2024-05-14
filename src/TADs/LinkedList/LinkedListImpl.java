@@ -54,6 +54,45 @@ public class LinkedListImpl<T extends Comparable<T>> implements List <T>{
     }
 
     @Override
+    public void removeFromPosition(int position) throws IlegalIndexException {
+        Node<T> temp = this.getFirst();
+        Node<T> temp1 = null;
+
+        if (temp == null) {
+            System.out.println("la lista esta vacia ");
+        }
+        else {
+            if (position == 0) {
+                if (temp.getNext() != null) {
+                    setFirst(temp.getNext());
+                } else {
+                    setFirst(null);
+                }
+            } else if (position==-1){
+                position=size()-1;
+            } else {
+                for (int i = 0; i < position; i++) {
+                    temp1 = temp;
+                    if (temp1.getNext() != null) {
+                        temp = temp1.getNext();
+
+                    } else {
+                        System.out.print("No existe la posicion " + position);
+                        break;
+                    }
+                }
+                if (temp.getNext() != null) {
+                    temp1.setNext(temp.getNext());
+                } else {
+                    temp1.setNext(null);
+                    setLast(temp1);
+                }
+            }
+        }
+    }
+
+
+    @Override
     public int size() {
         return 0;
     }
