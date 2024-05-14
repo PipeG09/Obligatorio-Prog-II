@@ -176,12 +176,15 @@ public void remove(int position) throws IlegalIndexException {
             }
             if (temp.getNext() != null) {
                 temp1.setNext(temp.getNext());
+                size-=1;
             } else {
                 temp1.setNext(null);
                 setLast(temp1);
+                size-=1;
             }
         }
-    }}
+    }
+    }
 
 
    /* public void removeTrucha(int index) throws IlegalIndexException {
