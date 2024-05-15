@@ -68,7 +68,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             }
         } else {
             this.add(value);
-            size -= 1;
+            return; // para que no sume el 1 de abajo
         }
         if (index == 0) {
             this.setFirst(newNode);
