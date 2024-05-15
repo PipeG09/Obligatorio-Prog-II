@@ -3,7 +3,6 @@ package TADs.BinaryTree;
 
 import Exceptions.*;
 
-import TADs.List.IlegalIndexException;
 import TADs.List.List;
 import TADs.List.ListImpl;
 import TADs.Node.NodeBST;
@@ -130,21 +129,26 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
         return root.postOrderFrom();
     }
 
-    public void draw(List<Integer> nodes) throws IlegalIndexException {
-        int level = 0;
-        int index = 0;
-        int levelNodes = 1;
+   // Función para dibujar el árbol
+   @Override
+   public void draw() {
+       NodeBST<K,T> root=this.root;
+       if (root == null)
+           return;
+       draw(root.getRightChild(), "", true);
+       System.out.println(root.getKey());
+       draw(root.getLeftChild(), "", false);
+   }
 
-        while (index < nodes.size()) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < levelNodes && index < nodes.size(); i++) {
-                Integer value = nodes.get(index++);
-                sb.append(value == null ? "_" : value).append(" ");
-            }
-            System.out.println("Nivel " + level + ": " + sb.toString());
-            level++;
-            levelNodes *= 2;
-        }}
+    // Función auxiliar para dibujar un subárbol recursivamente
+    private void draw(NodeBST<K,T> node, String prefix, boolean isRight) {
+        if (node == null)
+            return;
+
+        draw(node.getRightChild(), prefix + (isRight ? "      " : " │    "), true);
+        System.out.println(prefix + (isRight ? " ┌── " : " └── ") + node.getKey());
+        draw(node.getLeftChild(), prefix + (isRight ? " │    " : "      "), false);
+    }
 
     public List<K > levelOrder(){
         Queue<NodeBST<K,T>> queue=new QueueImpl<>();
