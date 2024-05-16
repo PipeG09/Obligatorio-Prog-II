@@ -13,7 +13,8 @@ import TADs.Queue.QueueImpl;
 import static TADs.Node.NodeBST.findNodeInBinarySearchTree;
 
 public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,T>{
-    private NodeBST<K,T> root;
+
+    private final NodeBST<K,T> root;
 
     public BSTImpl(K key, T value) {
         this.root = new NodeBST<>(key, value);
@@ -25,34 +26,36 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
 
    @Override
     public T find(K key) {
-        NodeBST<K,T> node=findNodeInBinarySearchTree(key,getRoot());
-        if(node==null) return null;
+        NodeBST<K,T> node = findNodeInBinarySearchTree(key,getRoot());
+        if (node == null) return null;
         else return node.getData();
     }
 
     @Override
     public void insert(K key, T data) throws WrongKey {
-        // Nos fijamos que l nodo no exista ya
-        NodeBST<K,T> node=findNodeInBinarySearchTree(key,root);
-        if(node!=null) throw new WrongKey();
+        // We check that the node does not already exist.
+        NodeBST<K,T> node = findNodeInBinarySearchTree(key,root);
+
+        if (node != null) throw new WrongKey();
         node = getRoot();
         boolean added = false;
-        while (!added){
-            if (key.compareTo(node.getKey())<0){
-                if(node.getLeftChild()!=null){
+
+        while (!added) {
+            if (key.compareTo(node.getKey()) < 0){
+                if(node.getLeftChild() != null){
                     node=node.getLeftChild();
                 }
                 else {
-                    node.setLeftChild( new NodeBST<>(key,data) );
+                    node.setLeftChild(new NodeBST<>(key,data));
                     added = true;
                 }
             }
-            else if (key.compareTo(node.getKey())>0){
-                if(node.getRightChild()!=null) {
+            else if (key.compareTo(node.getKey()) > 0){
+                if(node.getRightChild() != null) {
                     node = node.getRightChild();
                 }
                 else {
-                    node.setRightChild(new NodeBST<>(key,data) );
+                    node.setRightChild(new NodeBST<>(key,data));
                     added = true;
                 }
             }
@@ -61,41 +64,46 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
     }
 
     @Override
-    public void delete(K key) throws ItemNotFoundException  /* esta exception no salta*/ {
-        NodeBST<K,T> node=findNodeInBinarySearchTree(key,root);
-        if(node==null) throw new ItemNotFoundException();
+    public void delete(K key) throws ItemNotFoundException  /* This exception is not thrown */ {
+        NodeBST<K,T> node = findNodeInBinarySearchTree(key,root);
+        if (node == null) throw new ItemNotFoundException();
 
-        // Busco el menor nodo del subarbol derecho
-        NodeBST<K,T> tempnode=node;
-        NodeBST<K,T> tempnode1=node.getRightChild();
+        // We look for the smallest node in the right subtree.
+        NodeBST<K,T> tempNode = node;
+        NodeBST<K,T> tempNode1 = node.getRightChild();
 
-        if (tempnode1 == null) { //el nodo no tiene hijo derechp
-            NodeBST<K,T> parent=root.findParentNodeInBinarySearchTree(key);
-            if (parent.getLeftChild()==node) {
+        if (tempNode1 == null) { //el nodo no tiene hijo derechp
+            NodeBST<K,T> parent = root.findParentNodeInBinarySearchTree(key);
+            if (parent.getLeftChild() == node) {
                 parent.setLeftChild(node.getLeftChild());
                 return;
             }
-            if (parent.getRightChild()==node) {
+            if (parent.getRightChild() == node) {
                 parent.setRightChild(node.getRightChild());
                 return;
             }
         }
 
-        while (tempnode1.getLeftChild()!=null) {
-            tempnode=tempnode1; // nodo n
-            tempnode1=tempnode.getLeftChild(); //nodo n+1, hijo de nodo n
+        while (tempNode1.getLeftChild() != null) {
+            tempNode = tempNode1; // node n
+            tempNode1 = tempNode.getLeftChild(); // node n+1, child of the node n
         }
 
-        if (tempnode==node){ // el nodo a borrar  tiene un hijo derecho y este no tiene mas nodos osea no bajo nunca a la izq
-            node.setData(tempnode1.getData());
-            node.setKey(tempnode1.getKey());
-            node.setRightChild(tempnode1.getRightChild());
+        /* The node to delete has a right child, and this child has no further nodes,
+        meaning it never goes down to the left. */
+
+        if (tempNode == node) {
+            node.setData(tempNode1.getData());
+            node.setKey(tempNode1.getKey());
+            node.setRightChild(tempNode1.getRightChild());
         }
+
         else {
-            tempnode.setLeftChild(tempnode1.getRightChild()); // Ajusto hijos del nodo que voy a subir
-            // Subo el nodo al lugar del que quiero eliminar
-            node.setKey(tempnode1.getKey());
-            node.setData(tempnode1.getData());
+            // We adjust the child of the node that we are going to promote.
+            tempNode.setLeftChild(tempNode1.getRightChild());
+            //We promote the node to the place of the one we want to delete
+            node.setKey(tempNode1.getKey());
+            node.setData(tempNode1.getData());
         }
     }
 
@@ -129,18 +137,19 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
         return root.postOrderFrom();
     }
 
-   // Función para dibujar el árbol
+   // Function to draw the tree
    @Override
    public void draw() {
-       NodeBST<K,T> root=this.root;
+       NodeBST<K,T> root = this.root;
        if (root == null)
            return;
+
        draw(root.getRightChild(), "", true);
        System.out.println(root.getKey());
        draw(root.getLeftChild(), "", false);
    }
 
-    // Función auxiliar para dibujar un subárbol recursivamente
+    // Auxiliary function to recursively draw a subtree
     private void draw(NodeBST<K,T> node, String prefix, boolean isRight) {
         if (node == null)
             return;
@@ -150,20 +159,22 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
         draw(node.getLeftChild(), prefix + (isRight ? " │    " : "      "), false);
     }
 
-    public List<K > levelOrder(){
-        Queue<NodeBST<K,T>> queue=new QueueImpl<>();
-        List<K> list= new ListImpl<>();
+    public List<K> levelOrder() {
+        Queue<NodeBST<K,T>> queue = new QueueImpl<>();
+        List<K> list = new ListImpl<>();
         queue.enqueue(getRoot());
-        while (!queue.isEmpty()){
+
+        while (!queue.isEmpty()) {
             try {
-                NodeBST<K,T> temp=queue.dequeue();
+                NodeBST<K,T> temp = queue.dequeue();
                 list.add(temp.getKey());
-                if(temp.getLeftChild()!=null) queue.enqueue(temp.getLeftChild());
-                if(temp.getRightChild()!=null) queue.enqueue(temp.getRightChild());
+                if(temp.getLeftChild() != null) queue.enqueue(temp.getLeftChild());
+                if(temp.getRightChild() != null) queue.enqueue(temp.getRightChild());
             } catch (EmptyQueueException e) {
                 break;
             }
         }
+
         return list;
     }
 }

@@ -54,9 +54,11 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         if (index < 0 || index > size) {
             throw new IlegalIndexException();
         }
+
         Node<T> newNode = new Node<>(value);
         Node<T> nextNode = null;
         Node<T> previousNode = null;
+
         if (index != size) {
             nextNode = this.getNode(index);
             previousNode = nextNode.getPrevious();
@@ -68,7 +70,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             }
         } else {
             this.add(value);
-            return; // para que no sume el 1 de abajo
+            return; // so it doesn't add the 1 from below
         }
         if (index == 0) {
             this.setFirst(newNode);
@@ -125,9 +127,11 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void remove(int position) throws IlegalIndexException {
+
         Node<T> removeNode = this.getNode(position);
         Node<T> previousNode = removeNode.getPrevious();
         Node<T> nextNode = removeNode.getNext();
+
         if (removeNode == this.first) {
             if (removeNode == this.last) {
                 this.setLast(null);
@@ -137,12 +141,15 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         } else if (removeNode == this.last) {
             this.setLast(previousNode);
         }
+
         if (nextNode != null) {
             nextNode.setPrevious(previousNode);
         }
+
         if (previousNode != null) {
             previousNode.setNext(nextNode);
         }
+
         size -= 1;
     }
 
@@ -156,7 +163,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         return size == 0;
     }
     @Override
-    public void print(){
+    public void print() {
         Node<T> temp = first;
         for (int i = 0; i < size; i++) {
             System.out.print(temp.getValue() + ", ");

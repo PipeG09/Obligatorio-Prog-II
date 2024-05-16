@@ -6,14 +6,14 @@ import TADs.List.ListImpl;
 
 public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
 
-    List<T> list;
+    private final List<T> list;
 
     public QueueImpl() {
         this.list = new ListImpl<>();
     }
 
-    /* Para aclaracion, ver que la queue agrega al final de una lista y saca al principio
-     por la forma en que estan hechos los add y remove de List*/
+    /* For clarification, note that the queue adds to the end of a list and removes from the beginning
+    because of the way the add and remove methods of List are implemented. */
 
     @Override
     public void enqueue(T element) {
@@ -22,23 +22,17 @@ public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
 
     @Override
     public T dequeue() throws EmptyQueueException {
-        T element = null;
-        try {
-            if (list.getFirst()== null){
-                throw new EmptyQueueException();
-            }
-            else {
-                T value = list.get(0);
-                try {
-                    list.remove(0);
-                } catch (IlegalIndexException _) {}
-                return value;
-            }
-        } catch (IlegalIndexException _){
-            return null;
+        T value = null;
+        if (isEmpty()) {
+            throw new EmptyQueueException();
         }
-
-
+        else {
+            try {
+                value = list.get(0);
+                list.remove(0);
+            } catch (IlegalIndexException _) {}
+        }
+        return value;
     }
 
     @Override

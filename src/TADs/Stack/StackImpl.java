@@ -6,9 +6,9 @@ import TADs.List.IlegalIndexException;
 
 public class StackImpl<T extends Comparable<T>> implements Stack<T> {
 
-    private ListImpl<T> list;
+    private final ListImpl<T> list;
 
-    private final int size; /*Lo hago final porque nunca lo toco*/
+    private final int size;
 
     private int top;
 
@@ -37,10 +37,10 @@ public class StackImpl<T extends Comparable<T>> implements Stack<T> {
         try {
             T removed = list.getLast().getValue();
             list.remove(top);
-            top-=1;
+            top -= 1;
             return removed;
-        } catch (IlegalIndexException e) {
-            throw new EmptyStackException(); /*Esto nunca salta ni idea que hacer */
+        } catch (IlegalIndexException e) { /*Que poner*/
+            throw new EmptyStackException();
         }
     }
 
@@ -60,5 +60,17 @@ public class StackImpl<T extends Comparable<T>> implements Stack<T> {
     @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public ListImpl<T> getList() {
+        return list;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getTop() {
+        return top;
     }
 }
