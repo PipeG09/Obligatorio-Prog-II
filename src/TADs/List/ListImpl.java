@@ -165,12 +165,12 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     @Override
     public void print() {
         Node<T> temp = first;
-        System.out.print("[");
+        System.out.print("[ ");
         for (int i = 0; i < size-1; i++) {
             System.out.print(temp.getValue() + ", ");
             temp = temp.getNext();
         }
-        System.out.print(temp.getNext().getValue() + "]");
+        System.out.print(temp.getValue() + " ]");
     }
 
     public Node<T> getNode(int index) throws IlegalIndexException {
