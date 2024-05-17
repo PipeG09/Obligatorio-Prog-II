@@ -2,14 +2,15 @@ package TADs_Tests;
 
 import Exceptions.ItemNotFoundException;
 import TADs.BinaryTree.BSTImpl;
-import TADs.BinaryTree.WrongKey;
+import TADs.BinaryTree.IllegalKeyException;
 import TADs.Node.NodeBST;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BSTTest {
+
     @Test
-    public void testInsert() throws WrongKey {
+    public void testInsert() throws IllegalKeyException {
         BSTImpl<Integer, String> tree = new BSTImpl<>(4, "A");
         tree.insert((Integer) 2, "B");
         tree.insert((Integer) 3, "C");
@@ -24,34 +25,31 @@ public class BSTTest {
         assertEquals(root.getRightChild().getKey(), (Integer) 5);
         assertEquals(root.getRightChild().getRightChild().getKey(), (Integer) 7);
     }
+
     @Test
-    public void insertWrongKey()   {
+    public void insertIllegalKeyException() {
         BSTImpl<Integer, String> tree = new BSTImpl<>(4, "A");
         try {
             tree.insert(4,"n");
-            fail("Deberia saltar Exception");
-        } catch (WrongKey e) {
-                // si salta la excpetion esta bien por ende no hago nada
-        }
+            fail("Should have thrown an exception");
+        } catch (IllegalKeyException e) {} // if the exception is thrown, that's fine, so I don't do anything
 
         try {
             tree.insert(2,"f");
-        } catch (WrongKey e) {
+        } catch (IllegalKeyException e) {
             fail();
         }
 
-        // intento agregar un elemento con la misma key
+        // We try to add an element with the same key
         try {
             tree.insert(2,"5");
-            fail("Deberia saltar Exception");
-        } catch (WrongKey e) {
-            //;
-        }
+            fail("Should have thrown an exception");
+        } catch (IllegalKeyException e) {} // if the exception is thrown, that's fine, so I don't do anything
 
     }
 
     @Test
-    public void testDeleteRoot() throws WrongKey, ItemNotFoundException {
+    public void testDeleteRoot() throws IllegalKeyException, ItemNotFoundException {
         BSTImpl<Integer, String> tree = new BSTImpl<>(4, "A");
         tree.insert((Integer) 2, "B");
         tree.insert((Integer) 3, "C");
@@ -68,7 +66,7 @@ public class BSTTest {
     }
 
     @Test
-    public void testDeleteLeaf() throws WrongKey, ItemNotFoundException {
+    public void testDeleteLeaf() throws IllegalKeyException, ItemNotFoundException {
         BSTImpl<Integer, String> tree = new BSTImpl<>(4, "A");
         tree.insert((Integer) 2, "B");
         tree.insert((Integer) 3, "C");
@@ -86,7 +84,7 @@ public class BSTTest {
     }
 
     @Test
-    public void testDelete() throws WrongKey, ItemNotFoundException {
+    public void testDelete() throws IllegalKeyException, ItemNotFoundException {
         BSTImpl<Integer, String> tree = new BSTImpl<>(7, "A");
         tree.insert((Integer) 3, "B");
         tree.insert((Integer) 2, "C");
@@ -101,8 +99,9 @@ public class BSTTest {
         assertEquals(root.getLeftChild().getRightChild().getLeftChild().getKey(), (Integer) 5);
         assertEquals(root.getLeftChild().getLeftChild().getKey(), (Integer) 2);
     }
+
     @Test
-    public void testDelete2() throws WrongKey, ItemNotFoundException {
+    public void testDelete2() throws IllegalKeyException, ItemNotFoundException {
         BSTImpl<Integer,String> tree=new BSTImpl<>(7,"A");
         tree.insert((Integer) 3,"B");
         tree.insert((Integer) 2,"C");
@@ -118,11 +117,10 @@ public class BSTTest {
         assertEquals(root.getRightChild().getKey(), (Integer) 10);
         assertEquals(root.getRightChild().getRightChild().getKey(),(Integer) 11);
         assertEquals(root.getRightChild().getLeftChild().getKey(), (Integer) 8);
-
     }
 
     @Test
-    public void countsTests() throws WrongKey {
+    public void countsTests() throws IllegalKeyException {
         BSTImpl<Integer,String> tree=new BSTImpl<>(7,"A");
         tree.insert((Integer) 3,"B");
         tree.insert((Integer) 2,"C");
@@ -137,8 +135,4 @@ public class BSTTest {
         assertEquals(leafs,4);
         assertEquals(tree.countCompleteElements(),3);
     }
-
-
-
-
 }

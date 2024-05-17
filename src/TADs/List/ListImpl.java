@@ -50,9 +50,9 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public void add(T value, int index) throws IlegalIndexException {
+    public void add(T value, int index) throws IllegalIndexException {
         if (index < 0 || index > size) {
-            throw new IlegalIndexException();
+            throw new IllegalIndexException();
         }
 
         Node<T> newNode = new Node<>(value);
@@ -87,7 +87,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public T get(int position) throws IlegalIndexException {
+    public T get(int position) throws IllegalIndexException {
         return getNode(position).getValue();
     }
 
@@ -95,40 +95,105 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     public boolean contains(T value) {
         Node<T> temp = first;
         while (temp != null) {
-            temp = temp.getNext();
             if (temp.getValue().equals(value)) {
                 return true;
             }
+            temp = temp.getNext();
         }
         return false;
     }
 
     @Override
-    public void remove(T value) throws ItemNotFoundException, IlegalIndexException {
-        if (contains(value)) {
+    public void remove(T value) throws ItemNotFoundException {
+        if (!contains(value)) {
             throw new ItemNotFoundException();
         }
         int index = 0;
         Node<T> temp = first;
 
         if (temp.getValue().equals(value)) {
-            remove(index);
+            removeNode(temp);
+            index -= 1;
         }
-
-        while (index < size) {
+        while (index < size()) {
             temp = temp.getNext();
             index += 1;
-            if (temp.getValue().equals(value)) {
-                remove(index);
+            if (temp == null) {}
+            else if (temp.getValue().equals(value)) {
+                removeNode(temp);
             }
         }
     }
 
 
     @Override
-    public void remove(int position) throws IlegalIndexException {
+    public void remove(int position) throws IllegalIndexException {
 
         Node<T> removeNode = this.getNode(position);
+        removeNode(removeNode);
+        /*Node<T> previousNode = removeNode.getPrevious();
+        Node<T> nextNode = removeNode.getNext();
+
+        if (removeNode == this.first) {
+            if (removeNode == this.last) {
+                this.setLast(null);
+                this.setFirst(null);
+            }
+            this.setFirst(nextNode);
+        } else if (removeNode == this.last) {
+            this.setLast(previousNode);
+        }
+
+        if (nextNode != null) {
+            nextNode.setPrevious(previousNode);
+        }
+
+        if (previousNode != null) {
+            previousNode.setNext(nextNode);
+        }
+        size -= 1;*/
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public void print() {
+
+        Node<T> temp = first;
+        System.out.print("[ ");
+
+        for (int i = 0; i < size-1; i++) {
+            System.out.print(temp.getValue() + ", ");
+            temp = temp.getNext();
+        }
+        System.out.print(temp.getValue() + " ]");
+    }
+
+    public Node<T> getNode(int index) throws IllegalIndexException {
+        if (index < -1 || index >= size) {
+            throw new IllegalIndexException();
+        }
+        Node<T> temp = first;
+        if (index == size - 1|| index == -1) {
+            return getLast();
+        }
+        else {
+            for (int i = 0; i < index; i++) {
+                temp = temp.getNext();
+            }
+            return temp;
+        }
+    }
+
+    public void removeNode(Node<T> removeNode) {
         Node<T> previousNode = removeNode.getPrevious();
         Node<T> nextNode = removeNode.getNext();
 
@@ -149,44 +214,6 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         if (previousNode != null) {
             previousNode.setNext(nextNode);
         }
-
         size -= 1;
     }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-    @Override
-    public void print() {
-        Node<T> temp = first;
-        System.out.print("[");
-        for (int i = 0; i < size-1; i++) {
-            System.out.print(temp.getValue() + ", ");
-            temp = temp.getNext();
-        }
-        System.out.print(temp.getNext().getValue() + "]");
-    }
-
-    public Node<T> getNode(int index) throws IlegalIndexException {
-        if (index < -1 || index >= size) {
-            throw new IlegalIndexException();
-        }
-        Node<T> temp = first;
-        if (index == size - 1|| index == -1) {
-            return getLast();
-        }
-        else {
-            for (int i = 0; i < index; i++) {
-                temp = temp.getNext();
-            }
-            return temp;
-        }
-    }
-
 }

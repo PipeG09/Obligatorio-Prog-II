@@ -32,11 +32,11 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
     }
 
     @Override
-    public void insert(K key, T data) throws WrongKey {
+    public void insert(K key, T data) throws IllegalKeyException {
         // We check that the node does not already exist.
         NodeBST<K,T> node = findNodeInBinarySearchTree(key,root);
 
-        if (node != null) throw new WrongKey();
+        if (node != null) throw new IllegalKeyException();
         node = getRoot();
         boolean added = false;
 
@@ -59,7 +59,7 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
                     added = true;
                 }
             }
-            else throw new WrongKey();
+            else throw new IllegalKeyException();
         }
     }
 
@@ -179,7 +179,6 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
                 break;
             }
         }
-
         return list;
     }
 }
