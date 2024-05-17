@@ -4,7 +4,6 @@ import TADs.List.List;
 import TADs.Node.Node;
 import TADs.Stack.EmptyStackException;
 import TADs.Stack.FullStackException;
-import TADs.Stack.Stack;
 import TADs.Stack.StackImpl;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -36,14 +35,14 @@ public class StackTest {
             stack.push(2);
             stack.push(3);
             stack.push(4);
-        } catch (FullStackException e) {
+        } catch (FullStackException _) {
             fail();
         }
 
         try {
             stack.push(5);
             fail("Should have thrown an exception");
-        } catch (FullStackException e) {}
+        } catch (FullStackException _) {}
     }
 
 
@@ -67,19 +66,19 @@ public class StackTest {
         try {
             stack.pop();
             fail("Should have thrown an exception");
-        } catch (EmptyStackException e) {}
+        } catch (EmptyStackException _) {}
 
         try {
             stack.push(1);
             stack.pop();
-        } catch (EmptyStackException e) {
+        } catch (EmptyStackException _) {
             fail();
         }
 
         try {
             stack.pop();
             fail("Should have thrown an exception");
-        } catch (EmptyStackException e) {}
+        } catch (EmptyStackException _) {}
     }
 
     @Test
@@ -97,12 +96,12 @@ public class StackTest {
         try {
             stack.peek();
             fail("Should have thrown an exception");
-        } catch (EmptyStackException e) {}
+        } catch (EmptyStackException _) {}
 
         try {
             stack.push(1);
             stack.peek();
-        } catch (EmptyStackException e) {
+        } catch (EmptyStackException _) {
             fail();
         }
     }

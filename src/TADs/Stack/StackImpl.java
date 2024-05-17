@@ -1,7 +1,7 @@
 package TADs.Stack;
 
 import TADs.List.ListImpl;
-import TADs.List.IlegalIndexException;
+import TADs.List.IllegalIndexException;
 
 
 public class StackImpl<T extends Comparable<T>> implements Stack<T> {
@@ -39,7 +39,7 @@ public class StackImpl<T extends Comparable<T>> implements Stack<T> {
             list.remove(top);
             top -= 1;
             return removed;
-        } catch (IlegalIndexException e) { /*Que poner*/
+        } catch (IllegalIndexException e) { /*Que poner*/
             throw new EmptyStackException();
         }
     }

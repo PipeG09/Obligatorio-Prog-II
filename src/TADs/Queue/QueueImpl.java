@@ -1,6 +1,6 @@
 package TADs.Queue;
 
-import TADs.List.IlegalIndexException;
+import TADs.List.IllegalIndexException;
 import TADs.List.List;
 import TADs.List.ListImpl;
 
@@ -30,7 +30,7 @@ public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
             try {
                 value = list.get(0);
                 list.remove(0);
-            } catch (IlegalIndexException _) {}
+            } catch (IllegalIndexException _) {}
         }
         return value;
     }

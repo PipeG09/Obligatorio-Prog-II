@@ -50,9 +50,9 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public void add(T value, int index) throws IlegalIndexException {
+    public void add(T value, int index) throws IllegalIndexException {
         if (index < 0 || index > size) {
-            throw new IlegalIndexException();
+            throw new IllegalIndexException();
         }
 
         Node<T> newNode = new Node<>(value);
@@ -87,7 +87,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     }
 
     @Override
-    public T get(int position) throws IlegalIndexException {
+    public T get(int position) throws IllegalIndexException {
         return getNode(position).getValue();
     }
 
@@ -127,7 +127,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
 
     @Override
-    public void remove(int position) throws IlegalIndexException {
+    public void remove(int position) throws IllegalIndexException {
 
         Node<T> removeNode = this.getNode(position);
         removeNode(removeNode);
@@ -163,10 +163,13 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     public boolean isEmpty() {
         return size == 0;
     }
+
     @Override
     public void print() {
+
         Node<T> temp = first;
         System.out.print("[ ");
+
         for (int i = 0; i < size-1; i++) {
             System.out.print(temp.getValue() + ", ");
             temp = temp.getNext();
@@ -174,9 +177,9 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         System.out.print(temp.getValue() + " ]");
     }
 
-    public Node<T> getNode(int index) throws IlegalIndexException {
+    public Node<T> getNode(int index) throws IllegalIndexException {
         if (index < -1 || index >= size) {
-            throw new IlegalIndexException();
+            throw new IllegalIndexException();
         }
         Node<T> temp = first;
         if (index == size - 1|| index == -1) {
@@ -213,5 +216,4 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         }
         size -= 1;
     }
-
 }

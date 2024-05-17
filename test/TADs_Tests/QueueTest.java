@@ -3,7 +3,6 @@ package TADs_Tests;
 import TADs.List.List;
 import TADs.Node.Node;
 import TADs.Queue.EmptyQueueException;
-import TADs.Queue.Queue;
 import TADs.Queue.QueueImpl;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -41,24 +40,24 @@ public class QueueTest {
     }
 
     @Test
-    public void testDequeueEmptyQueueException() throws EmptyQueueException {
+    public void testDequeueEmptyQueueException() {
         QueueImpl queue = new QueueImpl();
         try {
             queue.dequeue();
             fail("Should have thrown an exception");
-        } catch (EmptyQueueException e) {}
+        } catch (EmptyQueueException _) {}
 
         try {
             queue.enqueue(1);
             queue.dequeue();
-        } catch (EmptyQueueException e) {
+        } catch (EmptyQueueException _) {
             fail();
         }
 
         try {
             queue.dequeue();
             fail("Should have thrown an exception");
-        } catch (EmptyQueueException e) {}
+        } catch (EmptyQueueException _) {}
     }
 
     @Test

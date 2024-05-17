@@ -1,13 +1,11 @@
 package TADs_Tests;
 
 import Exceptions.ItemNotFoundException;
-import TADs.List.IlegalIndexException;
+import TADs.List.IllegalIndexException;
 import TADs.List.List;
 import TADs.List.ListImpl;
 import TADs.Node.Node;
 import org.junit.Test;
-
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -26,7 +24,7 @@ public class ListTest {
     }
 
     @Test
-    public void testAddIndex() throws IlegalIndexException {
+    public void testAddIndex() throws IllegalIndexException {
         List<Integer> list = new ListImpl<>();
         list.add(1, 0);
         list.add(3, 1);
@@ -46,24 +44,22 @@ public class ListTest {
         try {
             list.add(1, 1);
             fail("Should have thrown an exception");
-        } catch (IlegalIndexException e) {
-
-        }
+        } catch (IllegalIndexException _) {}
 
         try {
             list.add(2, 0);
-        } catch (IlegalIndexException e) {
+        } catch (IllegalIndexException _) {
             fail();
         }
 
         try {
             list.add(2, 2);
             fail("Should have thrown an exception");
-        } catch (IlegalIndexException e) {}
+        } catch (IllegalIndexException _) {}
     }
 
     @Test
-    public void testRemoveIndex() throws IlegalIndexException {
+    public void testRemoveIndex() throws IllegalIndexException {
         List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);
@@ -86,17 +82,17 @@ public class ListTest {
         try {
             list.remove(5);
             fail("Should have thrown an exception");
-        } catch (IlegalIndexException e) {}
+        } catch (IllegalIndexException _) {}
 
         try {
             list.remove(1);
-        } catch (IlegalIndexException e) {
+        } catch (IllegalIndexException _) {
             fail();
         }
 
         try {
             list.remove(0);
-        } catch (IlegalIndexException e) {}
+        } catch (IllegalIndexException _) {}
     }
 
     @Test
@@ -125,7 +121,7 @@ public class ListTest {
         try {
             list.remove((Integer) 5);
             fail("Should have thrown an exception");
-        } catch (ItemNotFoundException e) {}
+        } catch (ItemNotFoundException _) {}
 
         try {
             list.remove((Integer) 1);
@@ -136,7 +132,7 @@ public class ListTest {
         try {
             list.remove((Integer) 12);
             fail("Should have thrown an exception");
-        } catch (ItemNotFoundException e) {}
+        } catch (ItemNotFoundException _) {}
     }
 
     @Test
