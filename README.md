@@ -1,3 +1,3 @@
-# Obligatorio Progamación II
-Autores: Santiago De Giuda, Felipe Guasch
+# Programming II Assignment
+Authors: Santiago De Giuda, Felipe Guasch
 
