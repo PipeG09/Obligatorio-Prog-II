@@ -39,7 +39,7 @@ public class ListTest {
 
 
     @Test
-    public void AddIndexIlegalIndexException() {
+    public void AddIndexIllegalIndexException() {
         List<Integer> list = new ListImpl<>();
         try {
             list.add(1, 1);
@@ -73,7 +73,7 @@ public class ListTest {
     }
 
     @Test
-    public void testRemoveIndexIlegalIndexException() {
+    public void testRemoveIndexIllegalIndexException() {
         List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);

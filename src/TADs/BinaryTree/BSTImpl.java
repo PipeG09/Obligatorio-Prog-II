@@ -12,7 +12,7 @@ import TADs.Queue.QueueImpl;
 
 import static TADs.Node.NodeBST.findNodeInBinarySearchTree;
 
-public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,T>{
+public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,T> {
 
     private NodeBST<K,T> root;
 
@@ -64,7 +64,7 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
     }
 
     @Override
-    public void delete(K key) throws ItemNotFoundException  /* This exception is not thrown */ {
+    public void delete(K key) throws ItemNotFoundException {
         NodeBST<K,T> node = findNodeInBinarySearchTree(key,root);
         if (node == null) throw new ItemNotFoundException();
 
@@ -74,18 +74,18 @@ public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,
 
         if (tempNode1 == null) { //el nodo no tiene hijo derechp
             NodeBST<K,T> parent = root.findParentNodeInBinarySearchTree(key);
-            if (parent==null){
-                root=root.getLeftChild();
+            if (parent == null){
+                root = root.getLeftChild();
             }
             else {
-            if (parent.getLeftChild() == node) {
-                parent.setLeftChild(node.getLeftChild());
-                return;
-            }
-            if (parent.getRightChild() == node) {
-                parent.setRightChild(node.getLeftChild());
-                return;
-            }
+                if (parent.getLeftChild() == node) {
+                    parent.setLeftChild(node.getLeftChild());
+                    return;
+                }
+                if (parent.getRightChild() == node) {
+                    parent.setRightChild(node.getLeftChild());
+                    return;
+                }
         }}
         else{
 

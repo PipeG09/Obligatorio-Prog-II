@@ -23,6 +23,6 @@ public interface MyBinarySearchTree<K extends Comparable<K>,T> {
     List<K> preOrder();
 
     List<K> postOrder();
-    void draw();
 
+    void draw();
 }

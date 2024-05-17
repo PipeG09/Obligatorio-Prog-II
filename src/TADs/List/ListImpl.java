@@ -56,12 +56,10 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         }
 
         Node<T> newNode = new Node<>(value);
-        Node<T> nextNode = null;
-        Node<T> previousNode = null;
 
         if (index != size) {
-            nextNode = this.getNode(index);
-            previousNode = nextNode.getPrevious();
+            Node<T> nextNode = this.getNode(index);
+            Node<T> previousNode = nextNode.getPrevious();
             newNode.setNext(nextNode);
             newNode.setPrevious(previousNode);
             nextNode.setPrevious(newNode);
@@ -118,7 +116,9 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         while (index < size()) {
             temp = temp.getNext();
             index += 1;
-            if (temp == null) {}
+            if (temp == null) {
+                break; //sdsds
+            }
             else if (temp.getValue().equals(value)) {
                 removeNode(temp);
             }
@@ -128,30 +128,8 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
 
     @Override
     public void remove(int position) throws IllegalIndexException {
-
         Node<T> removeNode = this.getNode(position);
         removeNode(removeNode);
-        /*Node<T> previousNode = removeNode.getPrevious();
-        Node<T> nextNode = removeNode.getNext();
-
-        if (removeNode == this.first) {
-            if (removeNode == this.last) {
-                this.setLast(null);
-                this.setFirst(null);
-            }
-            this.setFirst(nextNode);
-        } else if (removeNode == this.last) {
-            this.setLast(previousNode);
-        }
-
-        if (nextNode != null) {
-            nextNode.setPrevious(previousNode);
-        }
-
-        if (previousNode != null) {
-            previousNode.setNext(nextNode);
-        }
-        size -= 1;*/
     }
 
     @Override

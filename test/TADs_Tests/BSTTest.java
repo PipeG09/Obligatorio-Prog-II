@@ -32,11 +32,11 @@ public class BSTTest {
         try {
             tree.insert(4,"n");
             fail("Should have thrown an exception");
-        } catch (IllegalKeyException e) {} // if the exception is thrown, that's fine, so I don't do anything
+        } catch (IllegalKeyException _) {} // if the exception is thrown, that's fine, so I don't do anything
 
         try {
             tree.insert(2,"f");
-        } catch (IllegalKeyException e) {
+        } catch (IllegalKeyException _) {
             fail();
         }
 
@@ -44,7 +44,7 @@ public class BSTTest {
         try {
             tree.insert(2,"5");
             fail("Should have thrown an exception");
-        } catch (IllegalKeyException e) {} // if the exception is thrown, that's fine, so I don't do anything
+        } catch (IllegalKeyException _) {} // if the exception is thrown, that's fine, so I don't do anything
 
     }
 
