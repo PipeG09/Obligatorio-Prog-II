@@ -95,31 +95,32 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     public boolean contains(T value) {
         Node<T> temp = first;
         while (temp != null) {
-            temp = temp.getNext();
             if (temp.getValue().equals(value)) {
                 return true;
             }
+            temp = temp.getNext();
         }
         return false;
     }
 
     @Override
-    public void remove(T value) throws ItemNotFoundException, IlegalIndexException {
-        if (contains(value)) {
+    public void remove(T value) throws ItemNotFoundException {
+        if (!contains(value)) {
             throw new ItemNotFoundException();
         }
         int index = 0;
         Node<T> temp = first;
 
         if (temp.getValue().equals(value)) {
-            remove(index);
+            removeNode(temp);
+            index -= 1;
         }
-
-        while (index < size) {
+        while (index < size()) {
             temp = temp.getNext();
             index += 1;
-            if (temp.getValue().equals(value)) {
-                remove(index);
+            if (temp == null) {}
+            else if (temp.getValue().equals(value)) {
+                removeNode(temp);
             }
         }
     }
@@ -129,7 +130,8 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     public void remove(int position) throws IlegalIndexException {
 
         Node<T> removeNode = this.getNode(position);
-        Node<T> previousNode = removeNode.getPrevious();
+        removeNode(removeNode);
+        /*Node<T> previousNode = removeNode.getPrevious();
         Node<T> nextNode = removeNode.getNext();
 
         if (removeNode == this.first) {
@@ -149,8 +151,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         if (previousNode != null) {
             previousNode.setNext(nextNode);
         }
-
-        size -= 1;
+        size -= 1;*/
     }
 
     @Override
@@ -187,6 +188,30 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
             }
             return temp;
         }
+    }
+
+    public void removeNode(Node<T> removeNode) {
+        Node<T> previousNode = removeNode.getPrevious();
+        Node<T> nextNode = removeNode.getNext();
+
+        if (removeNode == this.first) {
+            if (removeNode == this.last) {
+                this.setLast(null);
+                this.setFirst(null);
+            }
+            this.setFirst(nextNode);
+        } else if (removeNode == this.last) {
+            this.setLast(previousNode);
+        }
+
+        if (nextNode != null) {
+            nextNode.setPrevious(previousNode);
+        }
+
+        if (previousNode != null) {
+            previousNode.setNext(nextNode);
+        }
+        size -= 1;
     }
 
 }

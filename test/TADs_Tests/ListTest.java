@@ -1,7 +1,180 @@
 package TADs_Tests;
 
+import Exceptions.ItemNotFoundException;
+import TADs.List.IlegalIndexException;
+import TADs.List.ListImpl;
+import TADs.Node.Node;
 import org.junit.Test;
+
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 public class ListTest {
+
+    @Test
+    public void testAdd() {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Node<Integer> node = list.getFirst();
+        assertEquals(node.getValue(), (Integer) 1);
+        assertEquals(node.getNext().getValue(), (Integer) 2);
+        assertEquals(node.getNext().getNext().getValue(), (Integer) 3);
+    }
+
+    @Test
+    public void testAddIndex() throws IlegalIndexException {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1, 0);
+        list.add(3, 1);
+        list.add(4, 2);
+        list.add(8, 3);
+        Node<Integer> node = list.getFirst();
+        assertEquals(node.getValue(), (Integer) 1);
+        assertEquals(node.getNext().getValue(), (Integer) 3);
+        assertEquals(node.getNext().getNext().getValue(), (Integer) 4);
+        assertEquals(node.getNext().getNext().getNext().getValue(), (Integer) 8);
+    }
+
+
+    @Test
+    public void AddIndexIlegalIndexException() {
+        ListImpl<Integer> list = new ListImpl<>();
+        try {
+            list.add(1, 1);
+            fail("Should have thrown an exception");
+        } catch (IlegalIndexException e) {
+
+        }
+
+        try {
+            list.add(2, 0);
+        } catch (IlegalIndexException e) {
+            fail();
+        }
+
+        try {
+            list.add(2, 2);
+            fail("Should have thrown an exception");
+        } catch (IlegalIndexException e) {}
+    }
+
+    @Test
+    public void testRemoveIndex() throws IlegalIndexException {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.remove(2);
+        Node<Integer> node = list.getFirst();
+        assertEquals(node.getValue(), (Integer) 1);
+        assertEquals(node.getNext().getValue(), (Integer) 2);
+        assertEquals(node.getNext().getNext().getValue(), (Integer) 4);
+    }
+
+    @Test
+    public void testRemoveIndexIlegalIndexException() {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        try {
+            list.remove(5);
+            fail("Should have thrown an exception");
+        } catch (IlegalIndexException e) {}
+
+        try {
+            list.remove(1);
+        } catch (IlegalIndexException e) {
+            fail();
+        }
+
+        try {
+            list.remove(0);
+        } catch (IlegalIndexException e) {}
+    }
+
+    @Test
+    public void testRemove() throws ItemNotFoundException {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(1);
+        list.add(4);
+        list.remove((Integer) 1);
+        Node<Integer> node = list.getFirst();
+        assertEquals(node.getValue(), (Integer) 2);
+        assertEquals(node.getNext().getValue(), (Integer) 3);
+        assertEquals(node.getNext().getNext().getValue(), (Integer) 4);
+    }
+
+    @Test
+    public void testRemoveItemNotFoundException() {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        try {
+            list.remove((Integer) 5);
+            fail("Should have thrown an exception");
+        } catch (ItemNotFoundException e) {}
+
+        try {
+            list.remove((Integer) 1);
+        } catch (ItemNotFoundException e) {
+            fail();
+        }
+
+        try {
+            list.remove((Integer) 12);
+            fail("Should have thrown an exception");
+        } catch (ItemNotFoundException e) {}
+    }
+
+    @Test
+    public void testAddAll() {
+        ListImpl<Integer> list = new ListImpl<>();
+        ListImpl<Integer> list1 = new ListImpl<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list1.add(4);
+        list1.add(5);
+        list.addAll(list1);
+        Node<Integer> node = list.getFirst();
+        assertEquals(node.getValue(), (Integer) 1);
+        assertEquals(node.getNext().getValue(), (Integer) 2);
+        assertEquals(node.getNext().getNext().getValue(), (Integer) 3);
+        assertEquals(node.getNext().getNext().getNext().getValue(), (Integer) 4);
+        assertEquals(node.getNext().getNext().getNext().getNext().getValue(), (Integer) 5);
+    }
+
+    @Test
+    public void contains() {
+        ListImpl<Integer> list = new ListImpl<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        assertTrue(list.contains(4));
+        assertFalse(list.contains(5));
+        assertTrue(list.contains(3));
+        assertTrue(list.contains(2));
+        assertTrue(list.contains(1));
+    }
+
+    @Test
+    public void isEmpty() {
+        ListImpl<Integer> list = new ListImpl<>();
+        assertTrue(list.isEmpty());
+        list.add(1);
+        assertFalse(list.isEmpty());
+    }
 }
