@@ -12,7 +12,7 @@ public class QueueTest {
 
     @Test
     public void testEnqueue() {
-        Queue queue = new QueueImpl();
+        QueueImpl queue = new QueueImpl();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
@@ -27,7 +27,7 @@ public class QueueTest {
 
     @Test
     public void testDequeue() throws EmptyQueueException {
-        Queue queue = new QueueImpl();
+        QueueImpl queue = new QueueImpl();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
@@ -42,7 +42,7 @@ public class QueueTest {
 
     @Test
     public void testDequeueEmptyQueueException() throws EmptyQueueException {
-        Queue queue = new QueueImpl();
+        QueueImpl queue = new QueueImpl();
         try {
             queue.dequeue();
             fail("Should have thrown an exception");
@@ -63,7 +63,7 @@ public class QueueTest {
 
     @Test
     public void testIsEmpty() {
-        Queue queue = new QueueImpl();
+        QueueImpl queue = new QueueImpl();
         assertTrue(queue.isEmpty());
         queue.enqueue(1);
         assertFalse(queue.isEmpty());
@@ -71,7 +71,7 @@ public class QueueTest {
 
     @Test
     public void testContains() {
-        Queue queue = new QueueImpl();
+        QueueImpl queue = new QueueImpl();
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);

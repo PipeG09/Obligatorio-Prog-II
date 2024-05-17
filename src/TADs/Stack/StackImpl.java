@@ -59,7 +59,7 @@ public class StackImpl<T extends Comparable<T>> implements Stack<T> {
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return top == -1;
     }
 
     public ListImpl<T> getList() {

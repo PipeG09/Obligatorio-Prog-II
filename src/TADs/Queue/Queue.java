@@ -13,6 +13,4 @@ public interface Queue<T extends Comparable<T>> {
     int size();
 
     boolean isEmpty();
-
-    List<T> getList();
 }
