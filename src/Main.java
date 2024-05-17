@@ -1,8 +1,8 @@
 import Exceptions.ItemNotFoundException;
 import TADs.BinaryTree.BSTImpl;
+import TADs.BinaryTree.IllegalKeyException;
 import TADs.BinaryTree.MyBinarySearchTree;
-import TADs.BinaryTree.WrongKey;
-import TADs.List.IlegalIndexException;
+import TADs.List.IllegalIndexException;
 import TADs.List.List;
 import TADs.List.ListImpl;
 import TADs.Node.NodeBST;
@@ -10,7 +10,7 @@ import TADs.Node.NodeBST;
 import static org.junit.Assert.assertEquals;
 
 public class Main {
-    public static void main(String[] args) throws WrongKey, IlegalIndexException, ItemNotFoundException {
+    public static void main(String[] args) throws IllegalKeyException, ItemNotFoundException {
         MyBinarySearchTree<Integer,String> tree=new BSTImpl<>(7,"A");
         tree.insert((Integer) 3,"B");
         tree.insert((Integer) 2,"C");
