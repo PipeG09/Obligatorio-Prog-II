@@ -1,5 +1,7 @@
 package TADs.Queue;
 
+import TADs.List.List;
+
 public interface Queue<T extends Comparable<T>> {
 
     void enqueue(T value);
@@ -11,4 +13,6 @@ public interface Queue<T extends Comparable<T>> {
     int size();
 
     boolean isEmpty();
+
+    List<T> getList();
 }

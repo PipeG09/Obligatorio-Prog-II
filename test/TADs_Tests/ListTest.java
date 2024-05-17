@@ -2,6 +2,7 @@ package TADs_Tests;
 
 import Exceptions.ItemNotFoundException;
 import TADs.List.IlegalIndexException;
+import TADs.List.List;
 import TADs.List.ListImpl;
 import TADs.Node.Node;
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class ListTest {
 
     @Test
     public void testAdd() {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -26,7 +27,7 @@ public class ListTest {
 
     @Test
     public void testAddIndex() throws IlegalIndexException {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1, 0);
         list.add(3, 1);
         list.add(4, 2);
@@ -41,7 +42,7 @@ public class ListTest {
 
     @Test
     public void AddIndexIlegalIndexException() {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         try {
             list.add(1, 1);
             fail("Should have thrown an exception");
@@ -63,7 +64,7 @@ public class ListTest {
 
     @Test
     public void testRemoveIndex() throws IlegalIndexException {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -77,7 +78,7 @@ public class ListTest {
 
     @Test
     public void testRemoveIndexIlegalIndexException() {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -100,7 +101,7 @@ public class ListTest {
 
     @Test
     public void testRemove() throws ItemNotFoundException {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(1);
         list.add(2);
@@ -116,7 +117,7 @@ public class ListTest {
 
     @Test
     public void testRemoveItemNotFoundException() {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -140,8 +141,8 @@ public class ListTest {
 
     @Test
     public void testAddAll() {
-        ListImpl<Integer> list = new ListImpl<>();
-        ListImpl<Integer> list1 = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
+        List<Integer> list1 = new ListImpl<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -158,7 +159,7 @@ public class ListTest {
 
     @Test
     public void contains() {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -172,7 +173,7 @@ public class ListTest {
 
     @Test
     public void isEmpty() {
-        ListImpl<Integer> list = new ListImpl<>();
+        List<Integer> list = new ListImpl<>();
         assertTrue(list.isEmpty());
         list.add(1);
         assertFalse(list.isEmpty());
