@@ -36,7 +36,9 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
         setArray(new HashNode[newSize]);
         setCapacity(0.0f);
         for (HashNode<K, T> ktHashNode : old) {
-            put(ktHashNode.getKey(), ktHashNode.getValue());
+            if (ktHashNode != null) {
+                put(ktHashNode.getKey(), ktHashNode.getValue());
+            }
         }
 
     }
@@ -56,16 +58,18 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
         //
         if (array[index] == null) {
             array[index] = node;
-        } // si este espacio del array esta lleno itero hasta encontrar uno libre
-        for (int i=1;i<size;i++){
-            if (array[(index+i)%size]==null || array[(index+i)%size].getKey()==null) {
-                array[(index+i)%size] = node;
-                capacity+= (float) 1 /size;
-                return;
+            capacity+= (float) 1/size;
+        }// si este espacio del array esta lleno itero hasta encontrar uno libre
+        else {
+            for (int i = 1; i < size; i++) {
+                if (array[(index + i) % size] == null || array[(index + i) % size].getKey() == null) {
+                    array[(index + i) % size] = node;
+                    capacity += (float) 1 / size;
+                    return;
+                }
             }
+
         }
-
-
 
     }
 
@@ -86,9 +90,10 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
             if(node==null){
                 return null;
             }
-            if (node.getKey().equals(key)) {
+            else if (node.getKey()!=null){
+                if( node.getKey().equals(key)) {
                 return node;
-            }
+            }}
             // if node.key == null or other key, we keep iterating
         }
         return null;
