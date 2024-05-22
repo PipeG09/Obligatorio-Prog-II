@@ -36,8 +36,10 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
         setArray(new HashNode[newSize]);
         setCapacity(0.0f);
         for (HashNode<K, T> ktHashNode : old) {
-            if (ktHashNode != null) {
-                put(ktHashNode.getKey(), ktHashNode.getValue());
+            if (ktHashNode != null ) {
+                if(ktHashNode.getKey() != null) {
+                    put(ktHashNode.getKey(), ktHashNode.getValue());
+                }
             }
         }
 
@@ -49,9 +51,7 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
         if (capacity>=0.75){
             refactorHash(size*2);
         }
-        if (contains(key)){
-            throw new KeyAlreadyExistsException();
-        }
+
         int hash = key.hashCode();
         int index = hash % size;
         HashNode<K,T>  node = new HashNode<K,T>(key, value);
@@ -61,16 +61,35 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
             capacity+= (float) 1/size;
         }// si este espacio del array esta lleno itero hasta encontrar uno libre
         else {
-            for (int i = 1; i < size; i++) {
-                if (array[(index + i) % size] == null || array[(index + i) % size].getKey() == null) {
-                    array[(index + i) % size] = node;
-                    capacity += (float) 1 / size;
-                    return;
+            int firstSpot= -1;
+            // empiezo en 0 para contemplar el caso de que un elemento con la misma key fue eliminado en ese lugar
+            // pero debo llegar hasta el proximo vacio para asegurarme que la key no esta ya en el arbol
+
+            for (int i = 0; i < size; i++) {
+
+                if(array[(index + i) % size] == null){
+                // si encuentro un espacio vacio ya se que la key no se encuentra en el hash
+                    if (firstSpot == -1) { // si no hubo ningun espacio libre antes
+                        array[(index + i) % size] = node;
+                        return;
+                    }
+                    else{
+                        array[firstSpot]=node;  // si ya habia un espacio libre correspondiente a uno eliminado antes
+                        // lo agrego ahi
+                        return;
+                    } }
+
+                // solo me guardo firstStop si no hubo una stop antes
+                else if(array[(index + i) % size].getKey() == null & firstSpot == -1){
+                    firstSpot = (index + i) % size; // guardo la pocision vacia
+
                 }
+                else if (array[(index + i) % size].getKey().equals(key)){
+                    throw new KeyAlreadyExistsException();
+                }
+
             }
-
         }
-
     }
 
     @Override

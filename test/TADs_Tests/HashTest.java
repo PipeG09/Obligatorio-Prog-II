@@ -3,6 +3,8 @@ package TADs_Tests;
 import TADs.HashTable.HashTableImpl;
 import org.junit.Test;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
+
 import static org.junit.Assert.*;
 
 public class HashTest {
@@ -18,6 +20,41 @@ public class HashTest {
         assertEquals(hash.get(2),"C");
         assertEquals(hash.get(3),"D");
     }
+    @Test
+    public void testPutAlreadyExistingKey() {
+        HashTableImpl<Integer,String> hash=new HashTableImpl<>(7);
+        hash.put(0,"A");
+        hash.put(1,"B");
+        hash.put(2,"C");
+        hash.put(3,"D");
+        try {
+            hash.put(2,"E");
+            fail("Exception should have been thrown");
+        }
+        catch (KeyAlreadyExistsException _) {
+        }
+    }
+    @Test
+    public void testAddAfterRemoving(){
+        HashTableImpl<Integer,String> hash=new HashTableImpl<>(14);
+        hash.put(0,"A");
+        hash.put(1,"B");
+        hash.put(2,"C");
+        hash.put(3,"D");
+        hash.put(4,"E");
+        hash.put(5,"F");
+        hash.remove(4);
+        hash.put(4,"hola");
+        assertEquals(hash.get(0),"A");
+        assertEquals(hash.get(1),"B");
+        assertEquals(hash.get(2),"C");
+        assertEquals(hash.get(3),"D");
+        assertEquals(hash.get(4),"hola");
+        assertEquals(hash.get(5),"F");
+
+
+    }
+
     @Test
     public void testDelete() {
         HashTableImpl<Integer, String> hash = new HashTableImpl<>(10);
