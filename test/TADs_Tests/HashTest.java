@@ -1,6 +1,7 @@
 package TADs_Tests;
 
 import TADs.HashTable.HashTableImpl;
+import TADs.List.List;
 import org.junit.Test;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -121,5 +122,23 @@ public class HashTest {
         assertEquals(hash.get(11), "L");
         assertEquals(hash.get(12), "M");
 
+    }
+
+    @Test
+    public void testKeys() {
+        HashTableImpl<Integer, String> hash = new HashTableImpl<>(10);
+        hash.put(0, "A");
+        hash.put(1, "B");
+        hash.put(2, "C");
+        hash.put(3, "D");
+        hash.put(4, "E");
+        hash.put(5, "F");
+        List<Integer> keys= hash.keys();
+        assertTrue(keys.contains(0));
+        assertTrue(keys.contains(1));
+        assertTrue(keys.contains(2));
+        assertTrue(keys.contains(3));
+        assertTrue(keys.contains(4));
+        assertTrue(keys.contains(5));
     }
 }

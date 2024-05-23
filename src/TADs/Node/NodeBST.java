@@ -68,8 +68,10 @@ public class NodeBST<K extends Comparable<K>, T> implements Comparable<NodeBST<K
         if(key.compareTo(root.getKey())>0) {
             if (root.rightChild != null) {
                 NodeBST<K, T> right = findNodeInBinarySearchTree(key, root.rightChild);
-                if (right != null) return right; // Esto se puede poner return right de Wanda Nara
-            }
+                if (right != null) {
+                    return right;}
+
+            }else return null;
         }
 
         return null;
@@ -92,7 +94,7 @@ public class NodeBST<K extends Comparable<K>, T> implements Comparable<NodeBST<K
             if (this.rightChild != null & key.compareTo(this.getKey())>0) {
                 NodeBST<K, T> right = this.rightChild.findParentNodeInBinarySearchTree(key);
                 if (right != null) {
-                    return right; // Esto se puede poner return right de Wanda Nara
+                    return right;
                 }
             }
         }

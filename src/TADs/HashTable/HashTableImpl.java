@@ -1,9 +1,11 @@
 package TADs.HashTable;
 
 import TADs.List.List;
+import TADs.List.ListImpl;
 import TADs.Node.HashNode;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
+import java.util.LinkedList;
 
 public class HashTableImpl <K,T> implements HashTable <K,T>{
     HashNode<K,T>[] array;
@@ -139,6 +141,14 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
 
     @Override
     public List<K> keys() {
-        return null;
+        List<K> keyList= new ListImpl<>();
+        for (HashNode<K,T> node : array) {
+            if(node != null) {
+                if(node.getKey() != null) {
+                    keyList.add(node.getKey());
+                }
+            }
+        }
+        return keyList;
     }
 }
