@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class CSVReader {
-    public static void main(String[] args) {
+    public static void ReadCSV(){
         String filePath = "path/to/your/file.csv"; // Reemplaza con la ruta a tu archivo CSV
 
         DailyTop dailyTop = new DailyTop();
