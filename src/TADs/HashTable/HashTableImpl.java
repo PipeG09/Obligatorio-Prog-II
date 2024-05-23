@@ -7,9 +7,12 @@ import TADs.Node.HashNode;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.LinkedList;
 
-public class HashTableImpl <K,T> implements HashTable <K,T>{
+public class HashTableImpl <K,T> implements HashTable <K,T> {
+
     HashNode<K,T>[] array;
+
     int size;
+
     float capacity;
 
     public HashTableImpl(int size) {
@@ -21,6 +24,7 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
     public HashNode[] getArray() {
         return array;
     }
+
     public void setArray(HashNode[] array) {
         this.array = array;
     }
@@ -45,16 +49,13 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
                 }
             }
         }
-
     }
 
     @Override
     public void put(K key, T value) throws KeyAlreadyExistsException {
-
         if (capacity>=0.75){
             refactorHash(size*2);
         }
-
         int hash = key.hashCode();
         int index = hash % size;
         HashNode<K,T>  node = new HashNode<K,T>(key, value);
@@ -90,7 +91,6 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
                 else if (array[(index + i) % size].getKey().equals(key)){
                     throw new KeyAlreadyExistsException();
                 }
-
             }
         }
     }
@@ -115,11 +115,11 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
             else if (node.getKey()!=null){
                 if( node.getKey().equals(key)) {
                 return node;
-            }}
+                }
+            }
             // if node.key == null or other key, we keep iterating
         }
         return null;
-
     }
 
     @Override
