@@ -1,6 +1,6 @@
 package TADs.Node;
 
-public class Node<T extends Comparable<T>> {
+public class Node<T> {
     private T value;
 
     private Node<T> next;

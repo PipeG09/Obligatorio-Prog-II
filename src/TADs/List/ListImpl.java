@@ -3,7 +3,7 @@ package TADs.List;
 import Exceptions.ItemNotFoundException;
 import TADs.Node.Node;
 
-public class ListImpl<T extends Comparable<T>> implements List<T> {
+public class ListImpl<T> implements List<T> {
 
     private Node<T> first;
 
@@ -21,7 +21,6 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
     public Node<T> getFirst() {
         return first;
     }
-
     @Override
     public Node<T> getLast() {
         return last;
@@ -155,7 +154,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         System.out.print(temp.getValue() + " ]");
     }
 
-    public Node<T> getNode(int index) throws IllegalIndexException {
+    private Node<T> getNode(int index) throws IllegalIndexException {
         if (index < -1 || index >= size) {
             throw new IllegalIndexException();
         }
@@ -171,7 +170,7 @@ public class ListImpl<T extends Comparable<T>> implements List<T> {
         }
     }
 
-    public void removeNode(Node<T> removeNode) {
+    private void removeNode(Node<T> removeNode) {
         Node<T> previousNode = removeNode.getPrevious();
         Node<T> nextNode = removeNode.getNext();
 

@@ -3,7 +3,7 @@ package TADs.List;
 import Exceptions.ItemNotFoundException;
 import TADs.Node.Node;
 
-public interface List<T extends Comparable<T>> {
+public interface List<T> {
 
     void add(T value);
 

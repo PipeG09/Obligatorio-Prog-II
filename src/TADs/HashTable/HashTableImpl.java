@@ -1,5 +1,6 @@
 package TADs.HashTable;
 
+import TADs.List.List;
 import TADs.Node.HashNode;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -134,5 +135,10 @@ public class HashTableImpl <K,T> implements HashTable <K,T>{
     @Override
     public boolean contains(K key) {
         return get(key) != null;
+    }
+
+    @Override
+    public List<K> keys() {
+        return null;
     }
 }
