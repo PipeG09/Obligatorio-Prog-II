@@ -1,25 +1,26 @@
+package Entities;
+
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
-public class Main {
+public class CSVReader {
     public static void main(String[] args) {
         String filePath = "path/to/your/file.csv"; // Reemplaza con la ruta a tu archivo CSV
 
         DailyTop dailyTop = new DailyTop();
 
         try (FileReader reader = new FileReader(filePath)) {
-            CsvToBean<Song> csvToBean = new CsvToBeanBuilder<Song>(reader)
-                    .withType(Song.class)
+            CsvToBean<SpotifyDataSet> csvToBean = new CsvToBeanBuilder<SpotifyDataSet>(reader)
+                    .withType(SpotifyDataSet.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
-            List<Song> songs = csvToBean.parse();
-            for (Song song : songs) {
+            List<SpotifyDataSet> songs = csvToBean.parse();
+            for (SpotifyDataSet song : songs) {
                 String date = song.getSnapshotDate();
                 String country = song.getCountry();
                 int rank = song.getDailyRank();
