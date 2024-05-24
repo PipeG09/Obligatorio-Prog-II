@@ -3,13 +3,27 @@ import Entities.SpotifyDataMain;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
         SpotifyDataMain main = new SpotifyDataMain();
+        LocalDate date = LocalDate.parse("2024-04-01");
+        long startTime = System.nanoTime();
         main.readData();
-        main.getSongs().get("3rUGC1vUpkDG9CZFHMur1t");
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+        System.out.println(main.getDailyRanks().size());
+        System.out.println(main.getDailyRanks().loadFactor());
+        System.out.println(main.getDailyRanks().get(date).size());
+        System.out.println(main.getDailyRanks().get(date).loadFactor());
+        System.out.println(main.getDailyRanks().get(date).get("UY").size());
+        System.out.println(main.getDailyRanks().get(date).get("UY").loadFactor());
+
+        System.out.println(duration/1_000_000_000.0);
+        //LocalDate date= LocalDate.parse("2024-03-18");
+       // main.rankingByDayCountry(date,"Global");
 
     }
 }

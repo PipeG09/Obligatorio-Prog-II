@@ -53,6 +53,16 @@ public class HashTableImpl <K,T> implements HashTable <K,T> {
     }
 
     @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public float loadFactor() {
+        return capacity;
+    }
+
+    @Override
     public void put(K key, T value) throws KeyAlreadyExistsException {
         if (capacity>=0.75){
             refactorHash(size*2);

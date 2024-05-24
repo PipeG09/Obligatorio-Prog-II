@@ -16,5 +16,8 @@ public interface HashTable<K ,T> {
     public boolean contains(K key);
 
     public List<K> keys();
-    void setValueForKey(K key,T value) throws IllegalKeyException;
+
+    void setValueForKey(K key, T value) throws IllegalKeyException;
+    int size();
+    float loadFactor();
 }

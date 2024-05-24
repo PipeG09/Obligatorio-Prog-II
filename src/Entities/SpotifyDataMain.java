@@ -2,12 +2,15 @@ package Entities;
 
 import TADs.HashTable.HashTable;
 import TADs.HashTable.HashTableImpl;
+import TADs.List.List;
+import TADs.List.ListImpl;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class SpotifyDataMain {
     private HashTable<LocalDate,HashTable<String,HashTable<Integer,Song>>> dailyRanks;
@@ -15,9 +18,9 @@ public class SpotifyDataMain {
     private HashTable<String,HashTable<LocalDate,Integer>> artists;
 
     public SpotifyDataMain() {
-        dailyRanks= new HashTableImpl<LocalDate,HashTable<String,HashTable<Integer,Song>>>(370);
-        songs= new HashTableImpl<String,Song>(300);
-        artists=new HashTableImpl<>(300);
+        dailyRanks= new HashTableImpl<LocalDate,HashTable<String,HashTable<Integer,Song>>>(300);
+        songs= new HashTableImpl<String,Song>(230);
+        artists=new HashTableImpl<>(230);
 
     }
 
@@ -50,28 +53,13 @@ public class SpotifyDataMain {
                String spotifyId = row[0].replace("\"","");
                String songName = row[1].replace("\"","");
 
-
                 //System.out.println(songName);
                String artistName = row[2].replace("\"","");
 
                Integer dailyRank = Integer.parseInt(row[3].replace("\"",""));
 
-                if(songName.equals("End of Beginning")){
-                    contador+=1;
-                    if(contador==2076) {
-                        dailyRank=3;
-                        //2024-03-18
-                    }
-                    if(contador==2077){
-                        System.out.println(2);
-                    }
-                }
 
                String countryName = row[6].replace("\"","");
-               if (songName.equals("Beautiful Things") & countryName.isEmpty()& dailyRank==2){
-                   System.out.println("kdk");
-                   // 2024-04-04 , 2024-04-03, 2024-04-27
-               }
 
                if (countryName.isEmpty()){
                    countryName="Global"; // we choose this convention for convenience
@@ -103,9 +91,10 @@ public class SpotifyDataMain {
                 }
 
                 // now begins the triple Hash setup
+
                 HashTable<String,HashTable<Integer,Song>> HashForDate= dailyRanks.get(date);
                 if (HashForDate==null){
-                    HashForDate= new HashTableImpl<String,HashTable<Integer,Song>>(120); //
+                    HashForDate= new HashTableImpl<String,HashTable<Integer,Song>>(85); //
                     dailyRanks.put(date,HashForDate);
                 }
                 HashTable<Integer,Song> RankingDateCountry = HashForDate.get(countryName);
@@ -114,7 +103,15 @@ public class SpotifyDataMain {
                     // there are 50 elements but for efficiency we chose 71 to get a loading factor of 0.7 aprox
                     HashForDate.put(countryName,RankingDateCountry);
                 }
-                RankingDateCountry.put(dailyRank,song);
+                while (true) {
+                    try {
+                        RankingDateCountry.put(dailyRank, song);
+                        break;
+                    } catch (KeyAlreadyExistsException _) {
+                        dailyRank+=1;
+                    }
+                }
+
 
 
 
@@ -131,5 +128,22 @@ public class SpotifyDataMain {
             }
         }
 
+    }
+
+    public String findSong(String spotifyId) {
+        Song song = songs.get(spotifyId);
+        if (song==null){
+            return null;
+        }
+        return song.getName();
+    }
+
+    public List<Song> rankingByDayCountry(LocalDate date, String countryName) {
+       HashTable<Integer,Song> dailyTop= dailyRanks.get(date).get(countryName);
+       List<Song> songList = new ListImpl<>();
+       for (int i=1;i<51;i++){
+           System.out.print(i+ "-  "+ dailyTop.get(i).getName()+",  ");
+       }
+       return songList;
     }
 }
