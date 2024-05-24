@@ -67,12 +67,12 @@ public class SpotifyDataMain {
                     }
                 }
 
-
+               String countryName = row[6].replace("\"","");
                if (songName.equals("Beautiful Things") & countryName.isEmpty()& dailyRank==2){
                    System.out.println("kdk");
                    // 2024-04-04 , 2024-04-03, 2024-04-27
                }
-               String countryName = row[6].replace("\"","");
+
                if (countryName.isEmpty()){
                    countryName="Global"; // we choose this convention for convenience
                }
