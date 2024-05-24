@@ -10,5 +10,28 @@ public class Song {
 
     private String artists;
 
-    private double tempo;
+    private float tempo;
+
+    public Song(String spotifyId, String name, String artists, float tempo) {
+        this.spotifyId = spotifyId;
+        this.name = name;
+        this.artists = artists;
+        this.tempo = tempo;
+    }
+
+    public String getSpotifyId() {
+        return spotifyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getArtists() {
+        return artists;
+    }
+
+    public float getTempo() {
+        return tempo;
+    }
 }

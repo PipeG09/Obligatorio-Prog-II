@@ -1,5 +1,6 @@
 package TADs.HashTable;
 
+import TADs.BinaryTree.IllegalKeyException;
 import TADs.List.List;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -15,4 +16,5 @@ public interface HashTable<K ,T> {
     public boolean contains(K key);
 
     public List<K> keys();
+    void setValueForKey(K key,T value) throws IllegalKeyException;
 }

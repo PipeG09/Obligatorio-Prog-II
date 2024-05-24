@@ -1,5 +1,6 @@
 package TADs.HashTable;
 
+import TADs.BinaryTree.IllegalKeyException;
 import TADs.List.List;
 import TADs.List.ListImpl;
 import TADs.Node.HashNode;
@@ -58,6 +59,9 @@ public class HashTableImpl <K,T> implements HashTable <K,T> {
         }
         int hash = key.hashCode();
         int index = hash % size;
+        if(index<0){
+            index +=size;
+        }
         HashNode<K,T>  node = new HashNode<K,T>(key, value);
         //
         if (array[index] == null) {
@@ -103,10 +107,20 @@ public class HashTableImpl <K,T> implements HashTable <K,T> {
         }
         return node.getValue();
     }
-
+    @Override
+    public void setValueForKey(K key,T value) throws IllegalKeyException {
+        HashNode<K,T> node =getNode(key);
+        if (node == null) {
+            throw new IllegalKeyException();
+        }
+        node.setValue(value);
+    }
     private HashNode<K,T> getNode(K key) {
         int hash = key.hashCode();
         int index = hash % size;
+        if (index < 0) {
+            index += size;
+        }
         for (int i=0;i<size;i++) {
             HashNode<K,T> node = array[(index+i)%size];
             if(node==null){
