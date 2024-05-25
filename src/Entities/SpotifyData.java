@@ -1,5 +1,6 @@
 package Entities;
 
+import Exceptions.ArtistNotFoundException;
 import TADs.HashTable.HashTable;
 import TADs.HashTable.HashTableImpl;
 import TADs.List.IllegalIndexException;
@@ -15,17 +16,25 @@ import java.time.LocalDate;
 public class SpotifyData {
     private final HashTable<LocalDate,HashTable<String,HashTable<Integer,Song>>> dailyRanks;
     private final HashTable<String,Song> songs;
-    private String[] songKeys;
+    private final String[] songKeys;
     private final HashTable<String,HashTable<LocalDate,Integer>> artists;
-    private String[] artistKeys;
+    private final String[] artistKeys;
 
     public SpotifyData() {
         dailyRanks= new HashTableImpl<LocalDate,HashTable<String,HashTable<Integer,Song>>>(300);
         songs= new HashTableImpl<String,Song>(17000);
         artists=new HashTableImpl<>(9600);
-        songKeys = new String[10520];
-        artistKeys = new String[6700];
+        songKeys = new String[10516];
+        artistKeys = new String[7938];
 
+    }
+
+    public String[] getSongKeys() {
+        return songKeys;
+    }
+
+    public String[] getArtistKeys() {
+        return artistKeys;
     }
 
     public HashTable<LocalDate, HashTable<String, HashTable<Integer, Song>>> getDailyRanks() {
@@ -58,15 +67,10 @@ public class SpotifyData {
                String[] row = line.split(",\"");
                String spotifyId = row[0].replace("\"","");
                String songName = row[1].replace("\"","");
-
-                //System.out.println(songName);
                String artistName = row[2].replace("\"","");
-
+                String[] artistNames = artistName.split(",");
                Integer dailyRank = Integer.parseInt(row[3].replace("\"",""));
-
-
                String countryName = row[6].replace("\"","");
-
                if (countryName.isEmpty()){
                    countryName="Global"; // we choose this convention for convenience
                }
@@ -90,23 +94,27 @@ public class SpotifyData {
                     }
 
                 }
-                HashTable<LocalDate,Integer> songRanking= artists.get(artistName);
+
                 // check artists in the singer hash
-                if (songRanking==null){ // the artist hasn't been initialized yet
-                   HashTable<LocalDate,Integer> artistRanking = new HashTableImpl<LocalDate, Integer>(300);
-                   artistRanking.put(date,1); // when we encounter an artist for the first time we add his
-                                             // participation in the ranking
-                    artists.put(artistName,artistRanking); // we must check the size later
-                    artistKeys[artistCounter] = artistName;
-                    artistCounter += 1;
-                }
-                else { // the singer already existed
-                    Integer appearances = songRanking.get(date); // get the amount of times the artist poped up,on a certain date
-                    if (appearances==null){
-                        songRanking.put(date,1);
+                for (String name : artistNames) {
+                    name=name.trim();
+                    HashTable<LocalDate,Integer> songRanking= artists.get(name);
+                    if (songRanking==null){ // the artist hasn't been initialized yet
+                       HashTable<LocalDate,Integer> artistRanking = new HashTableImpl<LocalDate, Integer>(300);
+                       artistRanking.put(date,1); // when we encounter an artist for the first time we add his
+                                                 // participation in the ranking
+                        artists.put(name,artistRanking); // we must check the size later
+                        artistKeys[artistCounter] = name;
+                        artistCounter += 1;
                     }
-                    else {
-                        songRanking.setValueForKey(date,appearances+1);
+                    else { // the singer already existed
+                        Integer appearances = songRanking.get(date); // get the amount of times the artist poped up,on a certain date
+                        if (appearances==null){
+                            songRanking.put(date,1);
+                        }
+                        else {
+                            songRanking.setValueForKey(date,appearances+1);
+                        }
                     }
                 }
 
@@ -129,6 +137,7 @@ public class SpotifyData {
                         break;
                     } catch (KeyAlreadyExistsException _) {
                         dailyRank+=1;
+                        if (dailyRank==51) break;
                     }
                 }
 
@@ -227,5 +236,129 @@ public class SpotifyData {
         System.out.println("Top 3: "+top3);
         System.out.println("Top 2: "+top2);
         System.out.println("Top 1: "+top1);
+    }
+
+
+    public void top7Artist(LocalDate beginningDate, LocalDate endDate) throws IllegalIndexException {
+        String top1=null;
+        Integer appearancesTop1=0;
+        String top2 = null;
+        Integer appearancesTop2=0;
+        String top3 = null;
+        Integer appearancesTop3=0;
+        String top4 = null;
+        Integer appearancesTop4=0;
+        String top5 = null;
+        Integer appearancesTop5=0;
+        String top6 = null;
+        Integer appearancesTop6=0;
+        String top7 = null;
+        Integer appearancesTop7=0;
+
+        for (String artist : artistKeys) {
+            LocalDate currentDate = beginningDate;
+            Integer appearances= 0 ;
+            if (artist != null) {
+                while (currentDate.isBefore(endDate)) {
+                    Integer temp =artists.get(artist).get(currentDate);
+                    if(temp!=null){
+                        appearances+=temp;
+                    }
+                    currentDate = currentDate.plusDays(1);
+                }
+
+                if (appearances>appearancesTop1) {
+                    top7=top6;
+                    top6 = top5;
+                    top5 = top4;
+                    top4 = top3;
+                    top3 = top2;
+                    top2 = top1;
+                    top1 = artist;
+                    appearancesTop7 = appearancesTop6;
+                    appearancesTop6 = appearancesTop5;
+                    appearancesTop5 = appearancesTop4;
+                    appearancesTop4 = appearancesTop3;
+                    appearancesTop3 = appearancesTop2;
+                    appearancesTop2 = appearancesTop1;
+                    appearancesTop1=appearances;
+                }
+                else if (appearances>appearancesTop2) {
+                    top7=top6;
+                    top6 = top5;
+                    top5 = top4;
+                    top4 = top3;
+                    top3 = top2;
+                    top2 = artist;
+                    appearancesTop7 = appearancesTop6;
+                    appearancesTop6 = appearancesTop5;
+                    appearancesTop5 = appearancesTop4;
+                    appearancesTop4 = appearancesTop3;
+                    appearancesTop3 = appearancesTop2;
+                    appearancesTop2 = appearances;
+                }
+                else if (appearances>appearancesTop3) {
+                    top7 = top6;
+                    top6 = top5;
+                    top5 = top4;
+                    top4 = top3;
+                    top3 = artist;
+                    appearancesTop7 = appearancesTop6;
+                    appearancesTop6 = appearancesTop5;
+                    appearancesTop5 = appearancesTop4;
+                    appearancesTop4 = appearancesTop3;
+                    appearancesTop3 = appearances;
+                }
+                else if (appearances>appearancesTop4) {
+                    top7 = top6;
+                    top6 = top5;
+                    top5 = top4;
+                    top4 = artist;
+                    appearancesTop7 = appearancesTop6;
+                    appearancesTop6 = appearancesTop5;
+                    appearancesTop5 = appearancesTop4;
+                    appearancesTop4 = appearances;
+                }
+                else if (appearances>appearancesTop5) {
+                    top7 = top6;
+                    top6 = top5;
+                    top5 = artist;
+                    appearancesTop7 = appearancesTop6;
+                    appearancesTop6 = appearancesTop5;
+                    appearancesTop5 = appearances;
+                }
+                else if (appearances>appearancesTop6) {
+                    top7 = top6;
+                    top6 = artist;
+                    appearancesTop7 = appearancesTop6;
+                    appearancesTop6 = appearances;
+                }
+                else if (appearances>appearancesTop7) {
+                    top7 = artist;
+                    appearancesTop7 = appearances;
+                }
+            }
+
+        }
+        System.out.println("7 : "+ top7);
+        System.out.println("6 : "+ top6);
+        System.out.println("5 : "+ top5);
+        System.out.println("4 : "+ top4);
+        System.out.println("3 : "+ top3);
+        System.out.println("2 : "+ top2);
+        System.out.println("1 : "+ top1);
+    }
+
+    public int artistInDate(String artistName,LocalDate date) throws ArtistNotFoundException {
+        HashTable<LocalDate,Integer> artistHash= artists.get(artistName);
+        if(artistHash==null){
+            throw new ArtistNotFoundException ();
+        }
+        Integer appearances= artistHash.get(date);
+        if(appearances==null){
+            return 0;
+        }
+        return appearances;
+
     }
 }
