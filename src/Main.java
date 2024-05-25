@@ -14,12 +14,10 @@ public class Main {
         long durationFun3 = -1;
         long durationFun4 = -1;
         long durationFun5 = -1;
-        boolean developerInfo = false;
         int option = 0;
-        Scanner scanner ;
+        Scanner scanner = new Scanner(System.in);
         while (option != -1) {
-            scanner= new Scanner(System.in);
-            scanner.nextLine();
+            System.out.println("\n-----------------------------------");
             System.out.println("Welcome to Spotify \n Menu \n --------------------------");
             System.out.println("1. Load Data");
             System.out.println("2. Get Top 10 by country and date");
@@ -27,12 +25,13 @@ public class Main {
             System.out.println("4. Top 7 artist with more appearances in all Top 50's for a specific range of time");
             System.out.println("5. Get how many times a specific artist appears in the Top 50's in a given date ");
             System.out.println("6. Amount of songs with a particular tempo in Top 50's for a range of dates");
-            System.out.println(" Choose your option: ");
+            System.out.print(" Choose your option: ");
+            Thread.sleep(1000);
             option = scanner.nextInt();
-            scanner.close();
+
             switch (option) {
                 case 1: {
-                    System.out.println("Starting data download");
+                    System.out.println("\nStarting data download");
                     long startTime = System.nanoTime();
                     spotify.readData();
                     long endTime = System.nanoTime();
@@ -41,32 +40,33 @@ public class Main {
                 }
                 case 2: {
 
-                    scanner = new Scanner(System.in);
-                    System.out.println("Enter a Date (YYYY-MM-DD): ");
+                    System.out.print("\nEnter a Date (YYYY-MM-DD): ");
                     String dateStr = scanner.next();
+                    scanner.nextLine();
+                    LocalDate date;
+                    String country;
                     try {
-                        LocalDate date = LocalDate.parse(dateStr);
-                        scanner.nextLine(); // clean buffer
-                        System.out.println("Enter country's abbreviation: ");
-                        String country = scanner.nextLine();
-                        scanner.close();
-                        long startTime = System.nanoTime();
-                        spotify.top10DayCountry(date, country);
-                        long endTime = System.nanoTime();
-                        durationFun1 = endTime - startTime;
+                        date = LocalDate.parse(dateStr);
+                        System.out.print("\nEnter country's abbreviation: ");
+                        Thread.sleep(2000);
+                        country = scanner.next();
+                        scanner.nextLine();
 
-                        break;
                     } catch (Exception e) {
-                        System.out.println("One of the values you entered might be invalid");
+                        System.out.print("\nOne of the values you entered might be invalid");
                         break;
                     }
-
+                    long startTime = System.nanoTime();
+                    spotify.top10DayCountry(date, country);
+                    long endTime = System.nanoTime();
+                    durationFun1 = endTime - startTime;
+                    break;
                 }
                 case 3: {
-                    scanner = new Scanner(System.in);
-                    System.out.println("Enter a date (YYYY-MM-DD): ");
-                    String dateStr = scanner.nextLine();
-                    scanner.close();
+                    System.out.print("\nEnter a date (YYYY-MM-DD): ");
+                    String dateStr = scanner.next();
+                    scanner.nextLine();
+
                     try {
                         LocalDate date = LocalDate.parse(dateStr);
                         long startTime = System.nanoTime();
@@ -76,17 +76,18 @@ public class Main {
 
                         break;
                     } catch (Exception e) {
-                        System.out.println(" The date is invalid");
+                        System.out.println("\n The date is invalid");
                         break;
                     }
                 }
                 case 4: {
-                    scanner = new Scanner(System.in);
-                    System.out.println("Enter one of the two dates that delimits the range (YYYY-MM-DD): ");
-                    String dateStr = scanner.nextLine();
-                    System.out.println("Enter one of the two dates that delimits the range (YYYY-MM-DD): ");
-                    String dateStr2 = scanner.nextLine();
-                    scanner.close();
+
+                    System.out.print("\nEnter one of the two dates that delimits the range (YYYY-MM-DD): ");
+                    String dateStr = scanner.next();
+                    scanner.nextLine();
+                    System.out.print("\nEnter one of the two dates that delimits the range (YYYY-MM-DD): ");
+                    String dateStr2 = scanner.next();
+                    scanner.nextLine();
                     try {
                         LocalDate date1 = LocalDate.parse(dateStr);
                         LocalDate date2 = LocalDate.parse(dateStr2);
@@ -105,26 +106,27 @@ public class Main {
                             break;
                         }
                     } catch (Exception e) {
-                        System.out.println("One of the values you entered might be invalid");
+                        System.out.println("\nOne of the values you entered might be invalid");
                         break;
                     }
                 }
                 case 5: {
-                    scanner = new Scanner(System.in);
-                    System.out.println("Enter Artist name: ");
-                    String artistName = scanner.nextLine();
-                    System.out.println("Enter the Top 50's day you want to check: ");
-                    String day = scanner.nextLine();
-                    scanner.close();
+                    System.out.print("\nEnter Artist name separated by coma (eg: Post,Malone ): ");
+                    String artistName = scanner.next();
+                    artistName=artistName + scanner.nextLine();
+                    System.out.print("\nEnter the Top 50's day you want to check: ");
+                    String day = scanner.next();
+                    scanner.nextLine();
                     try {
                         LocalDate date = LocalDate.parse(day);
                         long startTime = System.nanoTime();
-                        spotify.artistInDate(artistName, date);
+                        int number = spotify.artistInDate(artistName, date);
                         long endTime = System.nanoTime();
                         durationFun4 = endTime - startTime;
+                        System.out.println(number);
 
                     } catch (Exception e) {
-                        System.out.println("A value you entered might be invalid");
+                        System.out.print("\nA value you entered might be invalid");
                     }
 
                 }
@@ -145,6 +147,7 @@ public class Main {
                     break;
             }
         }
+        scanner.close();
     }
 }
 
