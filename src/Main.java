@@ -26,16 +26,25 @@ public class Main {
         duration = endTime - startTime;
         System.out.println("Second function duration = "+duration/1_000_000_000.0);
 
+        System.out.println("Artists: ");
+        System.out.println(main.getArtists().size());
+        System.out.println(main.getArtists().loadFactor());
+        System.out.println(main.getArtists().get("Benson Boone").size());
+        System.out.println(main.getArtists().get("Benson Boone").loadFactor());
 
 
-
-
-//        System.out.println(main.getDailyRanks().size());
-//        System.out.println(main.getDailyRanks().loadFactor());
+//        System.out.println("Songs ");
+//        System.out.println(main.getSongs().size());
+//        System.out.println(main.getSongs().loadFactor());
+//
+    System.out.println(main.getDailyRanks().size());
+    System.out.println(main.getDailyRanks().loadFactor());
 //        System.out.println(main.getDailyRanks().get(date).size());
 //        System.out.println(main.getDailyRanks().get(date).loadFactor());
-//        System.out.println(main.getDailyRanks().get(date).get("UY").size());
+//        System.out.println(main.getDailyRanks().get(date).get("Global").size());
 //        System.out.println(main.getDailyRanks().get(date).get("UY").loadFactor());
+
+
 
 
         //LocalDate date= LocalDate.parse("2024-03-18");

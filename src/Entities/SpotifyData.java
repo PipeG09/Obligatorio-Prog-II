@@ -93,7 +93,7 @@ public class SpotifyData {
                 HashTable<LocalDate,Integer> songRanking= artists.get(artistName);
                 // check artists in the singer hash
                 if (songRanking==null){ // the artist hasn't been initialized yet
-                   HashTable<LocalDate,Integer> artistRanking = new HashTableImpl<LocalDate, Integer>(20);
+                   HashTable<LocalDate,Integer> artistRanking = new HashTableImpl<LocalDate, Integer>(300);
                    artistRanking.put(date,1); // when we encounter an artist for the first time we add his
                                              // participation in the ranking
                     artists.put(artistName,artistRanking); // we must check the size later
