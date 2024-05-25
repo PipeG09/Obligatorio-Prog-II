@@ -1,27 +1,43 @@
-import Entities.SpotifyDataMain;
+import Entities.SpotifyData;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        SpotifyDataMain main = new SpotifyDataMain();
-        LocalDate date = LocalDate.parse("2024-04-01");
+        SpotifyData main = new SpotifyData();
+
+        LocalDate date = LocalDate.parse("2024-05-10");
         long startTime = System.nanoTime();
         main.readData();
         long endTime = System.nanoTime();
         long duration = endTime - startTime;
-        System.out.println(main.getDailyRanks().size());
-        System.out.println(main.getDailyRanks().loadFactor());
-        System.out.println(main.getDailyRanks().get(date).size());
-        System.out.println(main.getDailyRanks().get(date).loadFactor());
-        System.out.println(main.getDailyRanks().get(date).get("UY").size());
-        System.out.println(main.getDailyRanks().get(date).get("UY").loadFactor());
+        System.out.println("Reading csv duration = "+duration/1_000_000_000.0);
 
-        System.out.println(duration/1_000_000_000.0);
+        startTime = System.nanoTime();
+        main.top10DayCountry(date,"UY");
+        endTime = System.nanoTime();
+        duration = endTime - startTime;
+        System.out.println("First function duration = "+duration/1_000_000_000.0);
+
+        startTime = System.nanoTime();
+        main.top5SongsInTop50(date);
+        endTime= System.nanoTime();
+        duration = endTime - startTime;
+        System.out.println("Second function duration = "+duration/1_000_000_000.0);
+
+
+
+
+
+//        System.out.println(main.getDailyRanks().size());
+//        System.out.println(main.getDailyRanks().loadFactor());
+//        System.out.println(main.getDailyRanks().get(date).size());
+//        System.out.println(main.getDailyRanks().get(date).loadFactor());
+//        System.out.println(main.getDailyRanks().get(date).get("UY").size());
+//        System.out.println(main.getDailyRanks().get(date).get("UY").loadFactor());
+
+
         //LocalDate date= LocalDate.parse("2024-03-18");
        // main.rankingByDayCountry(date,"Global");
 

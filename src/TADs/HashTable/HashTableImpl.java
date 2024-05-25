@@ -89,11 +89,13 @@ public class HashTableImpl <K,T> implements HashTable <K,T> {
                 // si encuentro un espacio vacio ya se que la key no se encuentra en el hash
                     if (firstSpot == -1) { // si no hubo ningun espacio libre antes
                         array[(index + i) % size] = node;
+                        capacity+= (float) 1/size;
                         return;
                     }
                     else{
                         array[firstSpot]=node;  // si ya habia un espacio libre correspondiente a uno eliminado antes
                         // lo agrego ahi
+                        capacity+= (float) 1/size;
                         return;
                     } }
 
@@ -166,10 +168,10 @@ public class HashTableImpl <K,T> implements HashTable <K,T> {
     @Override
     public List<K> keys() {
         List<K> keyList= new ListImpl<>();
-        for (HashNode<K,T> node : array) {
-            if(node != null) {
-                if(node.getKey() != null) {
-                    keyList.add(node.getKey());
+        for (int i=0;i<size;i++) {
+            if(array[i] != null) {
+                if(array[i].getKey() != null) {
+                    keyList.add(array[i].getKey());
                 }
             }
         }
