@@ -16,6 +16,7 @@ public class Main {
         long durationFun4 = 0;
         long durationFun5 = 0;
         int option = 0;
+        boolean dataDownloaded = false;
         Scanner scanner = new Scanner(System.in);
         printSpotifyLogo();
 
@@ -23,19 +24,34 @@ public class Main {
             printMenu();
             Thread.sleep(1000);
             option = scanner.nextInt();
-
+            if (option != 1 && !dataDownloaded && option != 8) {
+                option = 0;
+                System.out.println("\nData has not been downloaded \n");
+            }
             switch (option) {
+
                 case 1: {
-                    System.out.println("\nStarting data download");
-                    long startTime = System.nanoTime();
-                    spotify.readData();
-                    long endTime = System.nanoTime();
-                    durationFun0 = endTime - startTime;
-                    clearConsole();
+                    if (!dataDownloaded) {
+                        System.out.println("\nDownloading Spotify data...\n");
+                        long startTime = System.nanoTime();
+                        spotify.readData();
+                        long endTime = System.nanoTime();
+                        durationFun0 = endTime - startTime;
+                        dataDownloaded = true;
+                        System.out.println("\nData was succesfully downloaded\nPress enter to continue: \n");
+                        scanner.nextLine();
+                        scanner.nextLine();
+                    }
+                    else {
+                        System.out.println("\nERROR! The data has already been downloaded \n");
+                        System.out.println("Press enter to continue: \n");
+                        scanner.nextLine();
+                        scanner.nextLine();
+                    }
                     break;
                 }
-                case 2: {
 
+                case 2: {
                     System.out.print("\nEnter a Date (YYYY-MM-DD): ");
                     String dateStr = scanner.next();
                     scanner.nextLine();
@@ -49,15 +65,19 @@ public class Main {
                         scanner.nextLine();
 
                     } catch (Exception e) {
-                        System.out.print("\nOne of the values you entered might be invalid");
+                        System.out.print("\nERROR! One of the values you entered might be invalid");
                         break;
                     }
                     long startTime = System.nanoTime();
                     spotify.top10DayCountry(date, country);
                     long endTime = System.nanoTime();
                     durationFun1 = endTime - startTime;
+                    System.out.println("\nPress enter to continue: ");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
                 }
+
                 case 3: {
                     System.out.print("\nEnter a date (YYYY-MM-DD): ");
                     String dateStr = scanner.next();
@@ -69,15 +89,18 @@ public class Main {
                         spotify.top5SongsInTop50(date);
                         long endTime = System.nanoTime();
                         durationFun2 = endTime - startTime;
-
+                        System.out.println("\nPress enter to continue: ");
+                        scanner.nextLine();
+                        scanner.nextLine();
                         break;
                     } catch (Exception e) {
-                        System.out.println("\n The date is invalid");
+                        System.out.println("\nERROR! The date is invalid");
                         break;
                     }
-                }
-                case 4: {
 
+                }
+
+                case 4: {
                     System.out.print("\nEnter one of the two dates that delimits the range (YYYY-MM-DD): ");
                     String dateStr = scanner.next();
                     scanner.nextLine();
@@ -92,6 +115,9 @@ public class Main {
                             spotify.top7Artist(date1, date2);
                             long endTime = System.nanoTime();
                             durationFun3 = endTime - startTime;
+                            System.out.println("\nPress enter to continue: ");
+                            scanner.nextLine();
+                            scanner.nextLine();
                             break;
 
                         } else {
@@ -99,13 +125,17 @@ public class Main {
                             spotify.top7Artist(date2, date1);
                             long endTime = System.nanoTime();
                             durationFun3 = endTime - startTime;
+                            System.out.println("\nPress enter to continue: ");
+                            scanner.nextLine();
+                            scanner.nextLine();
                             break;
                         }
                     } catch (Exception e) {
-                        System.out.println("\nOne of the values you entered might be invalid");
+                        System.out.println("\nERROR! One of the values you entered might be invalid\n");
                         break;
                     }
                 }
+
                 case 5: {
                     System.out.print("\nEnter Artist name separated by coma (eg: Post,Malone ): ");
                     String artistName = scanner.next();
@@ -120,15 +150,17 @@ public class Main {
                         long endTime = System.nanoTime();
                         durationFun4 = endTime - startTime;
                         System.out.println(number);
-
+                        System.out.println("\nPress enter to continue: ");
+                        scanner.nextLine();
+                        scanner.nextLine();
                     } catch (Exception e) {
-                        System.out.print("\nA value you entered might be invalid");
+                        System.out.print("\nERROR! A value you entered might be invalid\n");
                     }
                     break;
-
                 }
+
                 case 6: {
-                    System.out.print("\n Enter one of the values that delimits the range of tempo: ");
+                    System.out.print("\nEnter one of the values that delimits the range of tempo: ");
                     float tempo1 = scanner.nextFloat();
                     scanner.nextLine();
                     System.out.print("\nEnter the other value that delimits the range of tempo: ");
@@ -138,7 +170,7 @@ public class Main {
                     String date = scanner.next();
                     scanner.nextLine();
                     LocalDate date1date = LocalDate.parse(date);
-                    System.out.print("\n Enter the other date that delimits the range of time (YYYY-MM-DD): ");
+                    System.out.print("\nEnter the other date that delimits the range of time (YYYY-MM-DD): ");
                     String date2 = scanner.next();
                     scanner.nextLine();
                     LocalDate date2date = LocalDate.parse(date2);
@@ -155,26 +187,37 @@ public class Main {
                         durationFun5 = endTime - startTime;
                     }
                     System.out.println(count);
-
+                    System.out.println("\nPress enter to continue: ");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
                 }
-                case 7: {
 
-                    System.out.println("Reading csv duration = " + durationFun0 / 1_000_000_000.0);
+                case 7: {
+                    System.out.println("\nReading csv duration = " + durationFun0 / 1_000_000_000.0);
                     System.out.println("First function duration = " + durationFun1 / 1_000_000_000.0);
                     System.out.println("Second function duration = " + durationFun2 / 1_000_000_000.0);
                     System.out.println("Third function duration = " + durationFun3 / 1_000_000_000.0);
                     System.out.println("Fourth function duration = " + durationFun4 / 1_000_000_000.0);
-                    System.out.println("Fifth function duration = " + durationFun5 / 1_000_000_000.0);
+                    System.out.println("Fifth function duration = " + durationFun5 / 1_000_000_000.0 + "\n");
+                    System.out.println("Press enter to continue: ");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
-
                 }
+
+                case 8: {
+                    option = -1;
+                    break;
+                }
+
                 default:
-                    System.out.println("option not recognized");
+                    System.out.println("\nERROR! Option not recognized\n");
                     break;
             }
         }
-        System.out.println("Goodbye and thanks for using spotify");
+        printThanksOsitos();
+        System.out.println("\nGoodbye and thanks for using spotify\n");
         scanner.close();
     }
 
@@ -230,7 +273,7 @@ public class Main {
 
 
     public static void printMenu() {
-        String menu =  "---------------------------------------------------\n" +
+        String menu =  "\n---------------------------------------------------\n" +
                         "oooo     oooo ooooooooooo oooo   oooo ooooo  oooo \n" +
                         " 8888o   888   888    88   8888o  88   888    88  \n" +
                         " 88 888o8 88   888ooo8     88 888o88   888    88  \n" +
@@ -238,20 +281,29 @@ public class Main {
                         "o88o  8  o88o o888ooo8888 o88o    88    888oo88   \n" +
                         "---------------------------------------------------\n";
         System.out.println(menu);
-        System.out.println("1. Load Data");
-        System.out.println("2. Get Top 10 by country and date");
-        System.out.println("3 Get Top 5 songs in more Top 50's for a specific day");
+        System.out.println("1. Load Data ");
+        System.out.println("2. Get Top 10 by country and date ");
+        System.out.println("3. Get Top 5 songs in more Top 50's for a specific day ");
         System.out.println("4. Top 7 artist with more appearances in all Top 50's for a specific range of time");
         System.out.println("5. Get how many times a specific artist appears in the Top 50's in a given date ");
-        System.out.println("6. Amount of songs in Top 50's for a range of dates within a range of tempo  ");
-        System.out.print(" Choose your option: ");
+        System.out.println("6. Amount of songs in Top 50's for a range of dates within a range of tempo ");
+        System.out.println("7. View the performance in tasks previously carried out ");
+        System.out.println("8. Exit ");
+        System.out.print("   Choose your option: ");
     }
 
+    public static void printThanksOsitos() {
+        String thanks = "   _     _      _     _      _     _      _     _      _     _      _     _   \n" +
+                "  (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)  \n" +
+                "   / ._. \\      / ._. \\      / ._. \\      / ._. \\      / ._. \\      / ._. \\   \n" +
+                " __\\( Y )/__  __\\( Y )/__  __\\( Y )/__  __\\( Y )/__  __\\( Y )/__  __\\( Y )/__ \n" +
+                "(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)\n" +
+                "   || T ||      || H ||      || A ||      || N ||      || K ||      || S ||   \n" +
+                " _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._ \n" +
+                "(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-`\\.-.)\n" +
+                " `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-' ";
 
-    public static void clearConsole() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
+        System.out.println(thanks);
     }
 }
 
