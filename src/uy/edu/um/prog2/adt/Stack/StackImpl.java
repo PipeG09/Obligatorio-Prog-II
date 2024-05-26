@@ -1,7 +1,7 @@
-package TADs.Stack;
+package uy.edu.um.prog2.adt.Stack;
 
-import TADs.List.ListImpl;
-import TADs.List.IllegalIndexException;
+import uy.edu.um.prog2.adt.List.ListImpl;
+import uy.edu.um.prog2.adt.List.IllegalIndexException;
 
 
 public class StackImpl<T extends Comparable<T>> implements Stack<T> {

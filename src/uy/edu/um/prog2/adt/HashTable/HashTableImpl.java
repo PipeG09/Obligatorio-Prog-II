@@ -1,12 +1,11 @@
-package TADs.HashTable;
+package uy.edu.um.prog2.adt.HashTable;
 
-import TADs.BinaryTree.IllegalKeyException;
-import TADs.List.List;
-import TADs.List.ListImpl;
-import TADs.Node.HashNode;
+import uy.edu.um.prog2.adt.BinaryTree.IllegalKeyException;
+import uy.edu.um.prog2.adt.List.List;
+import uy.edu.um.prog2.adt.List.ListImpl;
+import uy.edu.um.prog2.adt.Node.HashNode;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
-import java.util.LinkedList;
 
 public class HashTableImpl <K,T> implements HashTable <K,T> {
 

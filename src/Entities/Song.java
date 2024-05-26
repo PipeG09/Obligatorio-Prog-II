@@ -1,8 +1,7 @@
 package Entities;
 
-import TADs.HashTable.HashTable;
-import TADs.HashTable.HashTableImpl;
-import com.opencsv.bean.CsvBindByName;
+import uy.edu.um.prog2.adt.HashTable.HashTable;
+import uy.edu.um.prog2.adt.HashTable.HashTableImpl;
 
 import java.time.LocalDate;
 

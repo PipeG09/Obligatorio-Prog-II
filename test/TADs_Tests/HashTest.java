@@ -1,7 +1,7 @@
 package TADs_Tests;
 
-import TADs.HashTable.HashTableImpl;
-import TADs.List.List;
+import uy.edu.um.prog2.adt.HashTable.HashTableImpl;
+import uy.edu.um.prog2.adt.List.List;
 import org.junit.Test;
 
 import javax.management.openmbean.KeyAlreadyExistsException;

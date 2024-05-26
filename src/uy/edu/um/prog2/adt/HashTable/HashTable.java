@@ -1,7 +1,7 @@
-package TADs.HashTable;
+package uy.edu.um.prog2.adt.HashTable;
 
-import TADs.BinaryTree.IllegalKeyException;
-import TADs.List.List;
+import uy.edu.um.prog2.adt.BinaryTree.IllegalKeyException;
+import uy.edu.um.prog2.adt.List.List;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 

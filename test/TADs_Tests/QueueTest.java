@@ -1,9 +1,9 @@
 package TADs_Tests;
 
-import TADs.List.List;
-import TADs.Node.Node;
-import TADs.Queue.EmptyQueueException;
-import TADs.Queue.QueueImpl;
+import uy.edu.um.prog2.adt.List.List;
+import uy.edu.um.prog2.adt.Node.Node;
+import uy.edu.um.prog2.adt.Queue.EmptyQueueException;
+import uy.edu.um.prog2.adt.Queue.QueueImpl;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

@@ -1,4 +1,4 @@
-package TADs.Node;
+package uy.edu.um.prog2.adt.Node;
 
 public class HashNode<K,T> {
     private K key;

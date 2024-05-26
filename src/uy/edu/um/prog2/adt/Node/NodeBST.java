@@ -1,9 +1,9 @@
-package TADs.Node;
+package uy.edu.um.prog2.adt.Node;
 
 
 
-import TADs.List.List;
-import TADs.List.ListImpl;
+import uy.edu.um.prog2.adt.List.List;
+import uy.edu.um.prog2.adt.List.ListImpl;
 
 public class NodeBST<K extends Comparable<K>, T> implements Comparable<NodeBST<K, T>> {
     K key;

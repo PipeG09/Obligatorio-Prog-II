@@ -1,8 +1,8 @@
-package TADs.Queue;
+package uy.edu.um.prog2.adt.Queue;
 
-import TADs.List.IllegalIndexException;
-import TADs.List.List;
-import TADs.List.ListImpl;
+import uy.edu.um.prog2.adt.List.IllegalIndexException;
+import uy.edu.um.prog2.adt.List.List;
+import uy.edu.um.prog2.adt.List.ListImpl;
 
 public class QueueImpl<T extends Comparable<T>> implements Queue<T>{
 

@@ -1,4 +1,4 @@
-package TADs.Stack;
+package uy.edu.um.prog2.adt.Stack;
 
 public interface Stack<T extends Comparable<T>> {
 

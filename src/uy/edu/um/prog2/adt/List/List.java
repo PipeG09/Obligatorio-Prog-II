@@ -1,7 +1,7 @@
-package TADs.List;
+package uy.edu.um.prog2.adt.List;
 
 import Exceptions.ItemNotFoundException;
-import TADs.Node.Node;
+import uy.edu.um.prog2.adt.Node.Node;
 
 public interface List<T> {
 

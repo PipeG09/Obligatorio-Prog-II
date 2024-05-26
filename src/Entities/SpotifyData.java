@@ -1,11 +1,10 @@
 package Entities;
 
 import Exceptions.ArtistNotFoundException;
-import TADs.HashTable.HashTable;
-import TADs.HashTable.HashTableImpl;
-import TADs.List.IllegalIndexException;
-import TADs.List.List;
-import TADs.List.ListImpl;
+import uy.edu.um.prog2.adt.HashTable.HashTable;
+import uy.edu.um.prog2.adt.HashTable.HashTableImpl;
+import uy.edu.um.prog2.adt.List.IllegalIndexException;
+import uy.edu.um.prog2.adt.List.List;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.io.BufferedReader;

@@ -1,8 +1,8 @@
-package TADs.BinaryTree;
+package uy.edu.um.prog2.adt.BinaryTree;
 
 import Exceptions.ItemNotFoundException;
 
-import TADs.List.List;
+import uy.edu.um.prog2.adt.List.List;
 
 public interface MyBinarySearchTree<K extends Comparable<K>,T> {
 

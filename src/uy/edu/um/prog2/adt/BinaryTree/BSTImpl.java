@@ -1,16 +1,16 @@
-package TADs.BinaryTree;
+package uy.edu.um.prog2.adt.BinaryTree;
 
 
 import Exceptions.*;
 
-import TADs.List.List;
-import TADs.List.ListImpl;
-import TADs.Node.NodeBST;
-import TADs.Queue.EmptyQueueException;
-import TADs.Queue.Queue;
-import TADs.Queue.QueueImpl;
+import uy.edu.um.prog2.adt.List.List;
+import uy.edu.um.prog2.adt.List.ListImpl;
+import uy.edu.um.prog2.adt.Node.NodeBST;
+import uy.edu.um.prog2.adt.Queue.EmptyQueueException;
+import uy.edu.um.prog2.adt.Queue.Queue;
+import uy.edu.um.prog2.adt.Queue.QueueImpl;
 
-import static TADs.Node.NodeBST.findNodeInBinarySearchTree;
+import static uy.edu.um.prog2.adt.Node.NodeBST.findNodeInBinarySearchTree;
 
 public class BSTImpl<K extends Comparable<K>,T> implements MyBinarySearchTree<K,T> {
 

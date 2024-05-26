@@ -1,9 +1,9 @@
 package TADs_Tests;
 
 import Exceptions.ItemNotFoundException;
-import TADs.BinaryTree.BSTImpl;
-import TADs.BinaryTree.IllegalKeyException;
-import TADs.Node.NodeBST;
+import uy.edu.um.prog2.adt.BinaryTree.BSTImpl;
+import uy.edu.um.prog2.adt.BinaryTree.IllegalKeyException;
+import uy.edu.um.prog2.adt.Node.NodeBST;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

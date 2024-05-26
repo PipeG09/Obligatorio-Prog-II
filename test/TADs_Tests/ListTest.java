@@ -1,10 +1,8 @@
 package TADs_Tests;
 
 import Exceptions.ItemNotFoundException;
-import TADs.List.IllegalIndexException;
-import TADs.List.List;
-import TADs.List.ListImpl;
-import TADs.Node.Node;
+import uy.edu.um.prog2.adt.List.IllegalIndexException;
+import uy.edu.um.prog2.adt.List.ListImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
