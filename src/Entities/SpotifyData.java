@@ -164,7 +164,8 @@ public class SpotifyData {
        if (daily != null) {
            HashTable<Integer, Song> dailyTop = daily.get(countryName);
            for (int i = 1; i < 11; i++) {
-               System.out.println(i + "-  " + dailyTop.get(i).getName() + ",  ");
+               Song song = dailyTop.get(i);
+               System.out.println(i + "-  " + song.getName() + ",  "+song.getArtists());
            }
        }
     }

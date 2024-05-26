@@ -147,17 +147,19 @@ public class Main {
                     String date2 = scanner.next();
                     scanner.nextLine();
                     LocalDate date2date = LocalDate.parse(date2);
+                    int count;
                     if (date1date.isBefore(date2date)) {
                         long startTime = System.nanoTime();
-                        spotify.tempoInDate(date1date,date2date,Math.min(tempo1,tempo2),Math.max(tempo1,tempo2));
+                        count= spotify.tempoInDate(date1date,date2date,Math.min(tempo1,tempo2),Math.max(tempo1,tempo2));
                         long endTime = System.nanoTime();
                         durationFun5 = endTime - startTime;
                     }else {
                         long startTime = System.nanoTime();
-                        spotify.tempoInDate(date2date,date1date,Math.min(tempo2,tempo1),Math.max(tempo1,tempo2));
+                        count = spotify.tempoInDate(date2date,date1date,Math.min(tempo2,tempo1),Math.max(tempo1,tempo2));
                         long endTime = System.nanoTime();
                         durationFun5 = endTime - startTime;
                     }
+                    System.out.println(count);
 
                     break;
                 }
