@@ -8,23 +8,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         SpotifyData spotify = new SpotifyData();
-        long durationFun0 = -1;
-        long durationFun1 = -1;
-        long durationFun2 = -1;
-        long durationFun3 = -1;
-        long durationFun4 = -1;
-        long durationFun5 = -1;
+        long durationFun0 = 0;
+        long durationFun1 = 0;
+        long durationFun2 = 0;
+        long durationFun3 = 0;
+        long durationFun4 = 0;
+        long durationFun5 = 0;
         int option = 0;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to Spotify");
         while (option != -1) {
             System.out.println("\n-----------------------------------");
-            System.out.println("Welcome to Spotify \n Menu \n --------------------------");
+            System.out.println(" Menu \n --------------------------");
             System.out.println("1. Load Data");
             System.out.println("2. Get Top 10 by country and date");
             System.out.println("3 Get Top 5 songs in more Top 50's for a specific day");
             System.out.println("4. Top 7 artist with more appearances in all Top 50's for a specific range of time");
             System.out.println("5. Get how many times a specific artist appears in the Top 50's in a given date ");
-            System.out.println("6. Amount of songs with a particular tempo in Top 50's for a range of dates");
+            System.out.println("6. Amount of songs in Top 50's for a range of dates within a range of tempo  ");
             System.out.print(" Choose your option: ");
             Thread.sleep(1000);
             option = scanner.nextInt();
@@ -114,7 +115,7 @@ public class Main {
                     System.out.print("\nEnter Artist name separated by coma (eg: Post,Malone ): ");
                     String artistName = scanner.next();
                     artistName=artistName + scanner.nextLine();
-                    System.out.print("\nEnter the Top 50's day you want to check: ");
+                    System.out.print("\nEnter the day of which Top 50's you want to check (YYYY-MM-DD): ");
                     String day = scanner.next();
                     scanner.nextLine();
                     try {
@@ -128,9 +129,36 @@ public class Main {
                     } catch (Exception e) {
                         System.out.print("\nA value you entered might be invalid");
                     }
+                    break;
 
                 }
                 case 6: {
+                    System.out.print("\n Enter one of the values that delimits the range of tempo: ");
+                    float tempo1=scanner.nextFloat();
+                    scanner.nextLine();
+                    System.out.print("\nEnter the other value that delimits the range of tempo: ");
+                    float tempo2=scanner.nextFloat();
+                    scanner.nextLine();
+                    System.out.print("\nEnter one of the dates that delimits the range of time (YYYY-MM-DD): ");
+                    String date = scanner.next();
+                    scanner.nextLine();
+                    LocalDate date1date = LocalDate.parse(date);
+                    System.out.print("\n Enter the other date that delimits the range of time (YYYY-MM-DD): ");
+                    String date2 = scanner.next();
+                    scanner.nextLine();
+                    LocalDate date2date = LocalDate.parse(date2);
+                    if (date1date.isBefore(date2date)) {
+                        long startTime = System.nanoTime();
+                        spotify.tempoInDate(date1date,date2date,Math.min(tempo1,tempo2),Math.max(tempo1,tempo2));
+                        long endTime = System.nanoTime();
+                        durationFun5 = endTime - startTime;
+                    }else {
+                        long startTime = System.nanoTime();
+                        spotify.tempoInDate(date2date,date1date,Math.min(tempo2,tempo1),Math.max(tempo1,tempo2));
+                        long endTime = System.nanoTime();
+                        durationFun5 = endTime - startTime;
+                    }
+
                     break;
                 }
                 case 7: {
@@ -140,6 +168,8 @@ public class Main {
                     System.out.println("Second function duration = " + durationFun2 / 1_000_000_000.0);
                     System.out.println("Third function duration = " + durationFun3 / 1_000_000_000.0);
                     System.out.println("Fourth function duration = " + durationFun4 / 1_000_000_000.0);
+                    System.out.println("Fifth function duration = " + durationFun5 / 1_000_000_000.0);
+                    break;
 
                 }
                 default:
@@ -147,6 +177,7 @@ public class Main {
                     break;
             }
         }
+        System.out.println("Goodbye and thanks for using spotify");
         scanner.close();
     }
 }
@@ -163,35 +194,6 @@ public class Main {
 
 
 
-//        LocalDate date = LocalDate.parse("2024-01-01");
-//        long startTime = System.nanoTime();
-//        spotify.readData();
-//        long endTime = System.nanoTime();
-//        long duration = endTime - startTime;
-//        System.out.println("Reading csv duration = "+duration/1_000_000_000.0);
-//
-//        startTime = System.nanoTime();
-//        spotify.top10DayCountry(date,"UY");
-//        endTime = System.nanoTime();
-//        duration = endTime - startTime;
-//        System.out.println("First function duration = "+duration/1_000_000_000.0);
-//
-//        startTime = System.nanoTime();
-//        spotify.top5SongsInTop50(date);
-//        endTime= System.nanoTime();
-//        duration = endTime - startTime;
-//        System.out.println("Second function duration = "+duration/1_000_000_000.0 +" \n");
-//
-//        startTime = System.nanoTime();
-//        LocalDate endDate = LocalDate.parse("2024-05-13");
-//        spotify.top7Artist(date,endDate);
-//        endTime= System.nanoTime();
-//        duration = endTime - startTime;
-//        System.out.println("Third function duration = "+duration/1_000_000_000.0);
-//
-//        LocalDate date1= LocalDate.parse("2024-01-10");
-//        int number= spotify.artistInDate("Noah Kahan",date1);
-//        System.out.println(number);
 
 
 
