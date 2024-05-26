@@ -1,5 +1,6 @@
 import Entities.SpotifyData;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,17 +17,10 @@ public class Main {
         long durationFun5 = 0;
         int option = 0;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Spotify");
+        printSpotifyLogo();
+
         while (option != -1) {
-            System.out.println("\n-----------------------------------");
-            System.out.println(" Menu \n --------------------------");
-            System.out.println("1. Load Data");
-            System.out.println("2. Get Top 10 by country and date");
-            System.out.println("3 Get Top 5 songs in more Top 50's for a specific day");
-            System.out.println("4. Top 7 artist with more appearances in all Top 50's for a specific range of time");
-            System.out.println("5. Get how many times a specific artist appears in the Top 50's in a given date ");
-            System.out.println("6. Amount of songs in Top 50's for a range of dates within a range of tempo  ");
-            System.out.print(" Choose your option: ");
+            printMenu();
             Thread.sleep(1000);
             option = scanner.nextInt();
 
@@ -37,6 +31,7 @@ public class Main {
                     spotify.readData();
                     long endTime = System.nanoTime();
                     durationFun0 = endTime - startTime;
+                    clearConsole();
                     break;
                 }
                 case 2: {
@@ -114,7 +109,7 @@ public class Main {
                 case 5: {
                     System.out.print("\nEnter Artist name separated by coma (eg: Post,Malone ): ");
                     String artistName = scanner.next();
-                    artistName=artistName + scanner.nextLine();
+                    artistName = artistName + scanner.nextLine();
                     System.out.print("\nEnter the day of which Top 50's you want to check (YYYY-MM-DD): ");
                     String day = scanner.next();
                     scanner.nextLine();
@@ -134,10 +129,10 @@ public class Main {
                 }
                 case 6: {
                     System.out.print("\n Enter one of the values that delimits the range of tempo: ");
-                    float tempo1=scanner.nextFloat();
+                    float tempo1 = scanner.nextFloat();
                     scanner.nextLine();
                     System.out.print("\nEnter the other value that delimits the range of tempo: ");
-                    float tempo2=scanner.nextFloat();
+                    float tempo2 = scanner.nextFloat();
                     scanner.nextLine();
                     System.out.print("\nEnter one of the dates that delimits the range of time (YYYY-MM-DD): ");
                     String date = scanner.next();
@@ -150,12 +145,12 @@ public class Main {
                     int count;
                     if (date1date.isBefore(date2date)) {
                         long startTime = System.nanoTime();
-                        count= spotify.tempoInDate(date1date,date2date,Math.min(tempo1,tempo2),Math.max(tempo1,tempo2));
+                        count = spotify.tempoInDate(date1date, date2date, Math.min(tempo1, tempo2), Math.max(tempo1, tempo2));
                         long endTime = System.nanoTime();
                         durationFun5 = endTime - startTime;
-                    }else {
+                    } else {
                         long startTime = System.nanoTime();
-                        count = spotify.tempoInDate(date2date,date1date,Math.min(tempo2,tempo1),Math.max(tempo1,tempo2));
+                        count = spotify.tempoInDate(date2date, date1date, Math.min(tempo2, tempo1), Math.max(tempo1, tempo2));
                         long endTime = System.nanoTime();
                         durationFun5 = endTime - startTime;
                     }
@@ -181,6 +176,82 @@ public class Main {
         }
         System.out.println("Goodbye and thanks for using spotify");
         scanner.close();
+    }
+
+
+    public static void printSpotifyLogo() throws InterruptedException {
+        String asciiSpotifyLogo = "⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣶⣶⣶⣶⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⡀⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀\n" +
+                                    "⠀⢀⣾⣿⡿⠿⠛⠛⠛⠉⠉⠉⠉⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣷⡀⠀\n" +
+                                    "⠀⣾⣿⣿⣇⠀⣀⣀⣠⣤⣤⣤⣤⣤⣀⣀⠀⠀⠀⠈⠙⠻⣿⣿⣷⠀\n" +
+                                    "⢠⣿⣿⣿⣿⡿⠿⠟⠛⠛⠛⠛⠛⠛⠻⠿⢿⣿⣶⣤⣀⣠⣿⣿⣿⡄\n" +
+                                    "⢸⣿⣿⣿⣿⣇⣀⣀⣤⣤⣤⣤⣤⣄⣀⣀⠀⠀⠉⠛⢿⣿⣿⣿⣿⡇\n" +
+                                    "⠘⣿⣿⣿⣿⣿⠿⠿⠛⠛⠛⠛⠛⠛⠿⠿⣿⣶⣦⣤⣾⣿⣿⣿⣿⠃\n" +
+                                    "⠀⢿⣿⣿⣿⣿⣤⣤⣤⣤⣶⣶⣦⣤⣤⣄⡀⠈⠙⣿⣿⣿⣿⣿⡿⠀\n" +
+                                    "⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣿⣿⣿⡿⠁⠀\n" +
+                                    "⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⠀⠀⠀\n" +
+                                    "⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠿⠿⠿⠿⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀\n\n";
+
+        String asciiSpotifyName = " .oooooo..o                          .    o8o   .o88o.   \n" +
+                "d8P'    `Y8                        .o8    `\"'   888 `\"             \n" +
+                "Y88bo.      oo.ooooo.   .ooooo.  .o888oo oooo  o888oo  oooo    ooo \n" +
+                " `\"Y8888o.   888' `88b d88' `88b   888   `888   888     `88.  .8'  \n" +
+                "     `\"Y88b  888   888 888   888   888    888   888      `88..8'   \n" +
+                "oo     .d8P  888   888 888   888   888 .  888   888       `888'    \n" +
+                "8\"\"88888P'   888bod8P' `Y8bod8P'   \"888\" o888o o888o       .8'     \n" +
+                "             888                                       .o..P'      \n" +
+                "            o888o                                      `Y8P'       \n";
+
+        String[] logoLines = asciiSpotifyLogo.split("\n");
+        String[] nameLines = asciiSpotifyName.split("\n");
+
+        int logoHeight = logoLines.length;
+        int nameHeight = nameLines.length;
+
+        int paddingLines = (logoHeight - nameHeight) / 2;
+
+        StringBuilder combinedAscii = new StringBuilder();
+
+        for (int i = 0; i < logoHeight; i++) {
+            combinedAscii.append(logoLines[i]);
+            if (i >= paddingLines && i < paddingLines + nameHeight) {
+                combinedAscii.append("  ").append(nameLines[i - paddingLines]);
+            }
+            System.out.println(combinedAscii.toString());
+            Thread.sleep(250);
+            combinedAscii = new StringBuilder();
+        }
+
+
+        System.out.println("\n\n");
+    }
+
+
+    public static void printMenu() {
+        String menu =  "---------------------------------------------------\n" +
+                        "oooo     oooo ooooooooooo oooo   oooo ooooo  oooo \n" +
+                        " 8888o   888   888    88   8888o  88   888    88  \n" +
+                        " 88 888o8 88   888ooo8     88 888o88   888    88  \n" +
+                        " 88  888  88   888    oo   88   8888   888    88  \n" +
+                        "o88o  8  o88o o888ooo8888 o88o    88    888oo88   \n" +
+                        "---------------------------------------------------\n";
+        System.out.println(menu);
+        System.out.println("1. Load Data");
+        System.out.println("2. Get Top 10 by country and date");
+        System.out.println("3 Get Top 5 songs in more Top 50's for a specific day");
+        System.out.println("4. Top 7 artist with more appearances in all Top 50's for a specific range of time");
+        System.out.println("5. Get how many times a specific artist appears in the Top 50's in a given date ");
+        System.out.println("6. Amount of songs in Top 50's for a range of dates within a range of tempo  ");
+        System.out.print(" Choose your option: ");
+    }
+
+
+    public static void clearConsole() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
     }
 }
 
