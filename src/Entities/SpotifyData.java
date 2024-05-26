@@ -5,6 +5,7 @@ import uy.edu.um.prog2.adt.HashTable.HashTable;
 import uy.edu.um.prog2.adt.HashTable.HashTableImpl;
 import uy.edu.um.prog2.adt.List.IllegalIndexException;
 import uy.edu.um.prog2.adt.List.List;
+import uy.edu.um.prog2.adt.List.ListImpl;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.io.BufferedReader;
@@ -170,84 +171,38 @@ public class SpotifyData {
     }
 
     public void top5SongsInTop50(LocalDate date) throws IllegalIndexException {
-        String top1 = null;
-        Integer appearancesTop1 = 0;
-        String top2 = null;
-        Integer appearancesTop2 = 0;
-        String top3 = null;
-        Integer appearancesTop3 = 0;
-        String top4 = null;
-        Integer appearancesTop4 = 0;
-        String top5 = null;
-        Integer appearancesTop5 = 0;
+        List<String> tops = new ListImpl<>();
+        List<Integer> appearencesList = new ListImpl<>();
+        appearencesList.add(0);
         for (int i = 0; i < songKeys.length; i++) {
             if (songKeys[i] != null) {
                 Song tempSong = songs.get(songKeys[i]);
                 Integer appearances = tempSong.getAppearances().get(date);
                 if (appearances != null) {
-                    if (appearances > appearancesTop1) {
-                        top5 = top4;
-                        top4 = top3;
-                        top3 = top2;
-                        top2 = top1;
-                        top1 = tempSong.getName();
-                        appearancesTop5 = appearancesTop4;
-                        appearancesTop4 = appearancesTop3;
-                        appearancesTop3 = appearancesTop2;
-                        appearancesTop2 = appearancesTop1;
-                        appearancesTop1 = appearances;
-                    } else if (appearances > appearancesTop2) {
-                        top5 = top4;
-                        top4 = top3;
-                        top3 = top2;
-                        top2 = tempSong.getName();
-                        appearancesTop5 = appearancesTop4;
-                        appearancesTop4 = appearancesTop3;
-                        appearancesTop3 = appearancesTop2;
-                        appearancesTop2 = appearances;
-                    } else if (appearances > appearancesTop3) {
-                        top5 = top4;
-                        top4 = top3;
-                        top3 = tempSong.getName();
-                        appearancesTop5 = appearancesTop4;
-                        appearancesTop4 = appearancesTop3;
-                        appearancesTop3 = appearances;
-                    } else if (appearances > appearancesTop4) {
-                        top5 = top4;
-                        top4 = tempSong.getName();
-                        appearancesTop5 = appearancesTop4;
-                        appearancesTop4 = appearances;
-                    } else if (appearances > appearancesTop5) {
-                        top5 = tempSong.getName();
-                        appearancesTop5 = appearances;
-
+                    for (int j = 0; j < 5; j++) {
+                        if (appearances > appearencesList.get(j)) {
+                            appearencesList.add(appearances, j);
+                            tops.add(tempSong.getName(), j);
+                            if (tops.size() == 6) {
+                                tops.remove(-1);
+                                appearencesList.remove(-1);
+                            }
+                            break;
+                        }
                     }
                 }
             }
         }
-        System.out.println("Top 5: " + top5);
-        System.out.println("Top 4: " + top4);
-        System.out.println("Top 3: " + top3);
-        System.out.println("Top 2: " + top2);
-        System.out.println("Top 1: " + top1);
+        for (int i = 4; i > -1; i--) {
+            System.out.println("Top " + (i+1) + ": " + tops.get(i));
+        }
     }
 
 
     public void top7Artist(LocalDate beginningDate, LocalDate endDate) throws IllegalIndexException {
-        String top1 = null;
-        Integer appearancesTop1 = 0;
-        String top2 = null;
-        Integer appearancesTop2 = 0;
-        String top3 = null;
-        Integer appearancesTop3 = 0;
-        String top4 = null;
-        Integer appearancesTop4 = 0;
-        String top5 = null;
-        Integer appearancesTop5 = 0;
-        String top6 = null;
-        Integer appearancesTop6 = 0;
-        String top7 = null;
-        Integer appearancesTop7 = 0;
+        List<String> tops = new ListImpl<>();
+        List<Integer> appearencesList = new ListImpl<>();
+        appearencesList.add(0);
 
         for (String artist : artistKeys) {
             LocalDate currentDate = beginningDate;
@@ -260,81 +215,24 @@ public class SpotifyData {
                     }
                     currentDate = currentDate.plusDays(1);
                 }
-
-                if (appearances > appearancesTop1) {
-                    top7 = top6;
-                    top6 = top5;
-                    top5 = top4;
-                    top4 = top3;
-                    top3 = top2;
-                    top2 = top1;
-                    top1 = artist;
-                    appearancesTop7 = appearancesTop6;
-                    appearancesTop6 = appearancesTop5;
-                    appearancesTop5 = appearancesTop4;
-                    appearancesTop4 = appearancesTop3;
-                    appearancesTop3 = appearancesTop2;
-                    appearancesTop2 = appearancesTop1;
-                    appearancesTop1 = appearances;
-                } else if (appearances > appearancesTop2) {
-                    top7 = top6;
-                    top6 = top5;
-                    top5 = top4;
-                    top4 = top3;
-                    top3 = top2;
-                    top2 = artist;
-                    appearancesTop7 = appearancesTop6;
-                    appearancesTop6 = appearancesTop5;
-                    appearancesTop5 = appearancesTop4;
-                    appearancesTop4 = appearancesTop3;
-                    appearancesTop3 = appearancesTop2;
-                    appearancesTop2 = appearances;
-                } else if (appearances > appearancesTop3) {
-                    top7 = top6;
-                    top6 = top5;
-                    top5 = top4;
-                    top4 = top3;
-                    top3 = artist;
-                    appearancesTop7 = appearancesTop6;
-                    appearancesTop6 = appearancesTop5;
-                    appearancesTop5 = appearancesTop4;
-                    appearancesTop4 = appearancesTop3;
-                    appearancesTop3 = appearances;
-                } else if (appearances > appearancesTop4) {
-                    top7 = top6;
-                    top6 = top5;
-                    top5 = top4;
-                    top4 = artist;
-                    appearancesTop7 = appearancesTop6;
-                    appearancesTop6 = appearancesTop5;
-                    appearancesTop5 = appearancesTop4;
-                    appearancesTop4 = appearances;
-                } else if (appearances > appearancesTop5) {
-                    top7 = top6;
-                    top6 = top5;
-                    top5 = artist;
-                    appearancesTop7 = appearancesTop6;
-                    appearancesTop6 = appearancesTop5;
-                    appearancesTop5 = appearances;
-                } else if (appearances > appearancesTop6) {
-                    top7 = top6;
-                    top6 = artist;
-                    appearancesTop7 = appearancesTop6;
-                    appearancesTop6 = appearances;
-                } else if (appearances > appearancesTop7) {
-                    top7 = artist;
-                    appearancesTop7 = appearances;
+                if (appearances != 0) {
+                    for (int i = 0; i < 7; i++) {
+                        if (appearances > appearencesList.get(i)) {
+                            appearencesList.add(appearances, i);
+                            tops.add(artist, i);
+                            if (tops.size() == 8) {
+                                tops.remove(-1);
+                                appearencesList.remove(-1);
+                            }
+                            break;
+                        }
+                    }
                 }
             }
-
         }
-        System.out.println("7 : " + top7);
-        System.out.println("6 : " + top6);
-        System.out.println("5 : " + top5);
-        System.out.println("4 : " + top4);
-        System.out.println("3 : " + top3);
-        System.out.println("2 : " + top2);
-        System.out.println("1 : " + top1);
+        for (int i = 6; i > -1; i--) {
+            System.out.println((i + 1) + " : " + tops.get(i));
+        }
     }
 
     public int artistInDate(String artistName, LocalDate date) throws ArtistNotFoundException {
