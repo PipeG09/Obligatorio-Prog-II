@@ -6,12 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         SpotifyData spotify = new SpotifyData();
-        long durationFun0 = 0;
-        long durationFun1 = 0;
-        long durationFun2 = 0;
-        long durationFun3 = 0;
-        long durationFun4 = 0;
-        long durationFun5 = 0;
+        long[] durationFun= new long[6];
         int option = 0;
         boolean dataDownloaded = false;
         Scanner scanner = new Scanner(System.in);
@@ -34,7 +29,7 @@ public class Main {
                             long startTime = System.nanoTime();
                             spotify.readData();
                             long endTime = System.nanoTime();
-                            durationFun0 = endTime - startTime;
+                            durationFun[0]= endTime - startTime;
                             dataDownloaded = true;
                             System.out.println("\nData was succesfully downloaded\n");
                         } else {
@@ -66,7 +61,7 @@ public class Main {
                         long startTime = System.nanoTime();
                         spotify.top10DayCountry(date, country);
                         long endTime = System.nanoTime();
-                        durationFun1 = endTime - startTime;
+                        durationFun[1] = endTime - startTime;
                         System.out.println("\nPress enter to continue: ");
                         scanner.nextLine();
                         scanner.nextLine();
@@ -83,7 +78,7 @@ public class Main {
                             long startTime = System.nanoTime();
                             spotify.top5SongsInTop50(date);
                             long endTime = System.nanoTime();
-                            durationFun2 = endTime - startTime;
+                            durationFun[2] = endTime - startTime;
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
                             break;
@@ -108,12 +103,12 @@ public class Main {
                                 long startTime = System.nanoTime();
                                 spotify.top7Artist(date1, date2);
                                 long endTime = System.nanoTime();
-                                durationFun3 = endTime - startTime;
+                                durationFun[3] = endTime - startTime;
                             } else {
                                 long startTime = System.nanoTime();
                                 spotify.top7Artist(date2, date1);
                                 long endTime = System.nanoTime();
-                                durationFun3 = endTime - startTime;
+                                durationFun[3] = endTime - startTime;
                             }
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
@@ -138,7 +133,7 @@ public class Main {
                             long startTime = System.nanoTime();
                             int number = spotify.artistInDate(artistName, date);
                             long endTime = System.nanoTime();
-                            durationFun4 = endTime - startTime;
+                            durationFun[4]= endTime - startTime;
                             System.out.println(number);
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
@@ -169,12 +164,12 @@ public class Main {
                             long startTime = System.nanoTime();
                             count = spotify.tempoInDate(date1date, date2date, Math.min(tempo1, tempo2), Math.max(tempo1, tempo2));
                             long endTime = System.nanoTime();
-                            durationFun5 = endTime - startTime;
+                            durationFun[5] = endTime - startTime;
                         } else {
                             long startTime = System.nanoTime();
                             count = spotify.tempoInDate(date2date, date1date, Math.min(tempo2, tempo1), Math.max(tempo1, tempo2));
                             long endTime = System.nanoTime();
-                            durationFun5 = endTime - startTime;
+                            durationFun[5] = endTime - startTime;
                         }
                         System.out.println(count);
                         System.out.println("\nPress enter to continue: ");
@@ -184,12 +179,12 @@ public class Main {
                     }
 
                     case 7: {
-                        System.out.println("\nReading csv duration = " + durationFun0 / 1_000_000_000.0);
-                        System.out.println("First function duration = " + durationFun1 / 1_000_000_000.0);
-                        System.out.println("Second function duration = " + durationFun2 / 1_000_000_000.0);
-                        System.out.println("Third function duration = " + durationFun3 / 1_000_000_000.0);
-                        System.out.println("Fourth function duration = " + durationFun4 / 1_000_000_000.0);
-                        System.out.println("Fifth function duration = " + durationFun5 / 1_000_000_000.0 + "\n");
+                        System.out.println("\nReading csv duration = " + durationFun[0] / 1_000_000_000.0);
+                        System.out.println("First function duration = " + durationFun[1] / 1_000_000_000.0);
+                        System.out.println("Second function duration = " + durationFun[2] / 1_000_000_000.0);
+                        System.out.println("Third function duration = " + durationFun[3] / 1_000_000_000.0);
+                        System.out.println("Fourth function duration = " + durationFun[4] / 1_000_000_000.0);
+                        System.out.println("Fifth function duration = " + durationFun[5] / 1_000_000_000.0 + "\n");
                         System.out.print("Press enter to continue: ");
                         scanner.nextLine();
                         scanner.nextLine();
