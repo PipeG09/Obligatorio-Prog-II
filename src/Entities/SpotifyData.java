@@ -60,7 +60,6 @@ public class SpotifyData {
             reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
             String line2 = line.replace("\"", "");
-            int contador = 0;
             while ((line = reader.readLine()) != null) {
                 // I save the neccesary data in local variables
                 line = line.replace(",\"\",", "\"\",");
@@ -90,7 +89,6 @@ public class SpotifyData {
                     } else {
                         song.getAppearances().setValueForKey(date, appearances + 1);
                     }
-
                 }
 
                 // check artists in the singer hash
@@ -173,28 +171,41 @@ public class SpotifyData {
     public void top5SongsInTop50(LocalDate date) throws IllegalIndexException {
         List<String> tops = new ListImpl<>();
         List<Integer> appearencesList = new ListImpl<>();
-        appearencesList.add(0);
+        for (int n = 0; n < 5; n++) {
+            appearencesList.add(0);
+            tops.add(null);
+        }
         for (int i = 0; i < songKeys.length; i++) {
             if (songKeys[i] != null) {
                 Song tempSong = songs.get(songKeys[i]);
                 Integer appearances = tempSong.getAppearances().get(date);
                 if (appearances != null) {
-                    for (int j = 0; j < 5; j++) {
-                        if (appearances > appearencesList.get(j)) {
-                            appearencesList.add(appearances, j);
-                            tops.add(tempSong.getName(), j);
-                            if (tops.size() == 6) {
-                                tops.remove(-1);
+                    for (int j = 4; j >= 0; j--) {
+                        Integer appearancesLast = appearencesList.get(j);
+                        if (appearances <= appearancesLast) {
+                            if (j != 4) {
+                                appearencesList.add(appearances, j + 1);
                                 appearencesList.remove(-1);
+                                tops.add(tempSong.getName(), j + 1);
+                                tops.remove(-1);
                             }
                             break;
+                        } else if (j == 0) {
+                            appearencesList.add(appearances, j);
+                            appearencesList.remove(-1);
+                            tops.add(tempSong.getName(), j );
+                            tops.remove(-1);
                         }
                     }
+                    }
                 }
-            }
         }
-        for (int i = 4; i > -1; i--) {
-            System.out.println("Top " + (i+1) + ": " + tops.get(i));
+        try {
+            for (int i = 4; i > -1; i--) {
+                System.out.println("Top " + (i+1) + ": " + tops.get(i));
+            }
+        } catch (IllegalIndexException _) {
+            System.out.println("No data found with the parameters given");
         }
     }
 
@@ -230,8 +241,12 @@ public class SpotifyData {
                 }
             }
         }
-        for (int i = 6; i > -1; i--) {
-            System.out.println((i + 1) + " : " + tops.get(i));
+        try {
+            for (int i = 6; i > -1; i--) {
+                System.out.println((i + 1) + " : " + tops.get(i));
+            }
+        } catch (IllegalIndexException _) {
+            System.out.println("No data found with the parameters given");
         }
     }
 

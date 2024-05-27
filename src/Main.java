@@ -1,8 +1,5 @@
 import Entities.SpotifyData;
-
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -21,12 +18,12 @@ public class Main {
         printSpotifyLogo();
 
         while (option != -1) {
+            Thread.sleep(500);
             printMenu();
-            Thread.sleep(1000);
             option = scanner.nextInt();
             if (option != 1 && !dataDownloaded && option != 8) {
                 option = 0;
-                System.out.println("\nData has not been downloaded \n");
+                System.out.println("\nThe data has not been downloaded yet\n");
             }
             switch (option) {
 
@@ -38,16 +35,14 @@ public class Main {
                         long endTime = System.nanoTime();
                         durationFun0 = endTime - startTime;
                         dataDownloaded = true;
-                        System.out.println("\nData was succesfully downloaded\nPress enter to continue: \n");
-                        scanner.nextLine();
-                        scanner.nextLine();
+                        System.out.println("\nData was succesfully downloaded\n");
                     }
                     else {
                         System.out.println("\nERROR! The data has already been downloaded \n");
-                        System.out.println("Press enter to continue: \n");
-                        scanner.nextLine();
-                        scanner.nextLine();
                     }
+                    System.out.print("Press enter to continue: ");
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
                 }
 
@@ -91,7 +86,6 @@ public class Main {
                         durationFun2 = endTime - startTime;
                         System.out.println("\nPress enter to continue: ");
                         scanner.nextLine();
-                        scanner.nextLine();
                         break;
                     } catch (Exception e) {
                         System.out.println("\nERROR! The date is invalid");
@@ -115,21 +109,17 @@ public class Main {
                             spotify.top7Artist(date1, date2);
                             long endTime = System.nanoTime();
                             durationFun3 = endTime - startTime;
-                            System.out.println("\nPress enter to continue: ");
-                            scanner.nextLine();
-                            scanner.nextLine();
-                            break;
-
                         } else {
                             long startTime = System.nanoTime();
                             spotify.top7Artist(date2, date1);
                             long endTime = System.nanoTime();
                             durationFun3 = endTime - startTime;
-                            System.out.println("\nPress enter to continue: ");
-                            scanner.nextLine();
-                            scanner.nextLine();
-                            break;
                         }
+                        System.out.println("\nPress enter to continue: ");
+                        scanner.nextLine();
+                        scanner.nextLine();
+                        break;
+
                     } catch (Exception e) {
                         System.out.println("\nERROR! One of the values you entered might be invalid\n");
                         break;
@@ -137,7 +127,7 @@ public class Main {
                 }
 
                 case 5: {
-                    System.out.print("\nEnter Artist name separated by coma (eg: Post,Malone ): ");
+                    System.out.print("\nEnter Artist name: ");
                     String artistName = scanner.next();
                     artistName = artistName + scanner.nextLine();
                     System.out.print("\nEnter the day of which Top 50's you want to check (YYYY-MM-DD): ");
@@ -200,7 +190,7 @@ public class Main {
                     System.out.println("Third function duration = " + durationFun3 / 1_000_000_000.0);
                     System.out.println("Fourth function duration = " + durationFun4 / 1_000_000_000.0);
                     System.out.println("Fifth function duration = " + durationFun5 / 1_000_000_000.0 + "\n");
-                    System.out.println("Press enter to continue: ");
+                    System.out.print("Press enter to continue: ");
                     scanner.nextLine();
                     scanner.nextLine();
                     break;
@@ -223,29 +213,34 @@ public class Main {
 
 
     public static void printSpotifyLogo() throws InterruptedException {
-        String asciiSpotifyLogo = "⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣶⣶⣶⣶⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀\n" +
-                                    "⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⡀⠀⠀⠀⠀\n" +
-                                    "⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀\n" +
-                                    "⠀⢀⣾⣿⡿⠿⠛⠛⠛⠉⠉⠉⠉⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣷⡀⠀\n" +
-                                    "⠀⣾⣿⣿⣇⠀⣀⣀⣠⣤⣤⣤⣤⣤⣀⣀⠀⠀⠀⠈⠙⠻⣿⣿⣷⠀\n" +
-                                    "⢠⣿⣿⣿⣿⡿⠿⠟⠛⠛⠛⠛⠛⠛⠻⠿⢿⣿⣶⣤⣀⣠⣿⣿⣿⡄\n" +
-                                    "⢸⣿⣿⣿⣿⣇⣀⣀⣤⣤⣤⣤⣤⣄⣀⣀⠀⠀⠉⠛⢿⣿⣿⣿⣿⡇\n" +
-                                    "⠘⣿⣿⣿⣿⣿⠿⠿⠛⠛⠛⠛⠛⠛⠿⠿⣿⣶⣦⣤⣾⣿⣿⣿⣿⠃\n" +
-                                    "⠀⢿⣿⣿⣿⣿⣤⣤⣤⣤⣶⣶⣦⣤⣤⣄⡀⠈⠙⣿⣿⣿⣿⣿⡿⠀\n" +
-                                    "⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣿⣿⣿⡿⠁⠀\n" +
-                                    "⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀\n" +
-                                    "⠀⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⠀⠀⠀\n" +
-                                    "⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠿⠿⠿⠿⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀\n\n";
+        String asciiSpotifyLogo = """
+                ⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣶⣶⣶⣶⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⡀⠀⠀⠀⠀
+                ⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⠀⠀⠀
+                ⠀⢀⣾⣿⡿⠿⠛⠛⠛⠉⠉⠉⠉⠛⠛⠛⠿⠿⣿⣿⣿⣿⣿⣷⡀⠀
+                ⠀⣾⣿⣿⣇⠀⣀⣀⣠⣤⣤⣤⣤⣤⣀⣀⠀⠀⠀⠈⠙⠻⣿⣿⣷⠀
+                ⢠⣿⣿⣿⣿⡿⠿⠟⠛⠛⠛⠛⠛⠛⠻⠿⢿⣿⣶⣤⣀⣠⣿⣿⣿⡄
+                ⢸⣿⣿⣿⣿⣇⣀⣀⣤⣤⣤⣤⣤⣄⣀⣀⠀⠀⠉⠛⢿⣿⣿⣿⣿⡇
+                ⠘⣿⣿⣿⣿⣿⠿⠿⠛⠛⠛⠛⠛⠛⠿⠿⣿⣶⣦⣤⣾⣿⣿⣿⣿⠃
+                ⠀⢿⣿⣿⣿⣿⣤⣤⣤⣤⣶⣶⣦⣤⣤⣄⡀⠈⠙⣿⣿⣿⣿⣿⡿⠀
+                ⠀⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣾⣿⣿⣿⣿⡿⠁⠀
+                ⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀
+                ⠀⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠿⠿⠿⠿⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀
 
-        String asciiSpotifyName = " .oooooo..o                          .    o8o   .o88o.   \n" +
-                "d8P'    `Y8                        .o8    `\"'   888 `\"             \n" +
-                "Y88bo.      oo.ooooo.   .ooooo.  .o888oo oooo  o888oo  oooo    ooo \n" +
-                " `\"Y8888o.   888' `88b d88' `88b   888   `888   888     `88.  .8'  \n" +
-                "     `\"Y88b  888   888 888   888   888    888   888      `88..8'   \n" +
-                "oo     .d8P  888   888 888   888   888 .  888   888       `888'    \n" +
-                "8\"\"88888P'   888bod8P' `Y8bod8P'   \"888\" o888o o888o       .8'     \n" +
-                "             888                                       .o..P'      \n" +
-                "            o888o                                      `Y8P'       \n";
+                """;
+
+        String asciiSpotifyName = """
+                 .oooooo..o                          .    o8o   .o88o.  \s
+                d8P'    `Y8                        .o8    `"'   888 `"            \s
+                Y88bo.      oo.ooooo.   .ooooo.  .o888oo oooo  o888oo  oooo    ooo\s
+                 `"Y8888o.   888' `88b d88' `88b   888   `888   888     `88.  .8' \s
+                     `"Y88b  888   888 888   888   888    888   888      `88..8'  \s
+                oo     .d8P  888   888 888   888   888 .  888   888       `888'   \s
+                8""88888P'   888bod8P' `Y8bod8P'   "888" o888o o888o       .8'    \s
+                             888                                       .o..P'     \s
+                            o888o                                      `Y8P'      \s
+                """;
 
         String[] logoLines = asciiSpotifyLogo.split("\n");
         String[] nameLines = asciiSpotifyName.split("\n");
@@ -262,25 +257,30 @@ public class Main {
             if (i >= paddingLines && i < paddingLines + nameHeight) {
                 combinedAscii.append("  ").append(nameLines[i - paddingLines]);
             }
-            System.out.println(combinedAscii.toString());
+            System.out.println(combinedAscii);
             Thread.sleep(250);
             combinedAscii = new StringBuilder();
         }
-
 
         System.out.println("\n\n");
     }
 
 
-    public static void printMenu() {
-        String menu =  "\n---------------------------------------------------\n" +
-                        "oooo     oooo ooooooooooo oooo   oooo ooooo  oooo \n" +
-                        " 8888o   888   888    88   8888o  88   888    88  \n" +
-                        " 88 888o8 88   888ooo8     88 888o88   888    88  \n" +
-                        " 88  888  88   888    oo   88   8888   888    88  \n" +
-                        "o88o  8  o88o o888ooo8888 o88o    88    888oo88   \n" +
-                        "---------------------------------------------------\n";
+    public static void printMenu() throws InterruptedException {
+        String menu = """ 
+                
+                ---------------------------------------------------
+                oooo     oooo ooooooooooo oooo   oooo ooooo  oooo\s
+                 8888o   888   888    88   8888o  88   888    88 \s
+                 88 888o8 88   888ooo8     88 888o88   888    88 \s
+                 88  888  88   888    oo   88   8888   888    88 \s
+                o88o  8  o88o o888ooo8888 o88o    88    888oo88  \s
+                ---------------------------------------------------
+                
+                """;
+
         System.out.println(menu);
+        Thread.sleep(500);
         System.out.println("1. Load Data ");
         System.out.println("2. Get Top 10 by country and date ");
         System.out.println("3. Get Top 5 songs in more Top 50's for a specific day ");
@@ -302,7 +302,6 @@ public class Main {
                 " _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._ \n" +
                 "(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-`\\.-.)\n" +
                 " `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-' ";
-
         System.out.println(thanks);
     }
 }

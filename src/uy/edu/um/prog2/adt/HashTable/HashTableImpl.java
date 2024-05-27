@@ -76,7 +76,7 @@ public class HashTableImpl <K,T> implements HashTable <K,T> {
         if (array[index] == null) {
             array[index] = node;
             capacity+= (float) 1/size;
-        }// si este espacio del array esta lleno itero hasta encontrar uno libre
+        } // si este espacio del array esta lleno itero hasta encontrar uno libre
         else {
             int firstSpot= -1;
             // empiezo en 0 para contemplar el caso de que un elemento con la misma key fue eliminado en ese lugar

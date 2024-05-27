@@ -7,13 +7,14 @@ import java.time.LocalDate;
 
 public class Song {
 
-    private String spotifyId;
+    private final String spotifyId;
 
-    private String name;
+    private final String name;
 
-    private String artists;
+    private final String artists;
 
-    private float tempo;
+    private final float tempo;
+
     private HashTable<LocalDate, Integer> appearances;
 
     public Song(String spotifyId, String name, String artists, float tempo) {
