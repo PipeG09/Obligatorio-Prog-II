@@ -59,17 +59,16 @@ public class SpotifyData {
         try {
             reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
-            String line2 = line.replace("\"", "");
             while ((line = reader.readLine()) != null) {
                 // I save the neccesary data in local variables
-                line = line.replace(",\"\",", "\"\",");
-                String[] row = line.split(",\"");
+
+                String[] row = line.split("\",\"");
                 String spotifyId = row[0].replace("\"", "");
-                String songName = row[1].replace("\"", "");
-                String artistName = row[2].replace("\"", "");
+                String songName = row[1];
+                String artistName = row[2];
                 String[] artistNames = artistName.split(",");
                 Integer dailyRank = Integer.parseInt(row[3].replace("\"", ""));
-                String countryName = row[6].replace("\"", "");
+                String countryName = row[6];
                 if (countryName.isEmpty()) {
                     countryName = "Global"; // we choose this convention for convenience
                 }
