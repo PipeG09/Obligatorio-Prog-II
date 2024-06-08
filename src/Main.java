@@ -1,5 +1,6 @@
 import Entities.SpotifyData;
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 
@@ -11,16 +12,29 @@ public class Main {
         boolean dataDownloaded = false;
         Scanner scanner = new Scanner(System.in);
         printSpotifyLogo();
-
+        Boolean[] mode = login();
+        while (!mode[0]) {
+            System.out.println("\nERROR! Please Login or Create an account\n");
+            mode = login();
+            if (mode[0]) {
+                break;
+            }
+        }
+        boolean developerMode = mode[1];
+        if (mode[2]) {
+            return;
+        }
         while (option != -1) {
             Thread.sleep(500);
-            printMenu();
+            printMenu(developerMode);
             option = scanner.nextInt();
-            if (option != 1 && !dataDownloaded && option != 8) {
+            if (option != 1 && !dataDownloaded && option != 8 && developerMode) {
                 option = 0;
                 System.out.println("\nThe data has not been downloaded yet\n");
-            }
-            else {
+            } else if (option != 7 && option != 1 && !dataDownloaded && !developerMode) {
+                option = 0;
+                System.out.println("\nThe data has not been downloaded yet\n");
+            } else {
                 switch (option) {
 
                     case 1: {
@@ -51,9 +65,8 @@ public class Main {
                             date = LocalDate.parse(dateStr);
                             System.out.print("\nEnter country's abbreviation: ");
                             Thread.sleep(2000);
-                            country = scanner.next();
+                            country = scanner.next().toUpperCase();
                             scanner.nextLine();
-
                         } catch (Exception e) {
                             System.out.print("\nERROR! One of the values you entered might be invalid");
                             break;
@@ -179,21 +192,28 @@ public class Main {
                     }
 
                     case 7: {
-                        System.out.println("\nReading csv duration = " + durationFun[0] / 1_000_000_000.0);
-                        System.out.println("First function duration = " + durationFun[1] / 1_000_000_000.0);
-                        System.out.println("Second function duration = " + durationFun[2] / 1_000_000_000.0);
-                        System.out.println("Third function duration = " + durationFun[3] / 1_000_000_000.0);
-                        System.out.println("Fourth function duration = " + durationFun[4] / 1_000_000_000.0);
-                        System.out.println("Fifth function duration = " + durationFun[5] / 1_000_000_000.0 + "\n");
-                        System.out.print("Press enter to continue: ");
-                        scanner.nextLine();
-                        scanner.nextLine();
+                        if (developerMode) {
+                            System.out.println("\nReading csv duration = " + durationFun[0] / 1_000_000_000.0);
+                            System.out.println("First function duration = " + durationFun[1] / 1_000_000_000.0);
+                            System.out.println("Second function duration = " + durationFun[2] / 1_000_000_000.0);
+                            System.out.println("Third function duration = " + durationFun[3] / 1_000_000_000.0);
+                            System.out.println("Fourth function duration = " + durationFun[4] / 1_000_000_000.0);
+                            System.out.println("Fifth function duration = " + durationFun[5] / 1_000_000_000.0 + "\n");
+                            System.out.print("Press enter to continue: ");
+                            scanner.nextLine();
+                            scanner.nextLine();
+                        }
+                        else {
+                            option = -1;
+                        }
                         break;
                     }
 
                     case 8: {
-                        option = -1;
-                        break;
+                        if (developerMode) {
+                            option = -1;
+                            break;
+                        }
                     }
 
                     default:
@@ -202,9 +222,45 @@ public class Main {
                 }
             }
         }
-        printThanksOsitos();
         System.out.println("\nGoodbye and thanks for using spotify\n");
         scanner.close();
+    }
+
+    public static Boolean[] login() {
+        System.out.println("1. Login\n2. Create new user\n3. Guest\n4. Exit");
+        System.out.print("   Choose your option: ");
+        LinkedList<String> developers = new LinkedList<>();
+        developers.add("rolo");
+        developers.add("Pipeg");
+        developers.add("degiu2110");
+        Scanner scanner2 = new Scanner(System.in);
+        String variable = scanner2.nextLine();
+        switch (variable) {
+            case "1" -> {
+                System.out.print("\nEnter the username: ");
+                String username = scanner2.next();
+                System.out.print("Enter the password: ");
+                String password = scanner2.next();
+                return new Boolean[] {accounts.verifyAccount(username, password), developers.contains(username), false};
+            }
+            case "2" -> {
+                System.out.print("\nEnter the username: ");
+                String username = scanner2.next();
+                System.out.print("Enter the password: ");
+                String password = scanner2.next();
+                return new Boolean[] {accounts.createAccount(username, password), developers.contains(username), false};
+            }
+            case "3" -> {
+                return new Boolean[] {true, false, false};
+            }
+            case "4" -> {
+                return new Boolean[] {true, true, true};
+            }
+            default -> {
+                System.out.println("\nERROR! Option not recognized\n");
+                return login();
+            }
+        }
     }
 
 
@@ -262,7 +318,7 @@ public class Main {
     }
 
 
-    public static void printMenu() throws InterruptedException {
+    public static void printMenu(boolean developerMode) throws InterruptedException {
         String menu = """ 
                 
                 ---------------------------------------------------
@@ -283,22 +339,13 @@ public class Main {
         System.out.println("4. Top 7 artist with more appearances in all Top 50's for a specific range of time");
         System.out.println("5. Get how many times a specific artist appears in the Top 50's in a given date ");
         System.out.println("6. Amount of songs in Top 50's for a range of dates within a range of tempo ");
-        System.out.println("7. View the performance in tasks previously carried out ");
-        System.out.println("8. Exit ");
+        if (developerMode) {
+            System.out.println("7. View the performance in tasks previously carried out ");
+            System.out.println("8. Exit ");
+        } else {
+            System.out.println("7. Exit ");
+        }
         System.out.print("   Choose your option: ");
-    }
-
-    public static void printThanksOsitos() {
-        String thanks = "   _     _      _     _      _     _      _     _      _     _      _     _   \n" +
-                "  (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)  \n" +
-                "   / ._. \\      / ._. \\      / ._. \\      / ._. \\      / ._. \\      / ._. \\   \n" +
-                " __\\( Y )/__  __\\( Y )/__  __\\( Y )/__  __\\( Y )/__  __\\( Y )/__  __\\( Y )/__ \n" +
-                "(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)(_.-/'-'\\-._)\n" +
-                "   || T ||      || H ||      || A ||      || N ||      || K ||      || S ||   \n" +
-                " _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._ \n" +
-                "(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-'\\.-.)(.-./`-`\\.-.)\n" +
-                " `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-' ";
-        System.out.println(thanks);
     }
 }
 
