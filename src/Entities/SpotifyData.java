@@ -102,7 +102,7 @@ public class SpotifyData {
                         artistKeys[artistCounter] = name;
                         artistCounter += 1;
                     } else { // the singer already existed
-                        Integer appearances = songRanking.get(date); // get the amount of times the artist poped up,on a certain date
+                        Integer appearances = songRanking.get(date); // get the amount of times the artist poped up, on a certain date
                         if (appearances == null) {
                             songRanking.put(date, 1);
                         } else {
@@ -160,10 +160,17 @@ public class SpotifyData {
        HashTable<String,HashTable<Integer,Song>> daily = dailyRanks.get(date);
        if (daily != null) {
            HashTable<Integer, Song> dailyTop = daily.get(countryName);
-           for (int i = 1; i < 11; i++) {
-               Song song = dailyTop.get(i);
-               System.out.println(i + "-  " + song.getName() + ",  "+song.getArtists());
+           try {
+               for (int i = 1; i < 11; i++) {
+                   Song song = dailyTop.get(i);
+                   System.out.println(i + "-  " + song.getName() + ",  "+song.getArtists());
+               }
+           } catch (Exception e) {
+               System.out.println("\nNo data found for " + countryName);
            }
+       }
+       else {
+           System.out.println("\nNo data found for " + date.toString());
        }
     }
 
@@ -242,7 +249,7 @@ public class SpotifyData {
         }
         try {
             for (int i = 6; i > -1; i--) {
-                System.out.println((i + 1) + " : " + tops.get(i));
+                System.out.println((i + 1) + ". " + tops.get(i) + " - " + appearencesList.get(i));
             }
         } catch (IllegalIndexException _) {
             System.out.println("No data found with the parameters given");
@@ -265,6 +272,7 @@ public class SpotifyData {
         int contador = 0;
         LocalDate currentDate = beginningDate;
         List<String> countries = dailyRanks.get(LocalDate.parse("2024-04-19")).keys();
+        HashTable<String, Song> songsTemps = new HashTableImpl<>(songKeys.length);
         while (currentDate.isBefore(endDate.plusDays(1))) {
             HashTable<String, HashTable<Integer, Song>> dailyRank = dailyRanks.get(currentDate);
             if (dailyRank != null) {
@@ -275,7 +283,8 @@ public class SpotifyData {
                         for (int j = 1; j < 51; j++) {
                             Song song = countryDaily.get(j);
                             if (song != null) {
-                                if (song.getTempo() >= tempoLow && song.getTempo() <= tempoHigh) {
+                                if (song.getTempo() >= tempoLow && song.getTempo() <= tempoHigh && !songsTemps.contains(song.getSpotifyId())) {
+                                    songsTemps.put(song.getSpotifyId(), song);
                                     contador += 1;
                                 }
                             }

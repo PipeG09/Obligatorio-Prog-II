@@ -12,16 +12,16 @@ public class Main {
         boolean dataDownloaded = false;
         Scanner scanner = new Scanner(System.in);
         printSpotifyLogo();
-        Boolean[] mode = login();
-        while (!mode[0]) {
+        Boolean[] login = login();
+        while (!login[0]) {
             System.out.println("\nERROR! Please Login or Create an account\n");
-            mode = login();
-            if (mode[0]) {
+            login = login();
+            if (login[0]) {
                 break;
             }
         }
-        boolean developerMode = mode[1];
-        if (mode[2]) {
+        boolean developerMode = login[1];
+        if (login[2]) {
             return;
         }
         while (option != -1) {
@@ -30,16 +30,16 @@ public class Main {
             option = scanner.nextInt();
             if (option != 1 && !dataDownloaded && option != 8 && developerMode) {
                 option = 0;
-                System.out.println("\nThe data has not been downloaded yet\n");
+                System.out.println("\nERROR! The data has not been downloaded yet\n");
             } else if (option != 7 && option != 1 && !dataDownloaded && !developerMode) {
                 option = 0;
-                System.out.println("\nThe data has not been downloaded yet\n");
+                System.out.println("\nERROR! The data has not been downloaded yet\n");
             } else {
                 switch (option) {
 
                     case 1: {
                         if (!dataDownloaded) {
-                            System.out.println("\nDownloading Spotify data...\n");
+                            System.out.println("\nDownloading Spotify data...");
                             long startTime = System.nanoTime();
                             spotify.readData();
                             long endTime = System.nanoTime();
@@ -68,7 +68,7 @@ public class Main {
                             country = scanner.next().toUpperCase();
                             scanner.nextLine();
                         } catch (Exception e) {
-                            System.out.print("\nERROR! One of the values you entered might be invalid");
+                            System.out.print("\nERROR! The date is invalid");
                             break;
                         }
                         long startTime = System.nanoTime();
@@ -76,7 +76,6 @@ public class Main {
                         long endTime = System.nanoTime();
                         durationFun[1] = endTime - startTime;
                         System.out.println("\nPress enter to continue: ");
-                        scanner.nextLine();
                         scanner.nextLine();
                         break;
                     }
@@ -125,7 +124,6 @@ public class Main {
                             }
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
-                            scanner.nextLine();
                             break;
 
                         } catch (Exception e) {
@@ -150,7 +148,6 @@ public class Main {
                             System.out.println(number);
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
-                            scanner.nextLine();
                         } catch (Exception e) {
                             System.out.print("\nERROR! A value you entered might be invalid\n");
                         }
@@ -158,35 +155,40 @@ public class Main {
                     }
 
                     case 6: {
-                        System.out.print("\nEnter one of the values that delimits the range of tempo: ");
-                        float tempo1 = scanner.nextFloat();
-                        scanner.nextLine();
-                        System.out.print("\nEnter the other value that delimits the range of tempo: ");
-                        float tempo2 = scanner.nextFloat();
-                        scanner.nextLine();
-                        System.out.print("\nEnter one of the dates that delimits the range of time (YYYY-MM-DD): ");
-                        String date = scanner.next();
-                        scanner.nextLine();
-                        LocalDate date1date = LocalDate.parse(date);
-                        System.out.print("\nEnter the other date that delimits the range of time (YYYY-MM-DD): ");
-                        String date2 = scanner.next();
-                        scanner.nextLine();
-                        LocalDate date2date = LocalDate.parse(date2);
-                        int count;
-                        if (date1date.isBefore(date2date)) {
-                            long startTime = System.nanoTime();
-                            count = spotify.tempoInDate(date1date, date2date, Math.min(tempo1, tempo2), Math.max(tempo1, tempo2));
-                            long endTime = System.nanoTime();
-                            durationFun[5] = endTime - startTime;
-                        } else {
-                            long startTime = System.nanoTime();
-                            count = spotify.tempoInDate(date2date, date1date, Math.min(tempo2, tempo1), Math.max(tempo1, tempo2));
-                            long endTime = System.nanoTime();
-                            durationFun[5] = endTime - startTime;
+                        try {
+                            System.out.print("\nEnter one of the values that delimits the range of tempo: ");
+                            float tempo1 = scanner.nextFloat();
+                            scanner.nextLine();
+                            System.out.print("\nEnter the other value that delimits the range of tempo: ");
+                            float tempo2 = scanner.nextFloat();
+                            scanner.nextLine();
+                            System.out.print("\nEnter one of the dates that delimits the range of time (YYYY-MM-DD): ");
+                            String date = scanner.next();
+                            scanner.nextLine();
+                            LocalDate date1date = LocalDate.parse(date);
+                            System.out.print("\nEnter the other date that delimits the range of time (YYYY-MM-DD): ");
+                            String date2 = scanner.next();
+                            scanner.nextLine();
+                            LocalDate date2date = LocalDate.parse(date2);
+                            int count;
+                            if (date1date.isBefore(date2date)) {
+                                long startTime = System.nanoTime();
+                                count = spotify.tempoInDate(date1date, date2date, Math.min(tempo1, tempo2), Math.max(tempo1, tempo2));
+                                long endTime = System.nanoTime();
+                                durationFun[5] = endTime - startTime;
+                            } else {
+                                long startTime = System.nanoTime();
+                                count = spotify.tempoInDate(date2date, date1date, Math.min(tempo2, tempo1), Math.max(tempo1, tempo2));
+                                long endTime = System.nanoTime();
+                                durationFun[5] = endTime - startTime;
+                            }
+                            System.out.println(count);
+
                         }
-                        System.out.println(count);
+                        catch (Exception e) {
+                            System.out.print("\nERROR! A value you entered might be invalid\n");
+                        }
                         System.out.println("\nPress enter to continue: ");
-                        scanner.nextLine();
                         scanner.nextLine();
                         break;
                     }
@@ -319,6 +321,9 @@ public class Main {
 
 
     public static void printMenu(boolean developerMode) throws InterruptedException {
+        if (developerMode) {
+            System.out.println("\nDeveloper Account");
+        }
         String menu = """ 
                 
                 ---------------------------------------------------

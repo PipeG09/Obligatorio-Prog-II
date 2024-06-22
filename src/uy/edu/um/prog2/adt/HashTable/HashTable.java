@@ -18,6 +18,8 @@ public interface HashTable<K ,T> {
     public List<K> keys();
 
     void setValueForKey(K key, T value) throws IllegalKeyException;
+
     int size();
+
     float loadFactor();
 }

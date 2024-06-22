@@ -4,10 +4,14 @@ import java.io.*;
 public class accounts {
     public static boolean createAccount(String username, String password) {
         File file = new File("accounts.csv");
+        if (username.contains(",") || password.contains(",")) {
+            System.out.println("Invalid username or password");
+            return false;
+        }
         String[] data = {username, password};
         try (FileWriter fileWriter = new FileWriter(file, true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
-             if (!usernamelUsed(username)) {
+             if (!usernameUsed(username)) {
                  for (int i = 0; i < data.length; i++) {
                      printWriter.print(data[i]);
                      if (i < data.length - 1) {
@@ -41,13 +45,11 @@ public class accounts {
                 }
                 line = reader.readLine();
             }
-        } catch (Exception _) {
-            System.out.println("123");
-        }
+        } catch (Exception _) {}
         return false;
     }
 
-    private static boolean usernamelUsed(String username) {
+    private static boolean usernameUsed(String username) {
         File file = new File("accounts.csv");
         BufferedReader reader = null;
         try {

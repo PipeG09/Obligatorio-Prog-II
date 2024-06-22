@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class HashTest {
     @Test
     public void testPut() {
-        HashTableImpl<Integer,String> hash=new HashTableImpl<>(7);
+        HashTableImpl<Integer,String> hash = new HashTableImpl<>(7);
         hash.put(0,"A");
         hash.put(1,"B");
         hash.put(2,"C");
@@ -37,7 +37,7 @@ public class HashTest {
     }
     @Test
     public void testAddAfterRemoving(){
-        HashTableImpl<Integer,String> hash=new HashTableImpl<>(14);
+        HashTableImpl<Integer,String> hash = new HashTableImpl<>(14);
         hash.put(0,"A");
         hash.put(1,"B");
         hash.put(2,"C");
