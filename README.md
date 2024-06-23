@@ -34,7 +34,6 @@ Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es a
 
 
 #3. Top 7 Artistas por Rango de Fechas
-   
       Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, 
    sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la 
    iteracion.
