@@ -1,7 +1,7 @@
 # Programming II Assignment
 Authors: Santiago De Giuda, Felipe Guasch
 
-#Proceso de carga de datos : 
+# Proceso de carga de datos : 
 
 Se crea una clase SpotifyData la cual en la funcion readData(). Para leer el csv se utiliza BufferedReader para leer linea por linea haciendo un split con (",") y quedándonos  con los datos que se quieren cargar.
 
@@ -35,13 +35,15 @@ Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es a
 
 #3. Top 7 Artistas por Rango de Fechas
    
-Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la iteracion.
-Esto se hace de la siguiente manera: 
-  1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
-  2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
-  3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
-  4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
-Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
+      Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, 
+   sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la 
+   iteracion.
+   Esto se hace de la siguiente manera: 
+     1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
+     2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
+     3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
+     4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
+   Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
 
 #4. Cantidad de Apariciones de un Artista en una Fecha Específica
 
@@ -49,6 +51,9 @@ Utilizando el HashTable de artists, se obtiene un HashTable el cual tiene como k
 
 
 #5. Cantidad de Canciones en un Rango de Tempo y Fechas
+       Para esta funcion se utiliza el HashTable DailyRankings ya que se itera sobre las fechas, accediendo para cada fecha al Ranking top 50 de cada pais y ahi fijandonos si      el tempo las canciones esta dentro del rango y en ese caso se suma 1 al contador. Para no contar una cancion dos veces nos creamos un HashTable temporal en el cual nos
+   guardamo las instancias de la clase Songs usando el SpotifyId como key del Hash, ingresando al Hash al sumar al contador. De esta manera antes de sumar 1 al contador nos
+   fijamos que la cancion no se encuentra ya en el hash temporal para evitar contar 2 veces la misma cancion.
 
 <img width="171" alt="RAM Usage 3rd Function" src="https://github.com/PipeG09/Obligatorio-Prog-II/assets/103771722/2b6eadfb-97ba-46b3-b3af-78f036112074">
 
