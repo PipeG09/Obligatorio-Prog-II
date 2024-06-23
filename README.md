@@ -25,10 +25,12 @@ Proceso de Realización de Reportes
 Los reportes se generan a través de métodos en la clase SpotifyData, que son invocados desde el main en SpotifyApp.java. 
 
 #1. Top 10 Canciones por País y Fecha
+
 Se utiliza el método top10SongsByCountryAndDate(String country, LocalDate date) el cual obtiene el HashTable correspondiente a la fecha date desde dailyRanks. Luego, se accede al HashTable correspondiente al país. Se crea una list<Song> donde se van guardando las canciones, se itera del 1 al 10 para obtener la canción correspondiente desde el HashTable del país.
 
 
 #2. Top 5 Canciones en más países para un Día Específico
+
 Se utiliza el método top5SongsInTop50 el cual inicializa 2 list<String> tops (Es el nombre de la canción), list<Integer> appearencesList (guarda el número de apariciones de una canción que se encuentra también en la lista de tops). Se itera sobre songKeys para obtener todas las canciones, para cada canción se obtiene la instancia de Song desde el HashTable y luego se obtiene el número de apariciones de la canción desde el HashTable appearances para el día específico.
 Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es así se continua iterando hasta encontrar la posición en la cual tiene menos que el siguiente, y se ingresa en esa posición, en ambas list (en cancion se ingresa el nombre de la canción y en apppearencesList se ingresa las apariciones). Si se llega hasta la primer posicion entonces se ingresa la cancion en el top 1. Cada vez que se introduce una nueva canción se elimina la última quedandonos así siempre con solo 5 canciones.
 
@@ -38,10 +40,10 @@ Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es a
    sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la 
    iteracion.
    Esto se hace de la siguiente manera: 
-     1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
-     2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
-     3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
-     4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
+           1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
+           2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
+           3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
+           4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
    Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
 
 #4. Cantidad de Apariciones de un Artista en una Fecha Específica
@@ -50,7 +52,8 @@ Utilizando el HashTable de artists, se obtiene un HashTable el cual tiene como k
 
 
 #5. Cantidad de Canciones en un Rango de Tempo y Fechas
-      Para esta funcion se utiliza el HashTable DailyRankings ya que se itera sobre las fechas, accediendo para cada fecha al Ranking top 50 de cada pais y ahi fijandonos si      el tempo las canciones esta dentro del rango y en ese caso se suma 1 al contador. Para no contar una cancion dos veces nos creamos un HashTable temporal en el cual nos
+
+Para esta funcion se utiliza el HashTable DailyRankings ya que se itera sobre las fechas, accediendo para cada fecha al Ranking top 50 de cada pais y ahi fijandonos si      el tempo las canciones esta dentro del rango y en ese caso se suma 1 al contador. Para no contar una cancion dos veces nos creamos un HashTable temporal en el cual nos
    guardamo las instancias de la clase Songs usando el SpotifyId como key del Hash, ingresando al Hash al sumar al contador. De esta manera antes de sumar 1 al contador nos
    fijamos que la cancion no se encuentra ya en el hash temporal para evitar contar 2 veces la misma cancion.
 
