@@ -60,9 +60,14 @@ Para esta funcion se utiliza el HashTable DailyRankings ya que se itera sobre la
    guardamo las instancias de la clase Songs usando el SpotifyId como key del Hash, ingresando al Hash al sumar al contador. De esta manera antes de sumar 1 al contador nos
    fijamos que la cancion no se encuentra ya en el hash temporal para evitar contar 2 veces la misma cancion.
 
+
+La única función en la que se ve un cambio en el uso de la ram de es en la tercera llegando a un pico de 135 MB, mientras que en las otras no se ven cambios significativos manteniendo alrededor de 70MB fijos para la realización de los reportes.
+
 <img width="171" alt="RAM Usage 3rd Function" src="https://github.com/PipeG09/Obligatorio-Prog-II/assets/103771722/2b6eadfb-97ba-46b3-b3af-78f036112074">
+
+Los Resultados obtenidos son los siguientes:
 
 ![Results](https://github.com/PipeG09/Obligatorio-Prog-II/assets/103771722/d5db257a-4194-446e-9b0f-42a22fd87031)
 
-
+Aqui RAM Usage representa el aumento de uso de RAM tras realizar el reporte. Previo a cada reporte se utilizó runtime.gc() para poder medir de manera más correcta, pues queriamos eliminar todo la parte de memoria que estaba siendo inutilizada.
 
