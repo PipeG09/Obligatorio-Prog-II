@@ -41,10 +41,12 @@ Utilizando principalmente el artists HashTable, para cada Artista se itera sobre
    sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la 
    iteracion.
    Esto se hace de la siguiente manera: 
-           1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
-           2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
-           3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
-           4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
+   
+  1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
+  2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
+  3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
+  4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
+           
    Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
 
 #4. Cantidad de Apariciones de un Artista en una Fecha Específica
