@@ -50,7 +50,7 @@ Utilizando el HashTable de artists, se obtiene un HashTable el cual tiene como k
 
 
 #5. Cantidad de Canciones en un Rango de Tempo y Fechas
-       Para esta funcion se utiliza el HashTable DailyRankings ya que se itera sobre las fechas, accediendo para cada fecha al Ranking top 50 de cada pais y ahi fijandonos si      el tempo las canciones esta dentro del rango y en ese caso se suma 1 al contador. Para no contar una cancion dos veces nos creamos un HashTable temporal en el cual nos
+      Para esta funcion se utiliza el HashTable DailyRankings ya que se itera sobre las fechas, accediendo para cada fecha al Ranking top 50 de cada pais y ahi fijandonos si      el tempo las canciones esta dentro del rango y en ese caso se suma 1 al contador. Para no contar una cancion dos veces nos creamos un HashTable temporal en el cual nos
    guardamo las instancias de la clase Songs usando el SpotifyId como key del Hash, ingresando al Hash al sumar al contador. De esta manera antes de sumar 1 al contador nos
    fijamos que la cancion no se encuentra ya en el hash temporal para evitar contar 2 veces la misma cancion.
 
