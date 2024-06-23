@@ -105,7 +105,6 @@ public class SpotifyApp {
                             spotify.top5SongsInTop50(date);
                             long endTime = System.nanoTime();
                             float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
-                            System.out.println(memoryAfter / 1024 / 1024 + " MB");
                             ramUsageFun[2] = (memoryAfter - memoryBefore) / 1024 / 1024;
                             durationFun[2] = endTime - startTime;
                             System.out.println("\nPress enter to continue: ");
@@ -171,7 +170,7 @@ public class SpotifyApp {
                             float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
                             ramUsageFun[4] = (memoryAfter - memoryBefore) / 1024 / 1024;
                             durationFun[4]= endTime - startTime;
-                            System.out.println(number);
+                            System.out.println(artistName+" aparecio en el dia "+date+", "+number+" veces");
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
                         } catch (Exception e) {
@@ -214,7 +213,7 @@ public class SpotifyApp {
                                 ramUsageFun[5] = (memoryAfter - memoryBefore) / 1024 / 1024;
                                 durationFun[5] = endTime - startTime;
                             }
-                            System.out.println(count);
+                            System.out.println("La cantidad de canciones distintas dentro de los rangos especificados es : "+count);
 
                         }
                         catch (Exception e) {
@@ -234,7 +233,6 @@ public class SpotifyApp {
                             System.out.println("Fourth function duration = " + durationFun[4] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[4] + " MB");
                             System.out.println("Fifth function duration = " + durationFun[5] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[5] + " MB" + "\n");
                             System.out.print("Press enter to continue: ");
-                            scanner.nextLine();
                             scanner.nextLine();
                         }
                         else {

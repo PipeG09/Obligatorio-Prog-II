@@ -73,7 +73,7 @@ public class SpotifyData {
                 Integer dailyRank = Integer.parseInt(row[3].replace("\"", ""));
                 String countryName = row[6];
                 if (countryName.isEmpty()) {
-                    countryName = "Global"; // we choose this convention for convenience
+                    countryName = "GLOBAL"; // we choose this convention for convenience
                 }
                 LocalDate date = LocalDate.parse(row[7].replace("\"", ""));
                 float tempo = Float.parseFloat(row[23].replace("\"", ""));
