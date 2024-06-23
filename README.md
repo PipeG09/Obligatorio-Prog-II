@@ -32,7 +32,7 @@ Se utiliza el método top5SongsInTop50 el cual inicializa 2 list<String> tops (E
 Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es así se continua iterando hasta encontrar la posición en la cual tiene menos que el siguiente, y se ingresa en esa posición, en ambas list (en cancion se ingresa el nombre de la canción y en apppearencesList se ingresa las apariciones). Si se llega hasta la primer posicion entonces se ingresa la cancion en el top 1. Cada vez que se introduce una nueva canción se elimina la última quedandonos así siempre con solo 5 canciones.
 
 
-4. Top 7 Artistas por Rango de Fechas
+3. Top 7 Artistas por Rango de Fechas
    
 Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la iteracion.
 Esto se hace de la siguiente manera: 
@@ -42,18 +42,12 @@ Esto se hace de la siguiente manera:
   4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
 Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
 
+4. Cantidad de Apariciones de un Artista en una Fecha Específica
+
+Utilizando el HashTable de artists, se obtiene un HashTable el cual tiene como key la fecha y como value las apariciones en esa fecha. Simplemente se piden las apariciones y se retornan.
 
 
-
-
-
-
-
-6. Cantidad de Apariciones de un Artista en una Fecha Específica
-
-
-
-7. Cantidad de Canciones en un Rango de Tempo y Fechas
+5. Cantidad de Canciones en un Rango de Tempo y Fechas
 
 <img width="171" alt="RAM Usage 3rd Function" src="https://github.com/PipeG09/Obligatorio-Prog-II/assets/103771722/2b6eadfb-97ba-46b3-b3af-78f036112074">
 
