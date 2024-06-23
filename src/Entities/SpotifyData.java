@@ -8,16 +8,19 @@ import uy.edu.um.prog2.adt.List.List;
 import uy.edu.um.prog2.adt.List.ListImpl;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 
 public class SpotifyData {
+
     private final HashTable<LocalDate, HashTable<String, HashTable<Integer, Song>>> dailyRanks;
+
     private final HashTable<String, Song> songs;
+
     private final String[] songKeys;
+
     private final HashTable<String, HashTable<LocalDate, Integer>> artists;
+
     private final String[] artistKeys;
 
     public SpotifyData() {
@@ -220,7 +223,6 @@ public class SpotifyData {
         List<String> tops = new ListImpl<>();
         List<Integer> appearencesList = new ListImpl<>();
         appearencesList.add(0);
-
         for (String artist : artistKeys) {
             LocalDate currentDate = beginningDate;
             Integer appearances = 0;

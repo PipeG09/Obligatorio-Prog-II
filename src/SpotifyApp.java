@@ -1,14 +1,17 @@
+import Entities.SpotifyAccounts;
 import Entities.SpotifyData;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Scanner;
 
 
-public class Main {
+public class SpotifyApp {
     public static void main(String[] args) throws Exception {
         SpotifyData spotify = new SpotifyData();
         long[] durationFun= new long[6];
-        int option = 0;
+        float[] ramUsageFun= new float[6];
+        String option = "0";
         boolean dataDownloaded = false;
         Scanner scanner = new Scanner(System.in);
         printSpotifyLogo();
@@ -24,25 +27,32 @@ public class Main {
         if (login[2]) {
             return;
         }
-        while (option != -1) {
+        while (!option.equals("-1")) {
             Thread.sleep(500);
             printMenu(developerMode);
-            option = scanner.nextInt();
-            if (option != 1 && !dataDownloaded && option != 8 && developerMode) {
-                option = 0;
+            Runtime runtime = Runtime.getRuntime();
+            runtime.gc();
+            option = scanner.nextLine();
+
+            if (!Objects.equals(option, "1") && !dataDownloaded && !Objects.equals(option, "8") && developerMode) {
+                option = "0";
                 System.out.println("\nERROR! The data has not been downloaded yet\n");
-            } else if (option != 7 && option != 1 && !dataDownloaded && !developerMode) {
-                option = 0;
+            } else if (!Objects.equals(option, "7") && !Objects.equals(option, "1") && !dataDownloaded && !developerMode) {
+                option = "0";
                 System.out.println("\nERROR! The data has not been downloaded yet\n");
             } else {
                 switch (option) {
 
-                    case 1: {
+                    case "1": {
                         if (!dataDownloaded) {
                             System.out.println("\nDownloading Spotify data...");
+                            runtime.gc();
+                            float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                             long startTime = System.nanoTime();
                             spotify.readData();
                             long endTime = System.nanoTime();
+                            float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                            ramUsageFun[0] = (memoryAfter - memoryBefore) / 1024 / 1024;
                             durationFun[0]= endTime - startTime;
                             dataDownloaded = true;
                             System.out.println("\nData was succesfully downloaded\n");
@@ -51,11 +61,10 @@ public class Main {
                         }
                         System.out.print("Press enter to continue: ");
                         scanner.nextLine();
-                        scanner.nextLine();
                         break;
                     }
 
-                    case 2: {
+                    case "2": {
                         System.out.print("\nEnter a Date (YYYY-MM-DD): ");
                         String dateStr = scanner.next();
                         scanner.nextLine();
@@ -71,25 +80,33 @@ public class Main {
                             System.out.print("\nERROR! The date is invalid");
                             break;
                         }
+                        float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                         long startTime = System.nanoTime();
                         spotify.top10DayCountry(date, country);
                         long endTime = System.nanoTime();
+                        float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                        ramUsageFun[1] = (memoryAfter - memoryBefore) / 1024 / 1024;
                         durationFun[1] = endTime - startTime;
                         System.out.println("\nPress enter to continue: ");
                         scanner.nextLine();
                         break;
                     }
 
-                    case 3: {
+                    case "3": {
                         System.out.print("\nEnter a date (YYYY-MM-DD): ");
                         String dateStr = scanner.next();
                         scanner.nextLine();
 
                         try {
                             LocalDate date = LocalDate.parse(dateStr);
+                            runtime.gc();
+                            float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                             long startTime = System.nanoTime();
                             spotify.top5SongsInTop50(date);
                             long endTime = System.nanoTime();
+                            float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                            System.out.println(memoryAfter / 1024 / 1024 + " MB");
+                            ramUsageFun[2] = (memoryAfter - memoryBefore) / 1024 / 1024;
                             durationFun[2] = endTime - startTime;
                             System.out.println("\nPress enter to continue: ");
                             scanner.nextLine();
@@ -101,7 +118,8 @@ public class Main {
 
                     }
 
-                    case 4: {
+                    case "4": {
+                        runtime.gc();
                         System.out.print("\nEnter one of the two dates that delimits the range (YYYY-MM-DD): ");
                         String dateStr = scanner.next();
                         scanner.nextLine();
@@ -111,15 +129,20 @@ public class Main {
                         try {
                             LocalDate date1 = LocalDate.parse(dateStr);
                             LocalDate date2 = LocalDate.parse(dateStr2);
+                            float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                             if (date1.isBefore(date2)) {
                                 long startTime = System.nanoTime();
                                 spotify.top7Artist(date1, date2);
                                 long endTime = System.nanoTime();
+                                float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                                ramUsageFun[3] = (memoryAfter - memoryBefore) / 1024 / 1024;
                                 durationFun[3] = endTime - startTime;
                             } else {
                                 long startTime = System.nanoTime();
                                 spotify.top7Artist(date2, date1);
                                 long endTime = System.nanoTime();
+                                float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                                ramUsageFun[3] = (memoryAfter - memoryBefore) / 1024 / 1024;
                                 durationFun[3] = endTime - startTime;
                             }
                             System.out.println("\nPress enter to continue: ");
@@ -132,7 +155,7 @@ public class Main {
                         }
                     }
 
-                    case 5: {
+                    case "5": {
                         System.out.print("\nEnter Artist name: ");
                         String artistName = scanner.next();
                         artistName = artistName + scanner.nextLine();
@@ -141,9 +164,12 @@ public class Main {
                         scanner.nextLine();
                         try {
                             LocalDate date = LocalDate.parse(day);
+                            float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                             long startTime = System.nanoTime();
                             int number = spotify.artistInDate(artistName, date);
                             long endTime = System.nanoTime();
+                            float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                            ramUsageFun[4] = (memoryAfter - memoryBefore) / 1024 / 1024;
                             durationFun[4]= endTime - startTime;
                             System.out.println(number);
                             System.out.println("\nPress enter to continue: ");
@@ -154,7 +180,7 @@ public class Main {
                         break;
                     }
 
-                    case 6: {
+                    case "6": {
                         try {
                             System.out.print("\nEnter one of the values that delimits the range of tempo: ");
                             float tempo1 = scanner.nextFloat();
@@ -172,14 +198,20 @@ public class Main {
                             LocalDate date2date = LocalDate.parse(date2);
                             int count;
                             if (date1date.isBefore(date2date)) {
+                                float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                                 long startTime = System.nanoTime();
                                 count = spotify.tempoInDate(date1date, date2date, Math.min(tempo1, tempo2), Math.max(tempo1, tempo2));
                                 long endTime = System.nanoTime();
+                                float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                                ramUsageFun[5] = (memoryAfter - memoryBefore) / 1024 / 1024;
                                 durationFun[5] = endTime - startTime;
                             } else {
+                                float memoryBefore = runtime.totalMemory() - runtime.freeMemory();
                                 long startTime = System.nanoTime();
                                 count = spotify.tempoInDate(date2date, date1date, Math.min(tempo2, tempo1), Math.max(tempo1, tempo2));
                                 long endTime = System.nanoTime();
+                                float memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+                                ramUsageFun[5] = (memoryAfter - memoryBefore) / 1024 / 1024;
                                 durationFun[5] = endTime - startTime;
                             }
                             System.out.println(count);
@@ -193,27 +225,27 @@ public class Main {
                         break;
                     }
 
-                    case 7: {
+                    case "7": {
                         if (developerMode) {
-                            System.out.println("\nReading csv duration = " + durationFun[0] / 1_000_000_000.0);
-                            System.out.println("First function duration = " + durationFun[1] / 1_000_000_000.0);
-                            System.out.println("Second function duration = " + durationFun[2] / 1_000_000_000.0);
-                            System.out.println("Third function duration = " + durationFun[3] / 1_000_000_000.0);
-                            System.out.println("Fourth function duration = " + durationFun[4] / 1_000_000_000.0);
-                            System.out.println("Fifth function duration = " + durationFun[5] / 1_000_000_000.0 + "\n");
+                            System.out.println("\nReading csv duration = " + durationFun[0] / 1_000_000_000.0 + ", RAM Usage: " + ramUsageFun[0] + " MB");
+                            System.out.println("First function duration = " + durationFun[1] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[1] + " MB");
+                            System.out.println("Second function duration = " + durationFun[2] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[2] + " MB");
+                            System.out.println("Third function duration = " + durationFun[3] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[3] + " MB");
+                            System.out.println("Fourth function duration = " + durationFun[4] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[4] + " MB");
+                            System.out.println("Fifth function duration = " + durationFun[5] / 1_000_000_000.0 + ", RAM Usage " + ramUsageFun[5] + " MB" + "\n");
                             System.out.print("Press enter to continue: ");
                             scanner.nextLine();
                             scanner.nextLine();
                         }
                         else {
-                            option = -1;
+                            option = "-1";
                         }
                         break;
                     }
 
-                    case 8: {
+                    case "8": {
                         if (developerMode) {
-                            option = -1;
+                            option = "-1";
                             break;
                         }
                     }
@@ -243,14 +275,14 @@ public class Main {
                 String username = scanner2.next();
                 System.out.print("Enter the password: ");
                 String password = scanner2.next();
-                return new Boolean[] {accounts.verifyAccount(username, password), developers.contains(username), false};
+                return new Boolean[] {SpotifyAccounts.verifyAccount(username, password), developers.contains(username), false};
             }
             case "2" -> {
                 System.out.print("\nEnter the username: ");
                 String username = scanner2.next();
                 System.out.print("Enter the password: ");
                 String password = scanner2.next();
-                return new Boolean[] {accounts.createAccount(username, password), developers.contains(username), false};
+                return new Boolean[] {SpotifyAccounts.createAccount(username, password), developers.contains(username), false};
             }
             case "3" -> {
                 return new Boolean[] {true, false, false};

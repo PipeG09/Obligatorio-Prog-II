@@ -1,9 +1,11 @@
+package Entities;
+
 import java.io.*;
 
 
-public class accounts {
+public class SpotifyAccounts {
     public static boolean createAccount(String username, String password) {
-        File file = new File("accounts.csv");
+        File file = new File("csv/accounts.csv");
         if (username.contains(",") || password.contains(",")) {
             System.out.println("Invalid username or password");
             return false;
@@ -29,7 +31,7 @@ public class accounts {
     }
 
     public static boolean verifyAccount(String username, String password) {
-        File file = new File("accounts.csv");
+        File file = new File("csv/accounts.csv");
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -50,7 +52,7 @@ public class accounts {
     }
 
     private static boolean usernameUsed(String username) {
-        File file = new File("accounts.csv");
+        File file = new File("csv/accounts.csv");
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(file));
