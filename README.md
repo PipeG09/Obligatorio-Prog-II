@@ -31,14 +31,26 @@ Se utiliza el método top10SongsByCountryAndDate(String country, LocalDate date)
 
 
 3. Top 7 Artistas por Rango de Fechas
+Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la iteracion.
+Esto se hace de la siguiente manera: 
+  1. Nos fijamos si tiene mas apariciones que el septimo artista del Top, Si este no es el caso seguimos con el proximo Artista.
+  2. Si tiene mas apariciones que el septimo, lo comparamos con el 6to y si tiene menos que el sexto ingresamos el artista de la itracion actual en el puesto 7 del top
+  3. Sino seguimo subiendo en el ranking hasta econtrar un artista con mas apariciones que el actual para ingresarlo por debajo de este
+  4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
+Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
 
 
 
-4. Cantidad de Apariciones de un Artista en una Fecha Específica
 
 
 
-5. Cantidad de Canciones en un Rango de Tempo y Fechas
+
+
+6. Cantidad de Apariciones de un Artista en una Fecha Específica
+
+
+
+7. Cantidad de Canciones en un Rango de Tempo y Fechas
 
 <img width="171" alt="RAM Usage 3rd Function" src="https://github.com/PipeG09/Obligatorio-Prog-II/assets/103771722/2b6eadfb-97ba-46b3-b3af-78f036112074">
 
