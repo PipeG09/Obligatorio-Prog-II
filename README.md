@@ -1,6 +1,7 @@
 # Programming II Assignment
 Authors: Santiago De Giuda, Felipe Guasch
-Proceso de carga de datos : 
+
+#Proceso de carga de datos : 
 
 Se crea una clase SpotifyData la cual en la funcion readData(). Para leer el csv se utiliza BufferedReader para leer linea por linea haciendo un split con (",") y quedándonos  con los datos que se quieren cargar.
 
@@ -23,16 +24,16 @@ La creación de estas estructuras de datos se realiza leyendo una sola vez cada 
 Proceso de Realización de Reportes
 Los reportes se generan a través de métodos en la clase SpotifyData, que son invocados desde el main en SpotifyApp.java. 
 
-1. Top 10 Canciones por País y Fecha
+#1. Top 10 Canciones por País y Fecha
 Se utiliza el método top10SongsByCountryAndDate(String country, LocalDate date) el cual obtiene el HashTable correspondiente a la fecha date desde dailyRanks. Luego, se accede al HashTable correspondiente al país. Se crea una list<Song> donde se van guardando las canciones, se itera del 1 al 10 para obtener la canción correspondiente desde el HashTable del país.
 
 
-2. Top 5 Canciones en más países para un Día Específico
+#2. Top 5 Canciones en más países para un Día Específico
 Se utiliza el método top5SongsInTop50 el cual inicializa 2 list<String> tops (Es el nombre de la canción), list<Integer> appearencesList (guarda el número de apariciones de una canción que se encuentra también en la lista de tops). Se itera sobre songKeys para obtener todas las canciones, para cada canción se obtiene la instancia de Song desde el HashTable y luego se obtiene el número de apariciones de la canción desde el HashTable appearances para el día específico.
 Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es así se continua iterando hasta encontrar la posición en la cual tiene menos que el siguiente, y se ingresa en esa posición, en ambas list (en cancion se ingresa el nombre de la canción y en apppearencesList se ingresa las apariciones). Si se llega hasta la primer posicion entonces se ingresa la cancion en el top 1. Cada vez que se introduce una nueva canción se elimina la última quedandonos así siempre con solo 5 canciones.
 
 
-3. Top 7 Artistas por Rango de Fechas
+#3. Top 7 Artistas por Rango de Fechas
    
 Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la iteracion.
 Esto se hace de la siguiente manera: 
@@ -42,12 +43,12 @@ Esto se hace de la siguiente manera:
   4. Si se llega hasta el primero y el Artista actual tiene mas apariciones se ingresa primero en el Top.
 Este metodo de ordenamiento nos ofrece una gran eficiencia ya que comparamos la cancion de la itracion actual lo menos posible con los Artistas de la lista y reducimos la cantidad de iteraciones sobre el Top.
 
-4. Cantidad de Apariciones de un Artista en una Fecha Específica
+#4. Cantidad de Apariciones de un Artista en una Fecha Específica
 
 Utilizando el HashTable de artists, se obtiene un HashTable el cual tiene como key la fecha y como value las apariciones en esa fecha. Simplemente se piden las apariciones y se retornan.
 
 
-5. Cantidad de Canciones en un Rango de Tempo y Fechas
+#5. Cantidad de Canciones en un Rango de Tempo y Fechas
 
 <img width="171" alt="RAM Usage 3rd Function" src="https://github.com/PipeG09/Obligatorio-Prog-II/assets/103771722/2b6eadfb-97ba-46b3-b3af-78f036112074">
 
