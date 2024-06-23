@@ -28,9 +28,11 @@ Se utiliza el método top10SongsByCountryAndDate(String country, LocalDate date)
 
 
 2. Top 5 Canciones en más países para un Día Específico
+Se utiliza el método top5SongsInTop50 el cual inicializa 2 list<String> tops (Es el nombre de la canción), list<Integer> appearencesList (guarda el número de apariciones de una canción que se encuentra también en la lista de tops). Se itera sobre songKeys para obtener todas las canciones, para cada canción se obtiene la instancia de Song desde el HashTable y luego se obtiene el número de apariciones de la canción desde el HashTable appearances para el día específico.
+Nos fijamos si tiene más apariciones que la quinta cancion de la lista, si es así se continua iterando hasta encontrar la posición en la cual tiene menos que el siguiente, y se ingresa en esa posición, en ambas list (en cancion se ingresa el nombre de la canción y en apppearencesList se ingresa las apariciones). Si se llega hasta la primer posicion entonces se ingresa la cancion en el top 1. Cada vez que se introduce una nueva canción se elimina la última quedandonos así siempre con solo 5 canciones.
 
 
-3. Top 7 Artistas por Rango de Fechas
+4. Top 7 Artistas por Rango de Fechas
    
 Utilizando principalmente el artists HashTable, para cada Artista se itera sobre la fechas partiendo de la menor fecha hasta llegar a la fecha final del rango pedido, sumando la cantidad de veces que aparecio para cada fecha y luego de calcular esto nos fijamos si pertenece al top 7 de artsitas con mas apariciones hasta el momento de la iteracion.
 Esto se hace de la siguiente manera: 
